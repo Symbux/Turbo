@@ -1,0 +1,23 @@
+name: Build
+on: [push, pull_request]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Build packages
+        run: npm run build
+      - name: Run tests
+        run: npm test
+      - name: Publish coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          verbose: true
+          fail_ci_if_error: false

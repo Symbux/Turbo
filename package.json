@@ -1,0 +1,44 @@
+{
+  "name": "@symbux/turbo",
+  "version": "0.1.0",
+  "description": "Turbo is a powerful command engine using internal event scheduling, dependency injection, and ORM for creating scalable and powerful REST API / WebSocket based platforms.",
+  "main": "lib/index.js",
+  "repository": "git@github.com:Symbux/Turbo.git",
+  "author": "Symbux Dev <hello@symbux.dev> (https://symbux.dev)",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node -r ts-node/register demo/index.ts",
+    "build": "rm -rf lib && tsc",
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "turbo",
+    "engine",
+    "services",
+    "http",
+    "rest",
+    "websocket",
+    "api",
+    "framework"
+  ],
+  "dependencies": {
+    "@symbux/injector": "^1.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.10",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}

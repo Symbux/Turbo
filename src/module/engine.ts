@@ -1,3 +1,4 @@
+import { IKeyValue } from '../interface/generic';
 import { IOptions } from '../interface/options';
 import { IPlugin } from '../interface/plugin';
 import { Services } from './services';
@@ -38,7 +39,7 @@ export class Engine {
 	 * @param module The module to be registered.
 	 * @returns void
 	 */
-	public register(module: any): void {
+	public register(module: any, options: IKeyValue): void {
 		// this.registerModule(service);
 	}
 

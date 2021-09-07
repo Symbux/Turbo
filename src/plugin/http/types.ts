@@ -5,3 +5,8 @@ export interface IContext {
 	content?: IKeyValue | string;
 	headers?: IKeyValue;
 }
+
+export interface IPluginOptions {
+	port: number;
+	host?: string;
+}

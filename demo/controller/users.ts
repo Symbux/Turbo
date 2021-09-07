@@ -10,7 +10,8 @@ export class UsersController extends AbstractController {
 	}
 
 	@Http.Post('/')
-	@Auth.Has('role', ['Admin'])
+	@Auth.Has('role')
+	@Auth.Is('blocked', false)
 	public async create(context: Http.Context): Promise<Http.Response> {
 		console.log(context.getBody());
 		return new Http.Response(201, {

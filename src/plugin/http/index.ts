@@ -5,14 +5,7 @@ import { Controller } from './controller';
 import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
 import { Service } from './service';
-
-const plugin: IPlugin = {
-	install: (engine: Engine) => {
-		engine.register(Service);
-	}
-}
-
-export default plugin;
+import { IPluginOptions } from './types';
 
 export {
 	Context,
@@ -26,3 +19,13 @@ export {
 	Response,
 	Service,
 }
+
+export default class Plugin implements IPlugin {
+
+	public constructor(private options: IPluginOptions) {}
+
+	public install(engine: Engine): void {
+		engine.register(Service, this.options);
+	}
+}
+

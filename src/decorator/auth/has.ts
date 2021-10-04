@@ -4,7 +4,7 @@ import { DecoratorHelper } from '../../helper/decorator';
  * This decorator is used to mark a class or method as
  * requiring authentication with a property present.
  * 
- * @param {string} property The property to match.
+ * @param property The property to match.
  * @returns MethodDecorator
  */
 export function Has(property: string): MethodDecorator {

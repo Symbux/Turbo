@@ -5,8 +5,8 @@ import { DecoratorHelper } from '../../helper/decorator';
  * requiring authentication with a given property matching
  * the expected value.
  * 
- * @param {string} property The property to match.
- * @param {any} expected The expected value to match.
+ * @param property The property to match.
+ * @param expected The expected value to match.
  * @returns MethodDecorator
  */
  export function Is(property: string, expected: any): MethodDecorator {

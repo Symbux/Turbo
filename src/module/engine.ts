@@ -2,6 +2,7 @@ import { IKeyValue } from '../interface/generic';
 import { IOptions } from '../interface/options';
 import { IPlugin } from '../interface/plugin';
 import { Services } from './services';
+import { Registry } from './registry';
 
 /**
  * The engine class is the main class of the application.
@@ -40,7 +41,7 @@ export class Engine {
 	 * @returns void
 	 */
 	public register(module: any, options: IKeyValue): void {
-		// this.registerModule(service);
+		this.registerModule(module, options);
 	}
 
 	/**
@@ -48,5 +49,21 @@ export class Engine {
 	 */
 	public async start(): Promise<void> {
 		// To-do.
+	}
+
+	/**
+	 * This method will add the module to the registry.
+	 * 
+	 * @param module The module instance.
+	 * @param options Options to be added to the constructor.
+	 */
+	private registerModule(module: any, options: IKeyValue): void {
+		const moduleType = Reflect.getMetadata('t:type', module);
+		const moduleName = Reflect.getMetadata('t:name', module);
+
+		Registry.setModule(moduleType, moduleName, {
+			module: module,
+			options: options,
+		});
 	}
 }

@@ -28,4 +28,3 @@ export default class Plugin implements IPlugin {
 		engine.register(Service, this.options);
 	}
 }
-

@@ -35,4 +35,16 @@ export class DecoratorHelper {
 			Reflect.defineMetadata(key, value, target);
 		}
 	}
+
+	/**
+	 * This method will define the base module information, like the
+	 * name and module type.
+	 * 
+	 * @param target The decorator target.
+	 * @param moduleType The module type.
+	 */
+	public static setClassBase(target: any, moduleType: string): void {
+		Reflect.defineMetadata('t:name', target.name, target);
+		Reflect.defineMetadata('t:type', moduleType, target);
+	}
 }

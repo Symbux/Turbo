@@ -1,5 +1,3 @@
-import { IService } from '../interface/service';
-
-export class AbstractService implements IService {
-	public type = 'generic';
+export class AbstractService {
+	public constructor(protected options: Record<string, any>) {}
 }

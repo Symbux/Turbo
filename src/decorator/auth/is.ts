@@ -9,7 +9,7 @@ import { DecoratorHelper } from '../../helper/decorator';
  * @param expected The expected value to match.
  * @returns MethodDecorator
  */
- export function Is(property: string, expected: any): MethodDecorator {
+export function Is(property: string, expected: any): MethodDecorator {
 	return (target: any, propertyKey?: symbol | string): void => {
 
 		// Define the auth checks.

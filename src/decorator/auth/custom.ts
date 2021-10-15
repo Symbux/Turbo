@@ -7,7 +7,7 @@ import { DecoratorHelper } from '../../helper/decorator';
  * @param {Function} check The custom function.
  * @returns MethodDecorator
  */
-export function Custom(check: (auth: any) => boolean): MethodDecorator {
+export function Custom(check: (auth: Record<string, any>) => boolean): MethodDecorator {
 	return (target: any, propertyKey?: symbol | string): void => {
 
 		// Define the auth checks.

@@ -47,4 +47,30 @@ export class DecoratorHelper {
 		Reflect.defineMetadata('t:name', target.name, target);
 		Reflect.defineMetadata('t:type', moduleType, target);
 	}
+
+	/**
+	 * This will add a method to the target.
+	 * 
+	 * @param target The decorator target.
+	 * @param propertyKey The method to add.
+	 * @param data The data to add.
+	 */
+	public static addMethod(target: any, propertyKey: string | symbol, data: Record<string, any>): void {
+		const methods = this.getMetadata('t:methods', {}, target);
+		methods[propertyKey] = data;
+		this.setMetadata('t:methods', methods, target);
+	}
+
+	/**
+	 * This will update the method data for the given target and property key.
+	 * 
+	 * @param target The decorator target.
+	 * @param propertyKey The property key.
+	 * @param data The data to add.
+	 */
+	public static updateMethod(target: any, propertyKey: string | symbol, data: Record<string, any>): void {
+		const methods = this.getMetadata('t:methods', {}, target);
+		methods[propertyKey] = Object.assign(methods[propertyKey], data);
+		this.setMetadata('t:methods', methods, target);
+	}
 }

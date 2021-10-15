@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>Demo | Turbo</title>
+		<style>
+			body { background-color: #4d4d4d; }
+			body * { color: white; }
+		</style>
+	</head>
+	<body>
+		<h1>Hello from Turbo</h1>
+		<p>This is a demo of the Turbo framework.</p>
+		<pre id="output"></pre>
+	</body>
+	<script>
+		async function run() {
+			const res = await fetch('/data');
+			const data = await res.json();
+			const el = document.getElementById('output');
+			el.innerText = JSON.stringify(data);
+		}
+		run();
+	</script>
+</html>

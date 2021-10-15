@@ -4,8 +4,9 @@ import { Context } from './context';
 import { Controller } from './controller';
 import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
-import { Service } from './service';
+import { HttpService as Service } from './service';
 import { IPluginOptions } from './types';
+import packageJson from '../../../package.json';
 
 export {
 	Context,
@@ -18,13 +19,16 @@ export {
 	Options,
 	Response,
 	Service,
-}
+};
 
 export default class Plugin implements IPlugin {
 
 	public constructor(private options: IPluginOptions) {}
 
+	public name = 'http';
+	public version = packageJson.version;
+
 	public install(engine: Engine): void {
-		engine.register(Service, this.options);
+		engine.registerSingle(Service, this.options);
 	}
 }

@@ -1,25 +1,26 @@
 module.exports = {
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended'
+		'plugin:@typescript-eslint/recommended',
 	],
 	env: {
 		node: true,
 		es6: true,
 		es2017: true,
 		es2020: true,
-		es2021: true
+		es2021: true,
 	},
 	globals: {
-		'__APP_VERSION__': true
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'__APP_VERSION__': true,
 	},
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		'ecmaVersion': 2020,
-		'sourceType': 'module'
+		'sourceType': 'module',
 	},
 	plugins: [
-		'@typescript-eslint/eslint-plugin'
+		'@typescript-eslint/eslint-plugin',
 	],
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 0,
@@ -32,7 +33,7 @@ module.exports = {
 			'args': 'after-used',
 			'ignoreRestSiblings': false,
 		}],
-		'semi': false,
+		'semi': 0,
 		'@typescript-eslint/semi': ['error', 'always', { 'omitLastInOneLineBlock': true}],
 		'no-useless-escape': 2,
 		'handle-callback-err': 2,
@@ -60,11 +61,11 @@ module.exports = {
 			{ selector: 'default', format: ['PascalCase', 'camelCase', 'snake_case', 'UPPER_CASE'] },
 			{ selector: 'function', format: ['PascalCase', 'camelCase'], leadingUnderscore: 'forbid' },
 			{ selector: 'variable', format: ['snake_case', 'camelCase', 'PascalCase'], leadingUnderscore: 'allow' },
-			{ selector: 'memberLike', format: ['camelCase', 'PascalCase', 'UPPER_CASE', 'snake_case'], leadingUnderscore: 'allow' }
+			{ selector: 'memberLike', format: ['camelCase', 'PascalCase', 'UPPER_CASE', 'snake_case'], leadingUnderscore: 'allow' },
 		],
 		'no-trailing-spaces': ['error', {
 			ignoreComments: true,
-			skipBlankLines: false
+			skipBlankLines: false,
 		}],
 		'space-before-function-paren': ['error', {
 			anonymous: 'never',
@@ -99,4 +100,4 @@ module.exports = {
 		'no-mixed-operators': 0,
 		'eol-last': ['error', 'always'],
 	},
-}
+};

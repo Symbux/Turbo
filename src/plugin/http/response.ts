@@ -1,5 +1,5 @@
-import { IContext } from './types';
-import { IKeyValue } from '../../interface/generic';
+import * as express from 'express';
+import packageJson from '../../../package.json';
 
 /**
  * The response object is a proxy for creating HTTP responses within
@@ -20,21 +20,36 @@ export class Response {
 	 */
 	public constructor(
 		private status: number,
-		private content?: IKeyValue | Array<any> | string,
-		private headers?: IKeyValue,
+		private content?: Record<string, any> | Array<any> | string,
+		private headers?: Record<string, any>,
 	) {}
 
 	/**
-	 * This returns the status code of the response alongside any
-	 * content and headers and turns it into a userful object.
+	 * This method will execute a response object and send the
+	 * response to the client.
 	 * 
-	 * @returns IContext
+	 * @param request The request object.
+	 * @param response The response object.
 	 */
-	public toJson(): IContext {
-		return {
-			status: this.status,
-			content: typeof this.content === 'string' ? this.content : JSON.stringify(this.content),
-			headers: this.headers,
+	public execute(response: express.Response): void {
+
+		// Define the headers.
+		const headers: Record<string, string> = Object.assign({
+			Server: `turbo/${packageJson.version}`,
+		}, this.headers);
+
+		// Set the headers to the response.
+		response.set(headers);
+
+		// Check content and send response.
+		if (typeof this.content !== 'object') {
+			response
+				.status(this.status)
+				.send(this.content);
+		} else {
+			response
+				.status(this.status)
+				.json(this.content);
 		}
 	}
 }

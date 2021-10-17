@@ -10,7 +10,7 @@ import { Runner } from './runner';
  * The engine class is the main class of the application.
  * It is responsible for starting the server and listening to the port.
  * It also handles the autowiring of the modules.
- * 
+ *
  * @class Engine
  */
 export class Engine {
@@ -20,7 +20,7 @@ export class Engine {
 
 	/**
 	 * Creates a new instance of the Turbo engine.
-	 * 
+	 *
 	 * @param options Turbo options.
 	 */
 	public constructor(private options: Partial<IOptions>) {
@@ -37,7 +37,7 @@ export class Engine {
 
 	/**
 	 * Accepts a plugin and then will register it internally.
-	 * 
+	 *
 	 * @param plugin The plugin to be added.
 	 */
 	public use(plugin: IPlugin): void {
@@ -49,7 +49,7 @@ export class Engine {
 	/**
 	 * Registers a module to the engine. To pass options to
 	 * the module, please use `registerSingle` instead.
-	 * 
+	 *
 	 * @param module The module to be registered.
 	 * @returns void
 	 */
@@ -61,7 +61,7 @@ export class Engine {
 
 	/**
 	 * This method will register a single module with options.
-	 * 
+	 *
 	 * @param module The module to be registered.
 	 * @param options Any options to pass to the module.
 	 */
@@ -93,7 +93,7 @@ export class Engine {
 
 	/**
 	 * This method will add the module to the registry.
-	 * 
+	 *
 	 * @param module The module instance.
 	 * @param options Options to be added to the constructor.
 	 */

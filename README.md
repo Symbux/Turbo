@@ -1,4 +1,9 @@
-# Turbo Engine
+<p align="center">
+	<a href="#">
+		<img width="300" src="https://raw.githubusercontent.com/Symbux/Turbo/master/logo.svg">
+	</a>
+</p>
+
 
 ![Codecov](https://img.shields.io/codecov/c/github/Symbux/Turbo)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Symbux/Turbo/Build)
@@ -36,7 +41,7 @@ npm install --save @symbux/turbo
 ## Getting Started
 
 ```typescript
-import { Engine, HttpPlugin } from '../src';
+import { Engine, HttpPlugin } from '@symbux/turbo';
 
 // Initialise engine instance.
 const engine = new Engine({

@@ -14,7 +14,7 @@ export class Registry {
 
 	/**
 	 * This method will set a key and value to the registry.
-	 * 
+	 *
 	 * @param key The key to register.
 	 * @param value The value to set.
 	 * @param overwrite Whether to allow overwriting an existing.
@@ -28,7 +28,7 @@ export class Registry {
 
 	/**
 	 * This will attempt to get a key from the registry.
-	 * 
+	 *
 	 * @param key The key to get.
 	 * @returns The value of the key.
 	 */
@@ -39,7 +39,7 @@ export class Registry {
 
 	/**
 	 * This will remove a key from the registry.
-	 * 
+	 *
 	 * @param key The key to remove.
 	 */
 	public static remove(key: string): void {
@@ -57,7 +57,7 @@ export class Registry {
 
 	/**
 	 * This method will set a module to the registry.
-	 * 
+	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
 	 * @param value The module to register.
@@ -72,7 +72,7 @@ export class Registry {
 
 	/**
 	 * This method will get a module from the registry.
-	 * 
+	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
 	 * @returns Dynamic module.
@@ -85,19 +85,19 @@ export class Registry {
 
 	/**
 	 * This method will get the modules from the registry.
-	 * 
+	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
 	 * @returns Dynamic module.
 	 */
 	public static getModules(type: string): Array<any> {
-		if (!this.modules[type]) throw new Error(`Registry module type "${type}" not found`);
+		if (!this.modules[type]) return [];
 		return Array.from(this.modules[type].values());
 	}
 
 	/**
 	 * This will remove a module from the registry.
-	 * 
+	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
 	 */

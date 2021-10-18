@@ -13,6 +13,6 @@ export default class MemoryTask implements ITask {
 
 	public async execute(): Promise<void> {
 		const used = process.memoryUsage().heapUsed / 1024 / 1024;
-		this.logger.info('TASK:MEMORY', `This task is using approximately ${Math.round(used * 100) / 100} MB`);
+		this.logger.info('TASK:MEMORY', `Application is using approximately ${Math.round(used * 100) / 100} MB`);
 	}
 }

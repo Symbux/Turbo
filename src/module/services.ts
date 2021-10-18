@@ -46,20 +46,4 @@ export class Services {
 			await service.instance.stop();
 		}
 	}
-
-	public async outputRoutes(): Promise<any[]> {
-
-		// Get the services from the registry.
-		this.services = Registry.getModules('service');
-
-		// Collect the available routes.
-		const availableRoutes: Array<any> = [];
-		for await (const service of this.services) {
-			const serviceRoutes = await service.instance.getRoutes();
-			availableRoutes.push(...serviceRoutes);
-		}
-
-		// Output the routes.
-		return availableRoutes;
-	}
 }

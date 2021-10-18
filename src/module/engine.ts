@@ -5,6 +5,7 @@ import { Registry } from './registry';
 import { Inject, Injector } from '@symbux/injector';
 import { Logger } from './logger';
 import { Runner } from './runner';
+import { Autowire } from './autowire';
 
 /**
  * The engine class is the main class of the application.
@@ -17,6 +18,7 @@ export class Engine {
 	@Inject() private logger!: Logger;
 	private services: Services;
 	private runner: Runner;
+	private autowire: Autowire;
 
 	/**
 	 * Creates a new instance of the Turbo engine.
@@ -33,6 +35,12 @@ export class Engine {
 		// Initialise engine components.
 		this.services = new Services();
 		this.runner = new Runner();
+
+		// Initialise autowire.
+		if (this.options.autowire) {
+			this.logger.verbose('ENGINE', 'Autowire is enabled.');
+		}
+		this.autowire = new Autowire(this, this.options);
 	}
 
 	/**
@@ -74,6 +82,11 @@ export class Engine {
 	 */
 	public async start(): Promise<void> {
 		this.logger.info('ENGINE', 'Turbo engine is starting.');
+
+		// Initialise autowire.
+		if (this.options.autowire) {
+			await this.autowire.wireup();
+		}
 
 		// Initialise components.
 		this.logger.verbose('ENGINE', 'Initialising engine components.');

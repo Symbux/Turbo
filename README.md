@@ -82,7 +82,7 @@ engine.start().catch((err) => {
 | Plugin | Description |
 | --- | --- |
 | HttpPlugin | The built-in HTTP plugin is based off of [Express](https://www.npmjs.com/package/express). |
-| WsPlugin | The built-in WS plugin is based off of [Express-WS](https://www.npmjs.com/package/express-ws). |
+| WsPlugin | The built-in WS plugin is based off of [Express-WS](https://www.npmjs.com/package/express-ws), requires the HttpPlugin to be initialised. |
 
 <br>
 

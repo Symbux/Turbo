@@ -2,31 +2,58 @@ import { Service } from '../../decorator/service';
 import { AbstractService } from '../../abstract/service';
 import { ILogger } from '../../interface/logger';
 import { Inject, Injector } from '@symbux/injector';
-import express, { Application, urlencoded, json } from 'express';
+import express, { Application as HttpApplication, urlencoded, json, Request } from 'express';
 import { DecoratorHelper } from '../../helper/decorator';
 import { Registry } from '../../module/registry';
 import cookieParser from 'cookie-parser';
-import { normalize } from 'path';
 import { HttpService } from '../http/service';
+import expressWs, { Application } from 'express-ws';
+import * as WS from 'ws';
+import { IPluginOptions } from './types';
+import { Context as WsContext } from './context';
 
 @Service('ws')
 export class WsService extends AbstractService {
 
 	@Inject('logger') private logger!: ILogger;
-	@Inject('engine.plugin.http') private httpService!: HttpService;
+	@Inject('engine.plugin.http', true) private httpService!: HttpService;
 	private server!: Application;
 	private controllers: Array<any> = [];
+	private connections: {
+		[key: string]: {
+			socket: WS,
+			request: Request,
+			subscriptions: Array<string>,
+			session: Record<string, any>
+		}} = {};
 
-	public constructor(options: Record<string, any>) {
+	public constructor(options: IPluginOptions) {
 		super(options);
 		Injector.register('engine.plugin.ws', this);
 	}
 
 	public async initialise(): Promise<void> {
-		console.log(this.httpService);
+		let server: HttpApplication;
+		if (this.httpService === null) {
+			server = express();
+		} else {
+			server = this.httpService.getInstance();
+		}
+
+		// Verify; if no http service is available, a port has been defined.
+		if (this.httpService === null && this.options.port === undefined) {
+			throw new Error('No http service available please define a port in the WsPlugin config.');
+		}
 
 		// Setup the express server.
-		this.server = express();
+		expressWs(server, undefined, {
+			wsOptions: this.options.options || {},
+		});
+
+		// Assign the server.
+		this.server = (server as any);
+
+		// Setup the base middleware.
 		this.setupDefaultMiddleware();
 
 		// Get the controllers from the registry.
@@ -41,9 +68,11 @@ export class WsService extends AbstractService {
 	}
 
 	public async start(): Promise<void> {
-		this.server.listen(parseInt(this.options.port), () => {
-			this.logger.info('PLUGIN:WS', `WS service is listening at ws://localhost:${this.options.port}.`);
-		});
+		if (this.httpService === null) {
+			this.server.listen(parseInt(this.options.port), () => {
+				this.logger.info('PLUGIN:WS', `WS service is listening at ws://localhost:${this.options.port}.`);
+			});
+		}
 	}
 
 	public setupDefaultMiddleware(): void {
@@ -55,33 +84,110 @@ export class WsService extends AbstractService {
 
 	public setupRoutes(): void {
 		this.logger.verbose('PLUGIN:WS', 'Starting route setup.');
-		this.controllers.forEach(async controllerDef => {
+		this.server.ws(this.options.path || '/ws', (socket: WS, request: Request) => {
 
-			// Define the controller.
-			const controller = controllerDef.instance;
-			const basePath = DecoratorHelper.getMetadata('t:http:path', '/', controller.constructor);
+			// Notify new connection.
+			this.logger.verbose('PLUGIN:WS', 'New websocket connection.');
 
-			// Get the routes from the metadata.
-			const routes: Array<any> = DecoratorHelper.getMetadata('t:methods', [], controller);
+			// On socket open.
+			this.onOpen(socket, request);
 
-			// Loop through methods.
-			Object.keys(routes).forEach(async classMethod => {
+			// On socket close.
+			socket.on('close', (code: number, reason: string) => {
+				this.onClose(socket, request, code, reason);
+			});
 
-				// Define the route.
-				const route = routes[classMethod];
+			// On socket error.
+			socket.on('error', (err: Error) => {
+				this.onError(socket, request, err);
+			});
 
-				// Add the route.
-				this.server[route.method.toLowerCase()](normalize(basePath + route.path.toLowerCase()), async (/*request: Request, response: Response*/) => {
-
-					// Create a context object.
-					// const contextObject = new HttpContext(request, response);
-					// const output: HttpResponse = await controller[classMethod](contextObject);
-					// output.execute(response);
-				});
-
-				// Log verbose.
-				this.logger.verbose('PLUGIN:WS', `Route: "${route.method.toUpperCase()} ${normalize(basePath + route.path.toLowerCase())}" was setup on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
+			// On socket message.
+			socket.on('message', (message: string) => {
+				this.onMessage(socket, request, message);
 			});
 		});
+	}
+
+	public async onOpen(socket: WS, request: Request): Promise<void> {
+
+		// Add to the connections object.
+		const uniqueId = String(request.headers['sec-websocket-key']);
+		this.connections[uniqueId] = {
+			socket: socket,
+			request: request,
+			session: {},
+			subscriptions: [],
+		};
+
+		// Notify console.
+		this.logger.info('WEBSOCKET', `Connection received with ID: ${uniqueId}.`);
+		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
+	}
+
+	public async onClose(socket: WS, request: Request, code: number, reason: string): Promise<void> {
+
+		// Remove from the connections object.
+		const uniqueId = String(request.headers['sec-websocket-key']);
+		delete this.connections[uniqueId];
+
+		// Notify console.
+		this.logger.info('WEBSOCKET', `Connection closed with code ${code}${reason !== '' ? ` and reason: ${reason}.` : '.'}`);
+		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
+	}
+
+	public async onError(socket: WS, request: Request, err: Error): Promise<void> {
+
+		// Remove from the connections object.
+		const uniqueId = String(request.headers['sec-websocket-key']);
+		delete this.connections[uniqueId];
+
+		// Notify console.
+		this.logger.error('WEBSOCKET', `Connection incurred an error: ${err.message}.`, err);
+		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
+	}
+
+	public async onMessage(socket: WS, request: Request, message: string): Promise<void> {
+		try {
+
+			// Convert the message to JSON.
+			const packet = JSON.parse(message);
+			if (typeof packet.command === 'undefined') throw new Error('Given websocket message is invalid');
+
+			// Now search for a valid controller and method.
+			const [ namespace, method ]: [string, string] = packet.command.split('/');
+			const controller = this.findController(namespace, method);
+
+			// Check for valid controller.
+			if (typeof controller === 'undefined') throw new Error('Given websocket command is invalid');
+
+			// Create a context object.
+			const contextObject = new WsContext(request, socket, this);
+			await controller.instance[method](contextObject);
+
+		} catch(err) {
+			this.logger.error('PLUGIN:WS', `There was an error processing the message: ${(err as Error).message}.`, err as Error);
+			socket.send(JSON.stringify({
+				command: 'error',
+				content: { status: false, message: 'There was an error processing your request.' },
+			}));
+		}
+	}
+
+	private findController(namespace: string, method: string): any {
+		for (const controller of this.controllers) {
+			const requiredNamespace = DecoratorHelper.getMetadata('t:ws:namespace', 'none', controller.module);
+			if (requiredNamespace !== namespace) continue;
+			if (typeof controller.instance[method] !== 'function') continue;
+			return controller;
+		}
+	}
+
+	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
+		return this.connections[socketKey];
+	}
+
+	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
+		return this.connections;
 	}
 }

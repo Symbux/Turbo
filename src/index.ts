@@ -15,6 +15,7 @@ import { Services } from './module/services';
 
 import * as Auth from './decorator/auth';
 import HttpPlugin, * as Http from './plugin/http';
+import WsPlugin, * as Ws from './plugin/ws';
 
 export default Engine;
 
@@ -34,7 +35,9 @@ export {
 	Services,
 
 	Http,
+	Ws,
 	Auth,
 
 	HttpPlugin,
+	WsPlugin,
 };

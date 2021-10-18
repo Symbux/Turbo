@@ -1,4 +1,5 @@
 export interface IPluginOptions {
-	port: number;
-	host?: string;
+	path?: string;
+	options?: Record<string, any>;
+	port?: number;
 }

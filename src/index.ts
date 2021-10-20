@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { AbstractController } from './abstract/controller';
+import { AbstractMiddleware } from './abstract/middleware';
 import { AbstractService } from './abstract/service';
 import { Middleware } from './decorator/middleware';
 import { Service } from './decorator/service';
@@ -22,6 +23,7 @@ export default Engine;
 
 export {
 	AbstractController,
+	AbstractMiddleware,
 	AbstractService,
 	Middleware,
 	Service,

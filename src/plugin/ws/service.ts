@@ -112,13 +112,16 @@ export class WsService extends AbstractService {
 
 	public async onOpen(socket: WS, request: Request): Promise<void> {
 
+		// Get any subscriptions.
+		const subscriptions = this.getSubscriptions(request);
+
 		// Add to the connections object.
 		const uniqueId = String(request.headers['sec-websocket-key']);
 		this.connections[uniqueId] = {
 			socket: socket,
 			request: request,
-			session: {},
-			subscriptions: [],
+			session: new Map<string, any>(),
+			subscriptions: subscriptions,
 		};
 
 		// Notify console.
@@ -163,7 +166,7 @@ export class WsService extends AbstractService {
 			if (typeof controller === 'undefined') throw new Error('Given websocket command is invalid');
 
 			// Create a context object.
-			const contextObject = new WsContext(request, socket, this);
+			const contextObject = new WsContext(request, socket, this, packet);
 			await controller.instance[method](contextObject);
 
 		} catch(err) {
@@ -190,5 +193,29 @@ export class WsService extends AbstractService {
 
 	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
 		return this.connections;
+	}
+
+	private getSubscriptions(request: Request): Array<string> {
+
+		// Define subscriptions as an empty array.
+		let subscriptions: Array<string> = [];
+
+		// Check for custom headers (using a custom client).
+		if (request.headers['subscriptions'] !== undefined) {
+			subscriptions.push(...String(request.headers['subscriptions']).split(','));
+		}
+
+		// Check for subscriptions in the protocol.
+		if (typeof request.headers['sec-websocket-protocol'] !== 'undefined') {
+			const protocols: string[] = String(request.headers['sec-websocket-protocol']).split(',');
+			protocols.forEach(protocol => {
+				if (protocol.includes('SUB-')) {
+					subscriptions = protocol.replace('SUB-', '').split('-');
+				}
+			});
+		}
+
+		// Return subscriptions.
+		return subscriptions;
 	}
 }

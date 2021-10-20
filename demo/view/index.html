@@ -12,12 +12,26 @@
 		<pre id="output"></pre>
 	</body>
 	<script>
-		async function run() {
+		(async () => {
+
+			// Test API Request.
 			const res = await fetch('/data');
 			const data = await res.json();
 			const el = document.getElementById('output');
 			el.innerText = JSON.stringify(data);
-		}
-		run();
+
+			// WebSocket Test.
+			const socket = new WebSocket('ws://localhost:3000/ws');
+			socket.onopen = () => {
+				console.log('WS Open');
+				socket.send(JSON.stringify({ command: '::internal/subscribe', content: {
+					subscriptions: ['test1'],
+				}}));
+				socket.send(JSON.stringify({ command: '::internal/subscriptions' }));
+			}
+			socket.onclose = () => console.log('WS Closed');
+			socket.onerror = (e) => console.error('WS Error', e);
+			socket.onmessage = (e) => console.log('WS Message', JSON.parse(e.data));
+		})();
 	</script>
 </html>

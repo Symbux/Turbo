@@ -65,5 +65,12 @@ export class Autowire {
 				this.engine.registerSingle(moduleImport[moduleKeys[0]]);
 			}
 		}
+
+		// Lastly, configure the actions.
+		await this.configureActions();
+	}
+
+	public async configureActions(): Promise<void> {
+		//todo
 	}
 }

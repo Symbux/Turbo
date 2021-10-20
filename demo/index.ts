@@ -5,6 +5,7 @@ import { Engine, HttpPlugin, WsPlugin } from '../src';
 const engine = new Engine({
 	autowire: true,
 	basepath: resolve(process.cwd(), './demo'),
+	actionBasePath: resolve(process.cwd(), './demo/actions'),
 });
 
 // Use the http plugin.

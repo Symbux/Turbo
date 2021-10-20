@@ -4,4 +4,5 @@ export interface IOptions {
 	autowire: boolean;
 	folders: string[];
 	basepath?: string;
+	actionBasePath?: string;
 }

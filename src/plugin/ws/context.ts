@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import * as WS from 'ws';
 import { WsService } from './service';
+import { IWsPacket } from './types';
 
 export class Context {
 	private auth: Record<string, any> = {};
@@ -9,6 +10,7 @@ export class Context {
 		private request: Request,
 		private socket: WS,
 		private wsService: WsService,
+		private packet: IWsPacket,
 	) {}
 
 	public setAuth(auth: Record<string, any>): void {
@@ -52,16 +54,27 @@ export class Context {
 		return this.request.socket.remoteAddress || '';
 	}
 
+	public getPacket(): IWsPacket {
+		return this.packet;
+	}
+
 	public getRaw(): Request {
 		return this.request;
 	}
 
-	public send(message: Record<string, any> | Array<any> | string): void {
-		if (typeof message === 'string') {
-			this.socket.send(message);
-		} else {
-			this.socket.send(JSON.stringify(message));
-		}
+	public setSessionItem(key: string, value: any): void {
+		const headers = this.request.headers;
+		const socketKey = headers['sec-websocket-key'];
+		const connection = this.wsService.getConnection(String(socketKey));
+		connection.session.set(key, value);
+	}
+
+	public getSessionItem(key: string): any {
+		const headers = this.request.headers;
+		const socketKey = headers['sec-websocket-key'];
+		const connection = this.wsService.getConnection(String(socketKey));
+		if (!connection.session.has(key)) return null;
+		return connection.session.get(key);
 	}
 
 	public getConnection(): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
@@ -70,15 +83,23 @@ export class Context {
 		return this.wsService.getConnection(socketKey as string);
 	}
 
-	public broadcast(message: Record<string, any> | Array<any> | string): void {
-		if (typeof message === 'string') {
-			Object.keys(this.wsService.getConnections()).forEach((key) => {
-				this.wsService.getConnection(key).socket.send(message);
-			});
-		} else {
-			Object.keys(this.wsService.getConnections()).forEach((key) => {
-				this.wsService.getConnection(key).socket.send(JSON.stringify(message));
-			});
-		}
+	public send(message: IWsPacket): void {
+		this.socket.send(JSON.stringify(message));
+	}
+
+	public sendRaw(message: any): void {
+		this.socket.send(message);
+	}
+
+	public broadcast(message: IWsPacket): void {
+		Object.keys(this.wsService.getConnections()).forEach((key) => {
+			this.wsService.getConnection(key).socket.send(JSON.stringify(message));
+		});
+	}
+
+	public broadcastRaw(message: any): void {
+		Object.keys(this.wsService.getConnections()).forEach((key) => {
+			this.wsService.getConnection(key).socket.send(message);
+		});
 	}
 }

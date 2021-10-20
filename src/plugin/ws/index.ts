@@ -5,6 +5,7 @@ import { IPluginOptions } from './types';
 import { Context } from './context';
 import { Controller } from './controller';
 import { Action } from './methods';
+import { WsInternalController } from './internal';
 import packageJson from '../../../package.json';
 
 export {
@@ -23,5 +24,6 @@ export default class Plugin implements IPlugin {
 
 	public install(engine: Engine): void {
 		engine.registerSingle(Service, this.options);
+		engine.registerSingle(WsInternalController);
 	}
 }

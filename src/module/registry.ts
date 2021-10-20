@@ -11,6 +11,7 @@ export class Registry {
 	@Inject('logger') private static logger: ILogger;
 	public static modules: { [key: string]: Map<string, any> } = {};
 	public static register: Map<string, any> = new Map();
+	public static actions: Map<string, any> = new Map();
 
 	/**
 	 * This method will set a key and value to the registry.
@@ -118,5 +119,44 @@ export class Registry {
 			modules[key] = this.modules[key].entries();
 		});
 		return modules;
+	}
+
+	/**
+	 * This method will register an action into the registry.
+	 *
+	 * @param name The name of the action.
+	 * @param path The path to the action file.
+	 */
+	public static setAction(name: string, data: Record<string, any>): void {
+		this.actions.set(name, data);
+	}
+
+	/**
+	 * Gets an action from the registry by the name.
+	 *
+	 * @param name The name of the action.
+	 * @returns Object
+	 */
+	public static getAction(name: string): Record<string, any> {
+		if (this.actions.has(name)) return this.actions.get(name);
+		throw new Error(`Action "${name}" not found`);
+	}
+
+	/**
+	 * Removes an action from the registry by the name.
+	 *
+	 * @param name The name of the action.
+	 */
+	public static removeAction(name: string): void {
+		this.actions.delete(name);
+	}
+
+	/**
+	 * Lists all actions in the registry.
+	 *
+	 * @returns Array
+	 */
+	public static listActions(): Array<string> {
+		return Array.from(this.actions.keys());
 	}
 }

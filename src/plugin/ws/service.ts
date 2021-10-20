@@ -30,6 +30,7 @@ export class WsService extends AbstractService {
 	public constructor(options: IPluginOptions) {
 		super(options);
 		Injector.register('engine.plugin.ws', this);
+		Injector.register('engine.plugin.ws.options', this.options);
 	}
 
 	public async initialise(): Promise<void> {
@@ -40,7 +41,7 @@ export class WsService extends AbstractService {
 			server = this.httpService.getInstance();
 		}
 
-		// Verify; if no http service is available, a port has been defined.
+		// Verify; if no http service is available then a port has to be defined.
 		if (this.httpService === null && this.options.port === undefined) {
 			throw new Error('No http service available please define a port in the WsPlugin config.');
 		}

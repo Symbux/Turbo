@@ -1,12 +1,12 @@
 import { Inject } from '@symbux/injector';
 import { Task, ILogger } from '../../src';
 
-
 interface ITask {
 	execute: () => Promise<void>;
 }
 
 @Task('memory', '*/15 * * * *')
+// @Action('suk.dik')
 export default class MemoryTask implements ITask {
 
 	@Inject('logger') private logger!: ILogger;

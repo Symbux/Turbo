@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { Engine, /*HttpPlugin,*/ WsPlugin } from '../src';
+import { Engine, HttpPlugin, WsPlugin } from '../src';
 
 // Initialise engine instance.
 const engine = new Engine({
@@ -7,10 +7,10 @@ const engine = new Engine({
 	basepath: resolve(process.cwd(), './demo'),
 });
 
-// // Use the http plugin.
-// engine.use(new HttpPlugin({
-// 	port: 3000,
-// }));
+// Use the http plugin.
+engine.use(new HttpPlugin({
+	port: 3000,
+}));
 
 // Use the ws plugin.
 engine.use(new WsPlugin({

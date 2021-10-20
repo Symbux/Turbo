@@ -20,6 +20,7 @@ export class HttpService extends AbstractService {
 	public constructor(options: Record<string, any>) {
 		super(options);
 		Injector.register('engine.plugin.http', this);
+		Injector.register('engine.plugin.http.options', this.options);
 	}
 
 	public async initialise(): Promise<void> {
@@ -40,8 +41,13 @@ export class HttpService extends AbstractService {
 	}
 
 	public async start(): Promise<void> {
+		const wsService = Injector.resolve('engine.plugin.ws', true);
 		this.server.listen(parseInt(this.options.port), () => {
-			this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port}.`);
+			if (wsService === null) {
+				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port}.`);
+			} else {
+				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port} and ws://localhost:${this.options.port}.`);
+			}
 		});
 	}
 

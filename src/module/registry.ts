@@ -34,7 +34,7 @@ export class Registry {
 	 * @returns The value of the key.
 	 */
 	public static get(key: string): any {
-		if (!this.register.has(key)) throw new Error(`Registry key "${key}" not found`);
+		if (!this.register.has(key)) return null;
 		return this.register.get(key);
 	}
 

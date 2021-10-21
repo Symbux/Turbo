@@ -6,6 +6,7 @@ import { Inject, Injector } from '@symbux/injector';
 import { Logger } from './logger';
 import { Runner } from './runner';
 import { Autowire } from './autowire';
+import { extname } from 'path';
 
 /**
  * The engine class is the main class of the application.
@@ -31,6 +32,12 @@ export class Engine {
 		// Register base injections.
 		Injector.register('engine.core', this);
 		Injector.register('engine.options', this.options);
+		Registry.set('engine.status', 'main');
+
+		// Check the mode we are running in.
+		const extension = extname(__filename);
+		if (extension === '.js') Registry.set('engine.mode', 'production');
+		if (extension === '.ts') Registry.set('engine.mode', 'development');
 
 		// Initialise engine components.
 		this.services = new Services();

@@ -1,6 +1,7 @@
 import { AbstractController, Http, Auth } from '../../src';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
+import { ExampleFibre } from '../fibre/example';
 
 @Http.Controller('/')
 @Auth.Use('http.auth')
@@ -22,6 +23,18 @@ export default class HomeController extends AbstractController {
 		console.log(context);
 		return new Http.Response(201, {
 			message: 'User was created.',
+		});
+	}
+
+	@Http.Get('/fibre')
+	public async fibre(): Promise<Http.Response> {
+
+		// Testing fibres.
+		const demoFibre = new ExampleFibre();
+		console.log(await demoFibre.getName('Danny'));
+
+		return new Http.Response(200, {
+			message: 'Fibre was called.',
 		});
 	}
 }

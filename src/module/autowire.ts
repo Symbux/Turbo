@@ -6,6 +6,7 @@ import { Inject } from '@symbux/injector';
 import { ILogger } from '../interface/logger';
 
 export class Autowire {
+
 	@Inject('logger') private logger!: ILogger;
 	public folders: Array<string> = [];
 	public foundFiles: Array<string> = [];
@@ -14,6 +15,7 @@ export class Autowire {
 
 		// Define folders to scan for.
 		this.folders = [
+			'fibre', 'fibres',
 			'controller', 'controllers',
 			'middleware', 'middlewares',
 			'provider', 'providers',
@@ -65,12 +67,5 @@ export class Autowire {
 				this.engine.registerSingle(moduleImport[moduleKeys[0]]);
 			}
 		}
-
-		// Lastly, configure the actions.
-		await this.configureActions();
-	}
-
-	public async configureActions(): Promise<void> {
-		//todo
 	}
 }

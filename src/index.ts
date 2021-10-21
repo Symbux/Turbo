@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import { AbstractController } from './abstract/controller';
 import { AbstractMiddleware } from './abstract/middleware';
 import { AbstractService } from './abstract/service';
+import { Expose } from './decorator/expose';
+import { Fibre } from './decorator/fibre';
 import { Middleware } from './decorator/middleware';
 import { Service } from './decorator/service';
 import { Task } from './decorator/task';
@@ -9,7 +11,6 @@ import { DecoratorHelper } from './helper/decorator';
 import { ILogger } from './interface/logger';
 import { IOptions } from './interface/options';
 import { IPlugin } from './interface/plugin';
-import { Action } from './module/action';
 import { Autowire } from './module/autowire';
 import { Engine } from './module/engine';
 import { Registry } from './module/registry';
@@ -25,6 +26,8 @@ export {
 	AbstractController,
 	AbstractMiddleware,
 	AbstractService,
+	Expose,
+	Fibre,
 	Middleware,
 	Service,
 	Task,
@@ -32,7 +35,6 @@ export {
 	ILogger,
 	IOptions,
 	IPlugin,
-	Action,
 	Autowire,
 	Engine,
 	Registry,

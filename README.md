@@ -41,7 +41,7 @@ npm install --save @symbux/turbo
 ## Getting Started
 
 ```typescript
-import { Engine, HttpPlugin } from '@symbux/turbo';
+import { Engine, HttpPlugin, WsPlugin } from '@symbux/turbo';
 
 // Initialise engine instance.
 const engine = new Engine({
@@ -52,6 +52,8 @@ const engine = new Engine({
 engine.use(new HttpPlugin({
 	port: 8080,
 }));
+
+engine.use(new WsPlugin());
 
 // Start engine.
 engine.start().catch((err) => {

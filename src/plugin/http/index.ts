@@ -24,7 +24,7 @@ export {
 
 export default class Plugin implements IPlugin {
 
-	public constructor(private options: IPluginOptions) {}
+	public constructor(private options?: IPluginOptions) {}
 
 	public name = 'http';
 	public version = packageJson.version;

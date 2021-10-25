@@ -16,6 +16,14 @@ Turbo is a powerful command engine using internal event scheduling, dependency i
 
 <br>
 
+<p align="center">
+	<a href="https://discord.gg/3YuNTEMJey" target="_blank">
+		<img width="200" src="https://images.squarespace-cdn.com/content/v1/52290b27e4b0d4e459887aa9/1523645697591-KOD97HRR5QMOQ99BU0SK/join-us-on-discord_1.png">
+	</a>
+</p>
+
+<br>
+
 ---
 
 <br>

@@ -16,6 +16,7 @@ export class HttpService extends AbstractService {
 	@Inject('logger') private logger!: ILogger;
 	private server!: Application;
 	private controllers: Array<any> = [];
+	private serverInstance: any;
 
 	public constructor(options: Record<string, any>) {
 		super(options);
@@ -42,13 +43,17 @@ export class HttpService extends AbstractService {
 
 	public async start(): Promise<void> {
 		const wsService = Injector.resolve('engine.plugin.ws', true);
-		this.server.listen(parseInt(this.options.port), () => {
+		this.serverInstance = this.server.listen(parseInt(this.options.port), () => {
 			if (wsService === null) {
 				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port}.`);
 			} else {
 				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port} and ws://localhost:${this.options.port}.`);
 			}
 		});
+	}
+
+	public async stop(): Promise<void> {
+		await this.serverInstance.close();
 	}
 
 	public setupDefaultMiddleware(): void {

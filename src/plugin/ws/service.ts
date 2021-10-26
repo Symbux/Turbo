@@ -19,6 +19,7 @@ export class WsService extends AbstractService {
 	@Inject('engine.plugin.http', true) private httpService!: HttpService;
 	private server!: Application;
 	private controllers: Array<any> = [];
+	private serverInstance: any;
 	private connections: {
 		[key: string]: {
 			socket: WS,
@@ -70,9 +71,15 @@ export class WsService extends AbstractService {
 
 	public async start(): Promise<void> {
 		if (this.httpService === null) {
-			this.server.listen(parseInt(this.options.port), () => {
+			this.serverInstance = this.server.listen(parseInt(this.options.port), () => {
 				this.logger.info('PLUGIN:WS', `WS service is listening at ws://localhost:${this.options.port}.`);
 			});
+		}
+	}
+
+	public async stop(): Promise<void> {
+		if (this.httpService === null) {
+			await this.serverInstance.close();
 		}
 	}
 

@@ -7,6 +7,7 @@ import { Logger } from './logger';
 import { Runner } from './runner';
 import { Autowire } from './autowire';
 import { extname } from 'path';
+import { FibreManager } from '../fibre/manager';
 
 /**
  * The engine class is the main class of the application.
@@ -43,11 +44,20 @@ export class Engine {
 		this.services = new Services();
 		this.runner = new Runner();
 
+		// Initialise fibre processor.
+		FibreManager.startService();
+
 		// Initialise autowire.
 		if (this.options.autowire) {
 			this.logger.verbose('ENGINE', 'Autowire is enabled.');
 		}
 		this.autowire = new Autowire(this, this.options);
+
+		// Register shutdown.
+		process.on('SIGINT', () => {
+			this.logger.info('ENGINE', 'Turbo engine is shutting down.');
+			this.stop();
+		});
 	}
 
 	/**
@@ -109,6 +119,22 @@ export class Engine {
 
 		// Notify the engine is running.
 		this.logger.info('ENGINE', 'Turbo engine is running.');
+	}
+
+	/**
+	 * Stops the Turbo engine.
+	 */
+	public async stop(): Promise<void> {
+
+		// Shutdown services and components.
+		await this.services.stop();
+		await this.runner.stop();
+
+		// Kill all open threads.
+		FibreManager.killAll();
+
+		// Now kill self process.
+		process.exit(0);
 	}
 
 	/**

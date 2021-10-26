@@ -28,13 +28,8 @@ export default class HomeController extends AbstractController {
 
 	@Http.Get('/fibre')
 	public async fibre(): Promise<Http.Response> {
-
-		// Testing fibres.
 		const demoFibre = new ExampleFibre();
-		console.log(await demoFibre.getName('Danny'));
-
-		return new Http.Response(200, {
-			message: 'Fibre was called.',
-		});
+		const output = await demoFibre.getName('Bob');
+		return new Http.Response(200, output);
 	}
 }

@@ -2,7 +2,8 @@ export type FibreMode = 'thread' | 'pool';
 
 export type FibreOptions ={
 	poolSize?: number;
-	keepWarm?: boolean;
+	threadExpiry?: number;
+	warmThread?: boolean;
 };
 
 export type FibreThread = (...args: any[]) => Promise<any>;
@@ -10,8 +11,11 @@ export type FibreThread = (...args: any[]) => Promise<any>;
 export type FibreItem = {
 	name: string;
 	mode: FibreMode;
+	path: string,
 	options: FibreOptions;
-	thread: FibreThread;
+	thread?: FibreThread;
+	created: number;
+	lastUsed: number;
 };
 
 export type FibreResponse = {

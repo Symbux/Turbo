@@ -6,7 +6,6 @@ interface ITask {
 }
 
 @Task('memory', '*/15 * * * *')
-// @Action('suk.dik')
 export default class MemoryTask implements ITask {
 
 	@Inject('logger') private logger!: ILogger;

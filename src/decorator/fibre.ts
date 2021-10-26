@@ -1,8 +1,7 @@
 import { Registry } from '..';
 import { DecoratorHelper } from '../helper/decorator';
-import { FibreMode, FibreOptions, FibreResponse, FibreThread } from '../interface/fibre';
+import { FibreMode, FibreOptions } from '../interface/fibre';
 import { FibreManager } from '../fibre/manager';
-import { Thread } from 'threads';
 
 /**
  * The fibre decorator is used against a class to define it as an
@@ -16,6 +15,7 @@ import { Thread } from 'threads';
  * - options [Optional] = See available properties.
  *     - poolSize: The defined thread count, default: 1 (only used in 'pool' mode).
  *     - keepWarm: Whether to keep the thread alive, or kill it after the task is complete, default: false (only used in 'thread' mode).
+ *     - threadExpiry: The time in minutes from the last use before a thread is killed, default: 0 [disabled] (only used in 'thread' mode).
  *
  * Notes:
  * - Spinning up a thread usually takes under 40ms, but can take longer if the task has lots of imports (in dev mode, it has to be JIT compiled).
@@ -32,44 +32,28 @@ export function Fibre(name: string, mode: FibreMode, path: string, options?: Fib
 
 		// Define the base class information.
 		DecoratorHelper.setClassBase(target, 'fibre');
-		DecoratorHelper.setMetadata('t:name', name || target.constructor.name, target);
+		DecoratorHelper.setMetadata('t:name', name || target.name, target);
 		DecoratorHelper.setMetadata('t:mode', mode, target);
 		DecoratorHelper.setMetadata('t:options', options, target);
 
-		// Define a cache variable.
-		let fibre: FibreThread | null = null;
-
 		// Check if main process.
-		if (Registry.get('engine.status') === 'main') {
+		if (Registry.get('engine.status') !== 'main') return;
 
-			// Loop the exposed methods.
-			const methods: string[] = DecoratorHelper.getMetadata('t:exposed', [], target);
-			methods.forEach(method => {
+		// Loop the exposed methods.
+		const methods: string[] = DecoratorHelper.getMetadata('t:exposed', [], target);
+		methods.forEach(method => {
 
-				// Re-define the function.
-				target.prototype[method] = async function(...args: any[]) {
+			// Re-define the function.
+			target.prototype[method] = async function(...args: any[]) {
 
-					// Create a new fibre.
-					if (!fibre) fibre = await FibreManager.createFibre(path);
+				// Create a new fibre if one doesn't exist.
+				if (!FibreManager.hasFibre(target.name)) {
+					await FibreManager.createFibre(target.name, name, mode, path, options);
+				}
 
-					// Run the fibre.
-					const output: FibreResponse = await fibre(path, method, args);
-
-					// Check whether to keep the thread alive.
-					if (!options || !options.keepWarm) {
-						await Thread.terminate((fibre as any));
-						fibre = null;
-					}
-
-					// Return the output.
-					if (output.status) {
-						return output;
-					} else {
-						console.error(output.error);
-						return false;
-					}
-				};
-			});
-		}
+				// Now run the fibre.
+				return await FibreManager.runFibre(target.name, method, args);
+			};
+		});
 	};
 }

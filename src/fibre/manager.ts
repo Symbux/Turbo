@@ -5,7 +5,7 @@ import { Inject } from '@symbux/injector';
 
 export class FibreManager {
 	private static fibres: Map<string, FibreItem> = new Map();
-	private static baseOptions: FibreOptions = { warmThread: false };
+	private static baseOptions: FibreOptions = { warmup: false, expiry: 5 };
 	private static interval: NodeJS.Timer;
 	@Inject('logger') private static logger: ILogger;
 
@@ -27,7 +27,7 @@ export class FibreManager {
 	 * @param path The path to the fibre class.
 	 * @param options Any options for the fibre.
 	 */
-	public static async createFibre(targetName: string, name: string, path: string, options?: FibreOptions): Promise<void> {
+	public static async createFibre(targetName: string, name: string, path: string, methods: string[], options?: FibreOptions): Promise<void> {
 
 		// Log the creation of a new fibre.
 		this.logger.verbose('FIBRE', `Creating new fibre for ${targetName}, user-defined name: ${name}, with path: ${path}, and given options: ${JSON.stringify(options)}.`);
@@ -40,6 +40,7 @@ export class FibreManager {
 			created: new Date().valueOf(),
 			lastUsed: new Date().valueOf(),
 			thread: undefined,
+			methods: methods,
 		};
 
 		// Spawn a new thread.
@@ -63,6 +64,7 @@ export class FibreManager {
 	public static async runFibre(targetName: string, method: string, args: Array<any>): Promise<FibreResponse> {
 
 		// Note execution.
+		const startMs = new Date().valueOf();
 		this.logger.verbose('FIBRE', `Executing fibre for ${targetName}, with method: ${method}, and arguments: ${JSON.stringify(args)}.`);
 
 		// Firstly, validate the existence.
@@ -71,6 +73,14 @@ export class FibreManager {
 		// Get the fibre item.
 		const fibreItem = this.fibres.get(targetName);
 		if (!fibreItem) throw new Error(`Fibre ${targetName} does not exist.`);
+
+		// Check if method is exposed.
+		if (!fibreItem.methods.includes(method)) {
+			return {
+				status: false,
+				error: `Method ${method} is not exposed by fibre ${targetName}.`,
+			};
+		}
 
 		// Let's check for a valid fibre thread.
 		if (!fibreItem?.thread) {
@@ -81,8 +91,12 @@ export class FibreManager {
 		// Set the last used time.
 		fibreItem.lastUsed = new Date().valueOf();
 
-		// Run the fibre.
-		return await fibreItem.thread(false, fibreItem.path, method, args);
+		// Run the fibre, append running time.
+		const output = await fibreItem.thread(false, fibreItem.path, method, args);
+		output.executionTime = output.executionTime = new Date().valueOf() - startMs;
+
+		// Return the output.
+		return output;
 	}
 
 	/**
@@ -142,14 +156,14 @@ export class FibreManager {
 			if (!fibreItem) continue;
 
 			// Check if the fibre has expiry enabled.
-			if (!fibreItem.options.threadExpiry || fibreItem.options.threadExpiry === 0) continue;
+			if (!fibreItem.options.expiry || fibreItem.options.expiry === 0) continue;
 
 			// Check if the fibre's thread has already been removed.
 			if (!fibreItem.thread) continue;
 
 			// Define expiry amounts.
 			const differenceMs = new Date().valueOf() - fibreItem.lastUsed;
-			const allowedDifferenceMs = 1000 * 60 * fibreItem.options.threadExpiry;
+			const allowedDifferenceMs = 1000 * 60 * fibreItem.options.expiry;
 
 			// Check if the fibre has expired.
 			if (differenceMs > allowedDifferenceMs) {
@@ -180,13 +194,13 @@ export class FibreManager {
 	private static async spawnThread(options: FibreOptions, path: string): Promise<FibreThread> {
 
 		// Log creation of thread.
-		this.logger.verbose('FIBRE', `Spawning new thread for fibre with path: ${path}.`);
+		this.logger.verbose('FIBRE', `Spawning new fibre with path: ${path}.`);
 
 		// Create a worker thread.
 		const thread: FibreThread = await spawn(new Worker('./base'));
 
 		// Check settings for warm thread.
-		if (options.warmThread) {
+		if (options.warmup) {
 			this.logger.verbose('FIBRE', 'Thread warming is enabled, warming thread.');
 			await thread(true, path, '', []);
 		}

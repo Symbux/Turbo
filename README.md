@@ -12,7 +12,7 @@
 ![npm (scoped)](https://img.shields.io/npm/v/@symbux/Turbo)
 ![npm](https://img.shields.io/npm/dw/@symbux/Turbo)
 
-Turbo is a powerful command engine using internal event scheduling, dependency injection, and an ORM (unreleased) for creating scalable and powerful REST API / WebSocket based platforms with a solid plugin ecosystem for extending the core functionality.
+The Turbo engine is a command-based framework for building API (and web) based applications using either built-in plugins or community/custom ones.
 
 <br>
 

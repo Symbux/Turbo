@@ -5,20 +5,23 @@ import { FibreManager } from '../fibre/manager';
 
 /**
  * The fibre decorator is used against a class to define it as an
- * fibre and apply the configurations. You will also need to expose the
- * methods that you want to be available this is for the engine to
- * create getters against the fibre method. See notes below.
+ * fibre and apply the configurations on import, please note, all
+ * methods should be async. All methods defined in the class will
+ * be exposed automatically.
  *
  * The decorator expects the following parameters:
  * - name = Used mainly for output logging.
+ * - path = Use the `__filename` built in Node constant.
  * - options [Optional] = See available properties.
- *     - keepWarm: Whether to keep the thread alive, or kill it after the task is complete, default: false (only used in 'thread' mode).
- *     - threadExpiry: The time in minutes from the last use before a thread is killed, default: 0 [disabled] (only used in 'thread' mode).
+ *     - warmup: On class import, it will automatically spin up the fibre, and run it (in warmup mode) to pre-process any internal modules.
+ *     - expiry: The time in minutes from the last use before a fibre is killed, default: 5 minutes [0 = disabled]
  *
  * Notes:
- * - Spinning up a thread usually takes under 40ms, but can take longer if the task has lots of imports (in dev mode, it has to be JIT compiled).
- * - Threads have no context of the engine, so do not try and inject properties, or access the registry which is not setup inside of the fibre.
- * - Also note that a fibre is the whole class, not just the method, meaning you can call the other class methods from your exposed method.
+ * - Spinning up a new fibre is expensive everytime you need it can be time consuming, use the 'warmup' option to pre-spin up fibres.
+ * - When running dev mode (uses ts-node), each fibre will be JIT compiled, therefore it will be 5-10x slower than in production (compiled to JS).
+ * - A fibre (single class) should take around 40ms to spin up, with dev mode enabled - this can take up to 3.5 seconds, any imports will add to this.
+ * - Fibres have no context of the engine, therefore using dependecy injection and accessing the registry is not possible, looking to support this at a later date.
+ * - For safety, you must expose each method you want to use.
  *
  * @param name The name of the fibre.
  * @param options The options for the fibre.
@@ -44,12 +47,19 @@ export function Fibre(name: string, path: string, options?: FibreOptions): Class
 
 				// Create a new fibre if one doesn't exist.
 				if (!FibreManager.hasFibre(target.name)) {
-					await FibreManager.createFibre(target.name, name, path, options);
+					await FibreManager.createFibre(target.name, name, path, methods, options);
 				}
 
 				// Now run the fibre.
 				return await FibreManager.runFibre(target.name, method, args);
 			};
 		});
+
+		// Check for warmup, if enabled, spin up the fibre.
+		if (options && options.warmup) {
+			if (!FibreManager.hasFibre(target.name)) {
+				FibreManager.createFibre(target.name, name, path, methods, options);
+			}
+		}
 	};
 }

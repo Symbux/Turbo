@@ -1,6 +1,6 @@
 export type FibreOptions = {
-	threadExpiry?: number;
-	warmThread?: boolean;
+	expiry?: number;
+	warmup?: boolean;
 };
 
 export type FibreThread = (...args: any[]) => Promise<any>;
@@ -12,6 +12,7 @@ export type FibreItem = {
 	thread?: FibreThread;
 	created: number;
 	lastUsed: number;
+	methods: string[],
 };
 
 export type FibreResponse = {

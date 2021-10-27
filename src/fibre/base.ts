@@ -7,9 +7,6 @@ let fibreModule: any = false;
 expose(async (warmup: boolean, path: string, method: string, params: any[]) => {
 	try {
 
-		// Define start time.
-		const startMs = new Date().valueOf();
-
 		// Import the module and cache it.
 		if (!fibreModule) {
 			const moduleImport = await import(path);
@@ -27,7 +24,6 @@ expose(async (warmup: boolean, path: string, method: string, params: any[]) => {
 		return {
 			status: true,
 			data: output,
-			executionTime: (new Date().valueOf() - startMs),
 		};
 
 	} catch(error) {

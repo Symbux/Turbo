@@ -131,7 +131,7 @@ export class Engine {
 		await this.runner.stop();
 
 		// Kill all open threads.
-		FibreManager.killAll();
+		await FibreManager.killAll();
 
 		// Now kill self process.
 		process.exit(0);

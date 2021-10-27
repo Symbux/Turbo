@@ -1,16 +1,14 @@
-export type FibreMode = 'thread' | 'pool';
-
-export type FibreOptions ={
-	poolSize?: number;
+export type FibreOptions = {
 	threadExpiry?: number;
 	warmThread?: boolean;
 };
 
 export type FibreThread = (...args: any[]) => Promise<any>;
 
+export type FibrePool = any;
+
 export type FibreItem = {
 	name: string;
-	mode: FibreMode;
 	path: string,
 	options: FibreOptions;
 	thread?: FibreThread;

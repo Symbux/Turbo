@@ -1,6 +1,6 @@
 import { Fibre, Expose } from '../../src';
 
-@Fibre('example', 'thread', __filename)
+@Fibre('example', __filename)
 export class ExampleFibre {
 
 	@Expose()

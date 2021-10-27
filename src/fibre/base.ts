@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { expose } from 'threads/worker';
 
 // Define the cached module.
-let module: any = false;
+let fibreModule: any = false;
 
 expose(async (warmup: boolean, path: string, method: string, params: any[]) => {
 	try {
@@ -11,17 +11,17 @@ expose(async (warmup: boolean, path: string, method: string, params: any[]) => {
 		const startMs = new Date().valueOf();
 
 		// Import the module and cache it.
-		if (!module) {
+		if (!fibreModule) {
 			const moduleImport = await import(path);
 			const moduleKeys = Object.keys(moduleImport);
-			module = new moduleImport[moduleKeys[0]]();
+			fibreModule = new moduleImport[moduleKeys[0]]();
 		}
 
 		// Check for warmup.
 		if (warmup) return { status: true, warmup: true };
 
 		// Now execute the method.
-		const output = await module[method](...params);
+		const output = await fibreModule[method](...params);
 
 		// Return the data.
 		return {

@@ -1,16 +1,11 @@
-import { FibreItem, FibreOptions, FibreResponse, FibreMode, FibreThread } from '../interface/fibre';
-import { spawn, BlobWorker, Thread } from 'threads';
-import { Registry } from '../module/registry';
-import { transpileModule, ModuleKind } from 'typescript';
-import { resolve } from 'path';
-import { readFile } from 'fs/promises';
+import { FibreItem, FibreOptions, FibreResponse, FibreThread } from '../interface/fibre';
+import { spawn, Thread, Worker } from 'threads';
 import { ILogger } from '../interface/logger';
 import { Inject } from '@symbux/injector';
 
 export class FibreManager {
 	private static fibres: Map<string, FibreItem> = new Map();
-	private static tsOptions = {compilerOptions: {module: ModuleKind.CommonJS}};
-	private static baseOptions: FibreOptions = { poolSize: 1, warmThread: false };
+	private static baseOptions: FibreOptions = { warmThread: false };
 	private static interval: NodeJS.Timer;
 	@Inject('logger') private static logger: ILogger;
 
@@ -33,15 +28,14 @@ export class FibreManager {
 	 * @param path The path to the fibre class.
 	 * @param options Any options for the fibre.
 	 */
-	public static async createFibre(targetName: string, name: string, mode: FibreMode, path: string, options?: FibreOptions): Promise<void> {
+	public static async createFibre(targetName: string, name: string, path: string, options?: FibreOptions): Promise<void> {
 
 		// Log the creation of a new fibre.
-		this.logger.verbose('FIBRE', `Creating new fibre for ${targetName}, user-defined name: ${name}, in mode: ${mode}, with path: ${path}, and given options: ${JSON.stringify(options)}.`);
+		this.logger.verbose('FIBRE', `Creating new fibre for ${targetName}, user-defined name: ${name}, with path: ${path}, and given options: ${JSON.stringify(options)}.`);
 
 		// Define a new fibre item.
 		const fibreItem: FibreItem = {
 			name: name,
-			mode: mode,
 			path: path,
 			options: Object.assign(this.baseOptions, options),
 			created: new Date().valueOf(),
@@ -81,7 +75,7 @@ export class FibreManager {
 
 		// Let's check for a valid fibre thread.
 		if (!fibreItem?.thread) {
-			this.logger.verbose('FIBRE', `Fibre for ${targetName} does not exist, creating a new one.`);
+			this.logger.verbose('FIBRE', `Fibre for ${targetName} (thread) does not exist, creating a new one.`);
 			fibreItem.thread = await this.spawnThread(fibreItem.options, fibreItem.path);
 		}
 
@@ -190,12 +184,7 @@ export class FibreManager {
 		this.logger.verbose('FIBRE', `Spawning new thread for fibre with path: ${path}.`);
 
 		// Create a worker thread.
-		const baseModuleContent = await this.getFibreBase();
-		const thread: FibreThread = await spawn(
-			Registry.get('engine.mode') === 'main'
-				? BlobWorker.fromText(baseModuleContent)
-				: BlobWorker.fromText(transpileModule(baseModuleContent, this.tsOptions).outputText),
-		);
+		const thread: FibreThread = await spawn(new Worker('./base'));
 
 		// Check settings for warm thread.
 		if (options.warmThread) {
@@ -205,19 +194,5 @@ export class FibreManager {
 
 		// Return the thread.
 		return thread;
-	}
-
-	/**
-	 * This method will load the base fibre module, and return the contents
-	 * of the file, this is so that it can be loaded into a worker thread.
-	 *
-	 * @returns string.
-	 */
-	private static async getFibreBase(): Promise<string> {
-		const engineMode = Registry.get('engine.mode');
-		const fibreBaseModulePath = engineMode === 'development'
-			? resolve(__dirname, './base.ts')
-			: resolve(__dirname, './base.js');
-		return (await readFile(fibreBaseModulePath)).toString();
 	}
 }

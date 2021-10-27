@@ -1,6 +1,6 @@
 import { Registry } from '..';
 import { DecoratorHelper } from '../helper/decorator';
-import { FibreMode, FibreOptions } from '../interface/fibre';
+import { FibreOptions } from '../interface/fibre';
 import { FibreManager } from '../fibre/manager';
 
 /**
@@ -23,17 +23,15 @@ import { FibreManager } from '../fibre/manager';
  * - Also note that a fibre is the whole class, not just the method, meaning you can call the other class methods from your exposed method.
  *
  * @param name The name of the fibre.
- * @param mode The mode of the fibre.
  * @param options The options for the fibre.
  * @returns ClassDecorator
  */
-export function Fibre(name: string, mode: FibreMode, path: string, options?: FibreOptions): ClassDecorator {
+export function Fibre(name: string, path: string, options?: FibreOptions): ClassDecorator {
 	return (target: any): void => {
 
 		// Define the base class information.
 		DecoratorHelper.setClassBase(target, 'fibre');
 		DecoratorHelper.setMetadata('t:name', name || target.name, target);
-		DecoratorHelper.setMetadata('t:mode', mode, target);
 		DecoratorHelper.setMetadata('t:options', options, target);
 
 		// Check if main process.
@@ -48,7 +46,7 @@ export function Fibre(name: string, mode: FibreMode, path: string, options?: Fib
 
 				// Create a new fibre if one doesn't exist.
 				if (!FibreManager.hasFibre(target.name)) {
-					await FibreManager.createFibre(target.name, name, mode, path, options);
+					await FibreManager.createFibre(target.name, name, path, options);
 				}
 
 				// Now run the fibre.

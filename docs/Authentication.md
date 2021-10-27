@@ -1,0 +1,7 @@
+# Turbo :: Authentication
+
+_To-Do_
+
+> Has full application scope, unlike fibres.
+
+000000000000000000000000000000000000000000000000000000000000000000000000000000

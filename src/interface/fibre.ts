@@ -5,8 +5,6 @@ export type FibreOptions = {
 
 export type FibreThread = (...args: any[]) => Promise<any>;
 
-export type FibrePool = any;
-
 export type FibreItem = {
 	name: string;
 	path: string,

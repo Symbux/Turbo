@@ -11,9 +11,7 @@ import { FibreManager } from '../fibre/manager';
  *
  * The decorator expects the following parameters:
  * - name = Used mainly for output logging.
- * - mode = ENUM: thread = runs in a single thread, pool = creates a pool of threads.
  * - options [Optional] = See available properties.
- *     - poolSize: The defined thread count, default: 1 (only used in 'pool' mode).
  *     - keepWarm: Whether to keep the thread alive, or kill it after the task is complete, default: false (only used in 'thread' mode).
  *     - threadExpiry: The time in minutes from the last use before a thread is killed, default: 0 [disabled] (only used in 'thread' mode).
  *

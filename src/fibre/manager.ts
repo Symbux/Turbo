@@ -24,7 +24,6 @@ export class FibreManager {
 	 *
 	 * @param targetName The fibre class name.
 	 * @param name The user defined name.
-	 * @param mode The mode of the fibre (thread = single instance, pool = multi instance).
 	 * @param path The path to the fibre class.
 	 * @param options Any options for the fibre.
 	 */

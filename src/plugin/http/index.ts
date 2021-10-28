@@ -6,7 +6,6 @@ import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
 import { HttpService as Service } from './service';
 import { IOptions, IMiddleware } from './types';
-import { CorsMiddleware } from './middleware';
 import packageJson from '../../../package.json';
 
 export {
@@ -33,6 +32,5 @@ export default class Plugin implements IPlugin {
 
 	public install(engine: Engine): void {
 		engine.registerSingle(Service, this.options);
-		engine.registerSingle(CorsMiddleware);
 	}
 }

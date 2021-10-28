@@ -1,14 +1,22 @@
 import { DecoratorHelper } from '../../helper/decorator';
+import { IGenericMiddleware, Constructor } from '../../interface/implements';
 
 /**
- * This decorator is used to tell the authentication decorators
- * if applied, what middleware method to use.
- * 
- * @param middleware The middleware to use or function.
+ * This decorator will apply middleware to the given class, or method.
+ *
+ * @param middleware The middleware class to use.
  * @returns ClassDecorator
  */
-export function Use(middleware: string): ClassDecorator {
+export function Use(middleware: Constructor<IGenericMiddleware>): ClassDecorator {
 	return (target: any): void => {
-		DecoratorHelper.setMetadata('t:auth:middleware', middleware, target);
+
+		// Define the middlewares list.
+		const middlewares: Constructor<IGenericMiddleware>[] = DecoratorHelper.getMetadata('t:auth:middleware', [], target);
+
+		// Now add the middleware to the list.
+		middlewares.push(middleware);
+
+		// Assign the new middleware list.
+		DecoratorHelper.setMetadata('t:auth:middleware', middlewares, target);
 	};
 }

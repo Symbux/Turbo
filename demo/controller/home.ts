@@ -2,13 +2,24 @@ import { AbstractController, Http, Auth } from '../../src';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { ExampleFibre } from '../fibre/example';
+import DemoAuthMiddleware from '../middleware/http-auth';
+
+// Define custom check.
+const customCheck = (auth: Record<string, any>) => {
+	console.log('CustomCheck::Auth Data', auth);
+	return true;
+};
 
 @Http.Controller('/')
-@Auth.Use('http.auth')
-@Auth.Use('http.cors.all')
+@Auth.Use(DemoAuthMiddleware)
 export default class HomeController extends AbstractController {
 
 	@Http.Get('/')
+	@Auth.Has('email')
+	@Auth.Authenticated()
+	@Auth.Custom(customCheck)
+	@Auth.Is('user', 'public')
+	@Auth.InArray('roles', 'admin')
 	public async index(): Promise<Http.Response> {
 		return new Http.Response(200, await readFile(resolve(__dirname, '../view/index.html'), 'utf8'));
 	}

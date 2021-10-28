@@ -1,7 +1,7 @@
 /**
  * Translates seconds into human readable format of seconds,
  * minutes, hours, days, and years.
- * 
+ *
  * @param number The number of seconds to be processed
  * @return string
  */
@@ -21,4 +21,8 @@ export function durationToHuman(seconds: number): string {
 	}
 
 	return returntext.trim();
+}
+
+export function capitalise(value: string): string {
+	return value.charAt(0).toUpperCase() + value.slice(1);
 }

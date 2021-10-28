@@ -1,7 +1,7 @@
 import { IPlugin } from '../../interface/implements';
 import { Engine } from '../../module/engine';
 import { WsService as Service } from './service';
-import { IOptions, IPacket } from './types';
+import { IOptions, IPacket, IMiddleware } from './types';
 import { Context } from './context';
 import { Controller } from './controller';
 import { Action } from './methods';
@@ -15,6 +15,7 @@ export {
 	Service,
 	IOptions,
 	IPacket,
+	IMiddleware,
 };
 
 export default class Plugin implements IPlugin {

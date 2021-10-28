@@ -9,11 +9,13 @@ import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
 import { ILogger } from '../../interface/implements';
+import { Authentication } from '../../module/authentication';
 
 @Service('http')
 export class HttpService extends AbstractService {
 
 	@Inject('logger') private logger!: ILogger;
+	@Inject('engine.auth') private auth!: Authentication;
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;
@@ -85,6 +87,17 @@ export class HttpService extends AbstractService {
 
 					// Create a context object.
 					const contextObject = new HttpContext(request, response);
+
+					// Run the authentication.
+					const shouldContinue = await this.auth.handle(contextObject, controller, classMethod);
+					if (!shouldContinue) {
+						new HttpResponse(401, {
+							message: 'Unauthorized.',
+						}).execute(response);
+						return;
+					}
+
+					// Run the controller method.
 					const output: HttpResponse = await controller[classMethod](contextObject);
 					output.execute(response);
 				});

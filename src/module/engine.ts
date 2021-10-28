@@ -8,6 +8,7 @@ import { Runner } from './runner';
 import { Autowire } from './autowire';
 import { extname } from 'path';
 import { FibreManager } from '../fibre/manager';
+import { Authentication } from './authentication';
 
 /**
  * The engine class is the main class of the application.
@@ -21,6 +22,7 @@ export class Engine {
 	private services: Services;
 	private runner: Runner;
 	private autowire: Autowire;
+	private authentication: Authentication;
 
 	/**
 	 * Creates a new instance of the Turbo engine.
@@ -41,6 +43,7 @@ export class Engine {
 		if (extension === '.ts') Registry.set('engine.mode', 'development');
 
 		// Initialise engine components.
+		this.authentication = new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
 

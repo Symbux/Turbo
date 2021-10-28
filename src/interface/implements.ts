@@ -24,3 +24,20 @@ export interface IPlugin {
 export interface ITask {
 	execute: () => Promise<void>;
 }
+
+export interface IGenericMiddleware {
+	handle: (context: any) => Promise<void>;
+}
+
+export interface IGenericContext {
+	getAuth: () => Record<string, any>;
+}
+
+export interface IAuthCheck {
+	func: (auth: Record<string, any>) => boolean;
+	type: string;
+}
+
+export type Constructor<T> = {
+	new (...args: any[]): T
+};

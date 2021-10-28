@@ -11,11 +11,13 @@ import expressWs, { Application } from 'express-ws';
 import * as WS from 'ws';
 import { IOptions } from './types';
 import { Context as WsContext } from './context';
+import { Authentication } from '../../module/authentication';
 
 @Service('ws')
 export class WsService extends AbstractService {
 
 	@Inject('logger') private logger!: ILogger;
+	@Inject('engine.auth') private auth!: Authentication;
 	@Inject('engine.plugin.http', true) private httpService!: HttpService;
 	private server!: Application;
 	private controllers: Array<any> = [];
@@ -174,6 +176,20 @@ export class WsService extends AbstractService {
 
 			// Create a context object.
 			const contextObject = new WsContext(request, socket, this, packet);
+
+			// Run the authentication.
+			const shouldContinue = await this.auth.handle(contextObject, controller, method);
+			if (!shouldContinue) {
+				contextObject.send({
+					command: 'error',
+					content: {
+						message: 'Authentication failed.',
+					},
+				});
+				return;
+			}
+
+			// Run the controller method.
 			await controller.instance[method](contextObject);
 
 		} catch(err) {

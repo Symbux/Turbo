@@ -17,7 +17,6 @@ export class Autowire {
 		this.folders = [
 			'fibre', 'fibres',
 			'controller', 'controllers',
-			'middleware', 'middlewares',
 			'provider', 'providers',
 			'task', 'tasks',
 			'service', 'services',

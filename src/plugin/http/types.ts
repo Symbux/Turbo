@@ -1,3 +1,4 @@
+import { IGenericMiddleware } from '../../interface/implements';
 import { Context } from './context';
 
 export interface IOptions {
@@ -5,6 +6,6 @@ export interface IOptions {
 	host?: string;
 }
 
-export interface IMiddleware {
+export interface IMiddleware extends IGenericMiddleware {
 	handle: (context: Context) => Promise<void>;
 }

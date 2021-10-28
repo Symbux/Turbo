@@ -1,5 +1,5 @@
-import { IOptions } from '../interface/options';
-import { IPlugin } from '../interface/plugin';
+import { IOptions } from '../interface/structures';
+import { IPlugin } from '../interface/implements';
 import { Services } from './services';
 import { Registry } from './registry';
 import { Inject, Injector } from '@symbux/injector';

@@ -1,7 +1,9 @@
+import { Engine } from '../module/engine';
+
 /**
  * Defines the base structure of a logger and the methods that are
  * expected by the framework and documentation.
- * 
+ *
  * @interface ILogger
  */
 export interface ILogger {
@@ -11,4 +13,14 @@ export interface ILogger {
 	error: (title: string, message: string, err?: Error) => void;
 	verbose: (title: string, message: string, err?: Error) => void;
 	debug: (title: string, message: string, err?: Error) => void;
+}
+
+export interface IPlugin {
+	install: (engine: Engine) => void;
+	name: string;
+	version: string;
+}
+
+export interface ITask {
+	execute: () => Promise<void>;
 }

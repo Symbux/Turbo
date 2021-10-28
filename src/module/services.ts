@@ -1,5 +1,5 @@
 import { Inject, Injector } from '@symbux/injector';
-import { ILogger } from '../interface/logger';
+import { ILogger } from '../interface/implements';
 import { Registry } from './registry';
 
 export class Services {

@@ -12,7 +12,7 @@ Fibres are useful for things like:
 ## Usage
 
 ```typescript
-import { Fibre, Expose } from '../../src';
+import { Fibre, Expose } from '@symbux/turbo';
 
 @Fibre('example', __filename, { expiry: 1, warmup: true })
 export class ExampleFibre {

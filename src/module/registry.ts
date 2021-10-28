@@ -1,5 +1,5 @@
 import { Provide, Inject } from '@symbux/injector';
-import { ILogger } from '../interface/logger';
+import { ILogger } from '../interface/implements';
 
 /**
  * The registry module contains the registry for the Turbo engine,

@@ -8,6 +8,8 @@ or programatically.
 
 Documentation over at the [Symbux Injector](https://github.com/Symbux/Injector#readme) project.
 
+<br>
+
 ## Basic Usage
 
 ```typescript
@@ -28,3 +30,23 @@ export class BusinessLogic {
 		console.log(this.helper.multiply(5, 5));
 	}
 }
+```
+
+<br>
+
+## Built-in Provides
+
+Below is a list of built in provides, these are the ones that are automatically addded
+when the engine starts. These are the ones that are active instances, things like the
+`FibreManager` class is static, and can be imported and called as is.
+
+| Name | Description | Type |
+|------|-------------|------|
+| `engine.core` | The main instance of the Turbo engine. | `Engine` |
+| `engine.options` | The options object used to start the engine. | `IOptions` |
+| `engine.runner` | The task runner class instance. | `Runner` |
+| `engine.services` | The services manager class instance. | `Services` |
+| `engine.plugin.http` | The instance of the HttpPlugin's service. | `Http.Service` |
+| `engine.plugin.http.options` | The HttpPlugin's options. | `Http.IOptions` |
+| `engine.plugin.ws` | The instance of the WsPlugin's service. | `Ws.Service` |
+| `engine.plugin.ws.options` | The WsPlugin's options. | `Ws.IOptions` |

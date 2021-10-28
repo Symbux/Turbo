@@ -1,3 +1,11 @@
+export interface IOptions {
+	port: number;
+	host: string;
+	autowire: boolean;
+	folders: string[];
+	basepath?: string;
+}
+
 export type FibreOptions = {
 	expiry?: number;
 	warmup?: boolean;

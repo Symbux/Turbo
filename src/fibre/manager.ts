@@ -1,6 +1,6 @@
-import { FibreItem, FibreOptions, FibreResponse, FibreThread } from '../interface/fibre';
+import { FibreItem, FibreOptions, FibreResponse, FibreThread } from '../interface/structures';
 import { spawn, Thread, Worker } from 'threads';
-import { ILogger } from '../interface/logger';
+import { ILogger } from '../interface/implements';
 import { Inject } from '@symbux/injector';
 
 export class FibreManager {

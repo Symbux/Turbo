@@ -1,6 +1,6 @@
 import { Registry } from '..';
 import { DecoratorHelper } from '../helper/decorator';
-import { FibreOptions } from '../interface/fibre';
+import { FibreOptions } from '../interface/structures';
 import { FibreManager } from '../fibre/manager';
 
 /**

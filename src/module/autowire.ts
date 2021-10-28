@@ -1,9 +1,9 @@
 import { Engine } from './engine';
-import { IOptions } from '../interface/options';
+import { IOptions } from '../interface/structures';
 import { resolve } from 'path';
 import { sync as glob } from 'glob';
 import { Inject } from '@symbux/injector';
-import { ILogger } from '../interface/logger';
+import { ILogger } from '../interface/implements';
 
 export class Autowire {
 

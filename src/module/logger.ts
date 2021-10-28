@@ -1,6 +1,6 @@
 import { yellow, red, cyan, grey, blue, green } from 'chalk';
 import { Provide } from '@symbux/injector';
-import { ILogger } from '../interface/logger';
+import { ILogger } from '../interface/implements';
 
 /**
  * The built-in simple logger, that simply routes all logs to the Console API.
@@ -13,7 +13,7 @@ export class Logger implements ILogger {
 
 	/**
 	 * This will create an instance of the logger with the given parameters.
-	 * 
+	 *
 	 * @param levels The array of allowed levels to log.
 	 * @returns Logger.
 	 */
@@ -28,7 +28,7 @@ export class Logger implements ILogger {
 	/**
 	 * Generic log method that takes a level and will route to the
 	 * right method based on the level; passing over any given data.
-	 * 
+	 *
 	 * @param level The level of the log.
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
@@ -44,7 +44,7 @@ export class Logger implements ILogger {
 	/**
 	 * This method is to output information, like connection requests, or
 	 * other, you should use the other methods to give more in-depth output.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @returns void.
@@ -57,7 +57,7 @@ export class Logger implements ILogger {
 	/**
 	 * This method is to output warnings, like connection closes, or
 	 * other, you should use the other methods to give more in-depth output.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @returns void.
@@ -71,7 +71,7 @@ export class Logger implements ILogger {
 	 * This method is to output errors and optionally takes an error
 	 * object, the built in logger is simple, but custom loggers can
 	 * do more with that error message, like outputting the stack trace.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @param err The error object.
@@ -85,7 +85,7 @@ export class Logger implements ILogger {
 	/**
 	 * This method is to output more verbose data, and is built for outputting
 	 * objects and in general more information that would be useful.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param content The contents of the output.
 	 * @param err The error object.
@@ -100,7 +100,7 @@ export class Logger implements ILogger {
 	 * This method is to output debug information and should be used in conjunction
 	 * with objects and more useful data that you can output, like outputting failing
 	 * queries or other.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param content The contents of the output.
 	 * @param err The error object.
@@ -115,7 +115,7 @@ export class Logger implements ILogger {
 	 * This method will simply format the message to be pretty and nice
 	 * to read or can be used to customise more the output of certain output
 	 * levels.
-	 * 
+	 *
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @param err The error object.

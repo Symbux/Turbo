@@ -1,10 +1,10 @@
-export interface IPluginOptions {
+export interface IOptions {
 	path?: string;
 	options?: Record<string, any>;
 	port?: number;
 }
 
-export interface IWsPacket {
+export interface IPacket {
 	command: string,
 	content?: Record<string | symbol, any>,
 }

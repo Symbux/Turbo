@@ -8,7 +8,7 @@ import { Registry } from '../../module/registry';
 import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
-import { ILogger } from '../../interface/logger';
+import { ILogger } from '../../interface/implements';
 
 @Service('http')
 export class HttpService extends AbstractService {

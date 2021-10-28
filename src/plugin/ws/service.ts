@@ -1,6 +1,6 @@
 import { Service } from '../../decorator/service';
 import { AbstractService } from '../../abstract/service';
-import { ILogger } from '../../interface/logger';
+import { ILogger } from '../../interface/implements';
 import { Inject, Injector } from '@symbux/injector';
 import express, { Application as HttpApplication, urlencoded, json, Request } from 'express';
 import { DecoratorHelper } from '../../helper/decorator';
@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import { HttpService } from '../http/service';
 import expressWs, { Application } from 'express-ws';
 import * as WS from 'ws';
-import { IPluginOptions } from './types';
+import { IOptions } from './types';
 import { Context as WsContext } from './context';
 
 @Service('ws')
@@ -28,7 +28,7 @@ export class WsService extends AbstractService {
 			session: Record<string, any>
 		}} = {};
 
-	public constructor(options: IPluginOptions) {
+	public constructor(options: IOptions) {
 		super(options);
 		Injector.register('engine.plugin.ws', this);
 		Injector.register('engine.plugin.ws.options', this.options);

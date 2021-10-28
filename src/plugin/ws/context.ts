@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import * as WS from 'ws';
 import { WsService } from './service';
-import { IWsPacket } from './types';
+import { IPacket } from './types';
 
 export class Context {
 	private auth: Record<string, any> = {};
@@ -10,7 +10,7 @@ export class Context {
 		private request: Request,
 		private socket: WS,
 		private wsService: WsService,
-		private packet: IWsPacket,
+		private packet: IPacket,
 	) {}
 
 	public setAuth(auth: Record<string, any>): void {
@@ -54,7 +54,7 @@ export class Context {
 		return this.request.socket.remoteAddress || '';
 	}
 
-	public getPacket(): IWsPacket {
+	public getPacket(): IPacket {
 		return this.packet;
 	}
 
@@ -83,7 +83,7 @@ export class Context {
 		return this.wsService.getConnection(socketKey as string);
 	}
 
-	public send(message: IWsPacket): void {
+	public send(message: IPacket): void {
 		this.socket.send(JSON.stringify(message));
 	}
 
@@ -91,7 +91,7 @@ export class Context {
 		this.socket.send(message);
 	}
 
-	public broadcast(message: IWsPacket): void {
+	public broadcast(message: IPacket): void {
 		Object.keys(this.wsService.getConnections()).forEach((key) => {
 			this.wsService.getConnection(key).socket.send(JSON.stringify(message));
 		});

@@ -1,11 +1,11 @@
-import { IPlugin } from '../../interface/plugin';
+import { IPlugin } from '../../interface/implements';
 import { Engine } from '../../module/engine';
 import { Context } from './context';
 import { Controller } from './controller';
 import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
 import { HttpService as Service } from './service';
-import { IPluginOptions } from './types';
+import { IOptions, IMiddleware } from './types';
 import { CorsMiddleware } from './middleware';
 import packageJson from '../../../package.json';
 
@@ -20,11 +20,13 @@ export {
 	Options,
 	Response,
 	Service,
+	IOptions,
+	IMiddleware,
 };
 
 export default class Plugin implements IPlugin {
 
-	public constructor(private options?: IPluginOptions) {}
+	public constructor(private options?: IOptions) {}
 
 	public name = 'http';
 	public version = packageJson.version;

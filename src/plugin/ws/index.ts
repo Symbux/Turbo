@@ -1,7 +1,7 @@
-import { IPlugin } from '../../interface/plugin';
+import { IPlugin } from '../../interface/implements';
 import { Engine } from '../../module/engine';
 import { WsService as Service } from './service';
-import { IPluginOptions } from './types';
+import { IOptions, IPacket } from './types';
 import { Context } from './context';
 import { Controller } from './controller';
 import { Action } from './methods';
@@ -9,15 +9,17 @@ import { WsInternalController } from './internal';
 import packageJson from '../../../package.json';
 
 export {
-	Service,
 	Context,
 	Controller,
 	Action,
+	Service,
+	IOptions,
+	IPacket,
 };
 
 export default class Plugin implements IPlugin {
 
-	public constructor(private options?: IPluginOptions) {}
+	public constructor(private options?: IOptions) {}
 
 	public name = 'ws';
 	public version = packageJson.version;

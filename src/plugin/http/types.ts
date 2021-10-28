@@ -7,5 +7,5 @@ export interface IOptions {
 }
 
 export interface IMiddleware extends IGenericMiddleware {
-	handle: (context: Context) => Promise<void>;
+	handle: (context: Context) => Promise<boolean>;
 }

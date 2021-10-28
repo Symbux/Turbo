@@ -26,7 +26,7 @@ export interface ITask {
 }
 
 export interface IGenericMiddleware {
-	handle: (context: any) => Promise<void>;
+	handle: (context: any) => Promise<boolean>;
 }
 
 export interface IGenericContext {

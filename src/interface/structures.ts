@@ -29,3 +29,8 @@ export type FibreResponse = {
 	data?: any;
 	executionTime?: number;
 };
+
+export type IAuthResponse = {
+	failed: boolean;
+	stop: boolean;
+};

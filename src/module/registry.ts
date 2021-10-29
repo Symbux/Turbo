@@ -19,6 +19,9 @@ export class Registry {
 	 * @param key The key to register.
 	 * @param value The value to set.
 	 * @param overwrite Whether to allow overwriting an existing.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static set(key: string, value: any, overwrite = false): void {
 		this.logger.verbose('REGISTRY', `Setting key: "${key}" with value: "${value}" (overwrite: "${overwrite}").`);
@@ -31,7 +34,9 @@ export class Registry {
 	 * This will attempt to get a key from the registry.
 	 *
 	 * @param key The key to get.
-	 * @returns The value of the key.
+	 * @returns any
+	 * @static
+	 * @public
 	 */
 	public static get(key: string): any {
 		if (!this.register.has(key)) return null;
@@ -42,6 +47,9 @@ export class Registry {
 	 * This will remove a key from the registry.
 	 *
 	 * @param key The key to remove.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static remove(key: string): void {
 		this.logger.verbose('REGISTRY', `Removing key: "${key}".`);
@@ -51,6 +59,10 @@ export class Registry {
 
 	/**
 	 * This will clear the registry.
+	 *
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static clear(): void {
 		this.register.clear();
@@ -63,6 +75,9 @@ export class Registry {
 	 * @param name The name of the module.
 	 * @param value The module to register.
 	 * @param overwrite Whether to overwrite any existing.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static setModule(type: string, name: string, value: any, overwrite = false): void {
 		this.logger.verbose('REGISTRY', `Setting module: "${name}" of type: "${type}" (overwrite: "${overwrite}").`);
@@ -76,7 +91,9 @@ export class Registry {
 	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
-	 * @returns Dynamic module.
+	 * @returns [generic] ModuleType
+	 * @static
+	 * @public
 	 */
 	public static getModule<ModuleType>(type: string, name: string): ModuleType {
 		if (!this.modules[type]) throw new Error(`Registry module type "${type}" not found`);
@@ -89,7 +106,9 @@ export class Registry {
 	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
-	 * @returns Dynamic module.
+	 * @returns Array<ModuleType>
+	 * @static
+	 * @public
 	 */
 	public static getModules(type: string): Array<any> {
 		if (!this.modules[type]) return [];
@@ -101,6 +120,9 @@ export class Registry {
 	 *
 	 * @param type The type of the module.
 	 * @param name The name of the module.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static removeModule(type: string, name: string): void {
 		this.logger.verbose('REGISTRY', `Removing module: "${name}" of type: "${type}".`);
@@ -111,6 +133,10 @@ export class Registry {
 
 	/**
 	 * List all modules in the registry.
+	 *
+	 * @static
+	 * @returns any
+	 * @public
 	 */
 	public static listModules(): any {
 		const modules = {};
@@ -126,6 +152,9 @@ export class Registry {
 	 *
 	 * @param name The name of the action.
 	 * @param path The path to the action file.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static setAction(name: string, data: Record<string, any>): void {
 		this.actions.set(name, data);
@@ -136,6 +165,8 @@ export class Registry {
 	 *
 	 * @param name The name of the action.
 	 * @returns Object
+	 * @static
+	 * @public
 	 */
 	public static getAction(name: string): Record<string, any> {
 		if (this.actions.has(name)) return this.actions.get(name);
@@ -146,6 +177,9 @@ export class Registry {
 	 * Removes an action from the registry by the name.
 	 *
 	 * @param name The name of the action.
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static removeAction(name: string): void {
 		this.actions.delete(name);
@@ -155,6 +189,8 @@ export class Registry {
 	 * Lists all actions in the registry.
 	 *
 	 * @returns Array
+	 * @static
+	 * @public
 	 */
 	public static listActions(): Array<string> {
 		return Array.from(this.actions.keys());

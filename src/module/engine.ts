@@ -16,18 +16,20 @@ import { Authentication } from './authentication';
  * It also handles the autowiring of the modules.
  *
  * @class Engine
+ * @provides Engine {engine.core}, IOptions {engine.options}
+ * @injects logger
  */
 export class Engine {
 	@Inject() private logger!: Logger;
 	private services: Services;
 	private runner: Runner;
 	private autowire: Autowire;
-	private authentication: Authentication;
 
 	/**
-	 * Creates a new instance of the Turbo engine.
+	 * Creates a new instance of the engine.
 	 *
 	 * @param options Turbo options.
+	 * @constructor
 	 */
 	public constructor(private options: Partial<IOptions>) {
 		this.logger.info('ENGINE', 'Turbo engine is being initialised.');
@@ -43,7 +45,7 @@ export class Engine {
 		if (extension === '.ts') Registry.set('engine.mode', 'development');
 
 		// Initialise engine components.
-		this.authentication = new Authentication();
+		new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
 
@@ -67,6 +69,8 @@ export class Engine {
 	 * Accepts a plugin and then will register it internally.
 	 *
 	 * @param plugin The plugin to be added.
+	 * @returns void
+	 * @public
 	 */
 	public use(plugin: IPlugin): void {
 		this.logger.verbose('ENGINE', `Plugin: "${plugin.name}" is being registered.`);
@@ -80,6 +84,7 @@ export class Engine {
 	 *
 	 * @param module The module to be registered.
 	 * @returns void
+	 * @public
 	 */
 	public register(modules: Array<any>): void {
 		modules.forEach(module => {
@@ -92,6 +97,8 @@ export class Engine {
 	 *
 	 * @param module The module to be registered.
 	 * @param options Any options to pass to the module.
+	 * @returns void
+	 * @public
 	 */
 	public registerSingle(module: any, options?: Record<string, any>): void {
 		this.registerModule(module, options);
@@ -99,6 +106,10 @@ export class Engine {
 
 	/**
 	 * Starts the Turbo engine.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
 	 */
 	public async start(): Promise<void> {
 		this.logger.info('ENGINE', 'Turbo engine is starting.');
@@ -126,6 +137,10 @@ export class Engine {
 
 	/**
 	 * Stops the Turbo engine.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
 	 */
 	public async stop(): Promise<void> {
 
@@ -145,6 +160,8 @@ export class Engine {
 	 *
 	 * @param module The module instance.
 	 * @param options Options to be added to the constructor.
+	 * @returns void
+	 * @private
 	 */
 	private registerModule(module: any, options?: Record<string, any>): void {
 		this.logger.verbose('ENGINE', `Registering module: "${module.name}"${options ? ' with options: ' : ''}${JSON.stringify(options) || ''}.`);

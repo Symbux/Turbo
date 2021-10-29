@@ -1,8 +1,8 @@
 import { DecoratorHelper } from '../../helper/decorator';
 
 /**
- * This decorator is used to mark a class or method as
- * requiring authentication.
+ * This decorator adds an auth check to a controller's method, that
+ * enforces that a request has authenticated information.
  *
  * @returns MethodDecorator
  */

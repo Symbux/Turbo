@@ -2,7 +2,8 @@ import { DecoratorHelper } from '../../helper/decorator';
 import { IGenericMiddleware, Constructor } from '../../interface/implements';
 
 /**
- * This decorator will apply middleware to the given class, or method.
+ * This decorator will apply middleware to the given class, or method. It expects
+ * a middleware class (not an instance), the class is initialised on each request.
  *
  * @param middleware The middleware class to use.
  * @returns ClassDecorator

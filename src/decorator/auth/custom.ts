@@ -1,10 +1,13 @@
 import { DecoratorHelper } from '../../helper/decorator';
 
 /**
- * This decorator is used to mark a class or method as
- * requiring authentication with a custom strategy.
+ * This decorator adds an auth check to a controller's method, that
+ * allows you to pass a custom check.
  *
- * @param {Function} check The custom function.
+ * Custom Function Syntax:
+ *   (auth: Record<string, any>) => boolean
+ *
+ * @param check The custom function.
  * @returns MethodDecorator
  */
 export function Custom(check: (auth: Record<string, any>) => boolean): MethodDecorator {

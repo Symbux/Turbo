@@ -3,6 +3,15 @@ import { spawn, Thread, Worker } from 'threads';
 import { ILogger } from '../interface/implements';
 import { Inject } from '@symbux/injector';
 
+/**
+ * The FibreManager class is a static class that is used to manage the
+ * fibres, this can be imported and used in various contexts, including
+ * running fibres on-demand.
+ *
+ * @class FibreManager
+ * @injects logger
+ * @static
+ */
 export class FibreManager {
 	private static fibres: Map<string, FibreItem> = new Map();
 	private static baseOptions: FibreOptions = { warmup: false, expiry: 5 };
@@ -14,6 +23,8 @@ export class FibreManager {
 	 *
 	 * @param targetName The fibre class name.
 	 * @returns boolean.
+	 * @static
+	 * @public
 	 */
 	public static hasFibre(targetName: string): boolean {
 		return this.fibres.has(targetName);
@@ -25,7 +36,12 @@ export class FibreManager {
 	 * @param targetName The fibre class name.
 	 * @param name The user defined name.
 	 * @param path The path to the fibre class.
+	 * @param methods Array of exposed methods.
 	 * @param options Any options for the fibre.
+	 * @returns Promise<void>
+	 * @static
+	 * @async
+	 * @public
 	 */
 	public static async createFibre(targetName: string, name: string, path: string, methods: string[], options?: FibreOptions): Promise<void> {
 
@@ -58,8 +74,11 @@ export class FibreManager {
 	 *
 	 * @param targetName The fibre class name.
 	 * @param method The method to call.
-	 * @param args The arguments to pass to the method.
+	 * @param args Array of arguments to pass to the method.
 	 * @returns FibreResponse.
+	 * @async
+	 * @static
+	 * @public
 	 */
 	public static async runFibre(targetName: string, method: string, args: Array<any>): Promise<FibreResponse> {
 
@@ -100,8 +119,15 @@ export class FibreManager {
 	}
 
 	/**
-	 * This method will start the FibreManager service, which keeps the fibres
-	 * clean preventing rogue processes, and removing existing processes.
+	 * This method will start the FibreManager service, which does things like
+	 * keeping tabs on fibres, and killing them if they go over their expiry time.
+	 *
+	 * In the future, they will also collect information from the processes, for
+	 * like memory usage, current processing request, etc.
+	 *
+	 * @returns void
+	 * @static
+	 * @public
 	 */
 	public static startService(): void {
 		this.logger.verbose('FIBRE', 'Starting fibre (clean-up) service.');
@@ -113,7 +139,14 @@ export class FibreManager {
 	}
 
 	/**
-	 * This method will kill all fibres, and remove them from the map.
+	 * This function will loop over available threads, check if the thread is active
+	 * and kill them if so, this method is specifically used for either mass-clearing
+	 * all threads, and is specifically called on engine shutdown.
+	 *
+	 * @returns Promise<void>
+	 * @static
+	 * @async
+	 * @public
 	 */
 	public static async killAll(): Promise<void> {
 
@@ -140,8 +173,13 @@ export class FibreManager {
 	}
 
 	/**
-	 * This method is an internal process that does all of the thread cleanup
-	 * and removal of old threads.
+	 * The actual fibre service, this will check for fibres that have gone over
+	 * their expiry time, and kill them if they have.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @static
+	 * @private
 	 */
 	private static async runService(): Promise<void> {
 
@@ -190,6 +228,9 @@ export class FibreManager {
 	 * @param options The options to use.
 	 * @param path The path to the fibre class.
 	 * @returns FibreThread.
+	 * @static
+	 * @async
+	 * @private
 	 */
 	private static async spawnThread(options: FibreOptions, path: string): Promise<FibreThread> {
 

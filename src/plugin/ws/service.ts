@@ -13,6 +13,16 @@ import { IOptions, IPacket } from './types';
 import { Context as WsContext } from './context';
 import { Authentication } from '../../module/authentication';
 
+/**
+ * This class is the base WsPlugin's service which actually creates
+ * and manages the express application.
+ *
+ * @class WsService
+ * @extends AbstractService
+ * @provides WsService {engine.plugin.ws}, Options {engine.plugin.ws.options}
+ * @injects logger, engine.auth, engine.plugin.http
+ * @plugin Ws
+ */
 @Service('ws')
 export class WsService extends AbstractService {
 
@@ -30,12 +40,25 @@ export class WsService extends AbstractService {
 			session: Record<string, any>
 		}} = {};
 
+	/**
+	 * Creates an instance of the ws service.
+	 *
+	 * @param options The options for this service.
+	 * @constructor
+	 */
 	public constructor(options: IOptions) {
 		super(options);
 		Injector.register('engine.plugin.ws', this);
 		Injector.register('engine.plugin.ws.options', this.options);
 	}
 
+	/**
+	 * Initialises the service.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async initialise(): Promise<void> {
 		let server: HttpApplication;
 		if (this.httpService === null) {
@@ -71,6 +94,13 @@ export class WsService extends AbstractService {
 		this.setupRoutes();
 	}
 
+	/**
+	 * Starts the server.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async start(): Promise<void> {
 		if (this.httpService === null) {
 			this.serverInstance = this.server.listen(parseInt(this.options.port), () => {
@@ -79,20 +109,84 @@ export class WsService extends AbstractService {
 		}
 	}
 
+	/**
+	 * Stops the server.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async stop(): Promise<void> {
 		if (this.httpService === null) {
 			await this.serverInstance.close();
 		}
 	}
 
-	public setupDefaultMiddleware(): void {
+	/**
+	 * Gets the connection based on socket key.
+	 *
+	 * @param socketKey The socket key.
+	 * @returns { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }
+	 * @public
+	 */
+	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
+		return this.connections[socketKey];
+	}
+
+	/**
+	 * Gets all connected clients.
+	 *
+	 * @returns Array<{ socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }>
+	 * @public
+	 */
+	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
+		return this.connections;
+	}
+
+	/**
+	 * Will broadcast a packet to all connected clients.
+	 *
+	 * @param message The packet to send.
+	 * @public
+	 */
+	public broadcast(message: IPacket): void {
+		Object.keys(this.getConnections()).forEach((key) => {
+			this.getConnection(key).socket.send(JSON.stringify(message));
+		});
+	}
+
+	/**
+	 * Broadcasts a raw message all connected clients.
+	 *
+	 * @param message Raw content to send (should be a string).
+	 * @public
+	 */
+	public broadcastRaw(message: any): void {
+		Object.keys(this.getConnections()).forEach((key) => {
+			this.getConnection(key).socket.send(message);
+		});
+	}
+
+	/**
+	 * Sets up the default middleware, like cookie parser, urlencoded and json support.
+	 *
+	 * @returns void
+	 * @private
+	 */
+	private setupDefaultMiddleware(): void {
 		this.logger.verbose('PLUGIN:WS', 'Loading core middleware.');
 		this.server.use(cookieParser());
 		this.server.use(urlencoded({ extended: true }));
 		this.server.use(json());
 	}
 
-	public setupRoutes(): void {
+	/**
+	 * Sets up the routes.
+	 *
+	 * @returns void
+	 * @private
+	 */
+	private setupRoutes(): void {
 		this.logger.verbose('PLUGIN:WS', 'Starting route setup.');
 		this.server.ws(this.options.path || '/ws', (socket: WS, request: Request) => {
 
@@ -119,7 +213,16 @@ export class WsService extends AbstractService {
 		});
 	}
 
-	public async onOpen(socket: WS, request: Request): Promise<void> {
+	/**
+	 * Called when a connection comes in from a client.
+	 *
+	 * @param socket The socket instance.
+	 * @param request The express request instance.
+	 * @returns Promise<void>
+	 * @private
+	 * @async
+	 */
+	private async onOpen(socket: WS, request: Request): Promise<void> {
 
 		// Get any subscriptions.
 		const subscriptions = this.getSubscriptions(request);
@@ -138,7 +241,18 @@ export class WsService extends AbstractService {
 		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
 	}
 
-	public async onClose(socket: WS, request: Request, code: number, reason: string): Promise<void> {
+	/**
+	 * Called when a connection is closed.
+	 *
+	 * @param socket The socket instance.
+	 * @param request The express request instance.
+	 * @param code The close code.
+	 * @param reason The close reason.
+	 * @returns Promise<void>
+	 * @private
+	 * @async
+	 */
+	private async onClose(socket: WS, request: Request, code: number, reason: string): Promise<void> {
 
 		// Remove from the connections object.
 		const uniqueId = String(request.headers['sec-websocket-key']);
@@ -149,7 +263,17 @@ export class WsService extends AbstractService {
 		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
 	}
 
-	public async onError(socket: WS, request: Request, err: Error): Promise<void> {
+	/**
+	 * Called when a connection throws an error.
+	 *
+	 * @param socket The socket instance.
+	 * @param request The express request instance.
+	 * @param err The connection error.
+	 * @returns Promise<void>
+	 * @private
+	 * @async
+	 */
+	private async onError(socket: WS, request: Request, err: Error): Promise<void> {
 
 		// Remove from the connections object.
 		const uniqueId = String(request.headers['sec-websocket-key']);
@@ -160,7 +284,17 @@ export class WsService extends AbstractService {
 		this.logger.info('WEBSOCKET', `Information, connection count: ${Object.keys(this.connections).length}.`);
 	}
 
-	public async onMessage(socket: WS, request: Request, message: string): Promise<void> {
+	/**
+	 * Called when a connection receives a message from the client.
+	 *
+	 * @param socket The socket instance.
+	 * @param request The express request instance.
+	 * @param message The message raw string.
+	 * @returns Promise<void>
+	 * @private
+	 * @async
+	 */
+	private async onMessage(socket: WS, request: Request, message: string): Promise<void> {
 		try {
 
 			// Convert the message to JSON.
@@ -206,26 +340,14 @@ export class WsService extends AbstractService {
 		}
 	}
 
-	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
-		return this.connections[socketKey];
-	}
-
-	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
-		return this.connections;
-	}
-
-	public broadcast(message: IPacket): void {
-		Object.keys(this.getConnections()).forEach((key) => {
-			this.getConnection(key).socket.send(JSON.stringify(message));
-		});
-	}
-
-	public broadcastRaw(message: any): void {
-		Object.keys(this.getConnections()).forEach((key) => {
-			this.getConnection(key).socket.send(message);
-		});
-	}
-
+	/**
+	 * Finds a controller by namespace and method.
+	 *
+	 * @param namespace The controller namespace to search for.
+	 * @param method The controller method to search for.
+	 * @returns any
+	 * @private
+	 */
 	private findController(namespace: string, method: string): any {
 		for (const controller of this.controllers) {
 			const requiredNamespace = DecoratorHelper.getMetadata('t:ws:namespace', 'none', controller.module);
@@ -235,6 +357,15 @@ export class WsService extends AbstractService {
 		}
 	}
 
+	/**
+	 * Will check for any subscriptions from the express request
+	 * as custom headers or defined in the `sec-websocket-protocol`
+	 * header.
+	 *
+	 * @param request The express request object.
+	 * @returns Array<string>
+	 * @private
+	 */
 	private getSubscriptions(request: Request): Array<string> {
 
 		// Define subscriptions as an empty array.

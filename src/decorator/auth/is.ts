@@ -1,11 +1,10 @@
 import { DecoratorHelper } from '../../helper/decorator';
 
 /**
- * This decorator is used to mark a class or method as
- * requiring authentication with a given property matching
- * the expected value.
+ * This decorator adds an auth check to a controller's method, that
+ * checks if a property from the authenticated data is a specific value.
  *
- * @param property The property to match.
+ * @param property The property to check.
  * @param expected The expected value to match.
  * @returns MethodDecorator
  */

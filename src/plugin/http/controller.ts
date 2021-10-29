@@ -3,9 +3,10 @@ import { DecoratorHelper } from '../../helper/decorator';
 /**
  * This decorator is used to define a class as a HTTP controller, this
  * will define settings for the http service to use.
- * 
+ *
  * @param path The base http path of this controller.
- * @returns Function
+ * @returns ClassDecorator
+ * @plugin Http
  */
 export function Controller(path: string): ClassDecorator {
 	return (target: any): void => {

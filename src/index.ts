@@ -19,8 +19,18 @@ import * as Auth from './decorator/auth';
 import HttpPlugin, * as Http from './plugin/http';
 import WsPlugin, * as Ws from './plugin/ws';
 
+/**
+ * The main class of the framework.
+ *
+ * @export
+ */
 export default Engine;
 
+/**
+ * All re-exported classes from the framework.
+ *
+ * @export
+ */
 export {
 	AbstractController,
 	AbstractMiddleware,

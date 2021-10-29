@@ -1,5 +1,12 @@
 import { DecoratorHelper } from '../../helper/decorator';
 
+/**
+ * Defines a method as an endpoint for the HTTP GET method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Get(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {
@@ -10,6 +17,13 @@ export function Get(path: string): MethodDecorator {
 	};
 }
 
+/**
+ * Defines a method as an endpoint for the HTTP POST method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Post(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {
@@ -20,6 +34,13 @@ export function Post(path: string): MethodDecorator {
 	};
 }
 
+/**
+ * Defines a method as an endpoint for the HTTP PATCH method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Patch(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {
@@ -30,6 +51,13 @@ export function Patch(path: string): MethodDecorator {
 	};
 }
 
+/**
+ * Defines a method as an endpoint for the HTTP PUT method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Put(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {
@@ -40,6 +68,13 @@ export function Put(path: string): MethodDecorator {
 	};
 }
 
+/**
+ * Defines a method as an endpoint for the HTTP DELETE method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Delete(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {
@@ -50,6 +85,13 @@ export function Delete(path: string): MethodDecorator {
 	};
 }
 
+/**
+ * Defines a method as an endpoint for the HTTP OPTIONS method.
+ *
+ * @param path The endpoint path.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
 export function Options(path: string): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
 		DecoratorHelper.addMethod(target, propertyKey, {

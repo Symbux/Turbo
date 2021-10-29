@@ -7,4 +7,8 @@ export class ExampleFibre {
 	public async getName(name: string): Promise<string> {
 		return `Hello, ${name}!`;
 	}
+
+	public async callGetName(name: string): Promise<string> {
+		return await this.getName(name);
+	}
 }

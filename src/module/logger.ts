@@ -3,7 +3,7 @@ import { Provide } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
 
 /**
- * The built-in simple logger, that simply routes all logs to the Console API.
+ * The built-in simple logger, that simply routes all logs to the Console API with colours.
  */
 @Provide('engine.logger', [['info', 'warn', 'error', 'verbose', 'debug']])
 @Provide('logger', [['info', 'warn', 'error', 'verbose', 'debug']])
@@ -16,6 +16,7 @@ export class Logger implements ILogger {
 	 *
 	 * @param levels The array of allowed levels to log.
 	 * @returns Logger.
+	 * @constructor
 	 */
 	public constructor(allowedLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>) {
 		if (!allowedLevels) {
@@ -34,6 +35,7 @@ export class Logger implements ILogger {
 	 * @param message The contents of the output.
 	 * @param err An error object (optional).
 	 * @returns void.
+	 * @public
 	 */
 	public log(level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', title: string, message: string, err?: Error): void {
 		if (!this.levels.includes(level)) return;
@@ -48,6 +50,7 @@ export class Logger implements ILogger {
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @returns void.
+	 * @public
 	 */
 	public info(title: string, message: string): void {
 		if (!this.levels.includes('info')) return;
@@ -61,6 +64,7 @@ export class Logger implements ILogger {
 	 * @param title The title of the output.
 	 * @param message The contents of the output.
 	 * @returns void.
+	 * @public
 	 */
 	public warn(title: string, message: string): void {
 		if (!this.levels.includes('warn')) return;
@@ -76,6 +80,7 @@ export class Logger implements ILogger {
 	 * @param message The contents of the output.
 	 * @param err The error object.
 	 * @returns void.
+	 * @public
 	 */
 	public error(title: string, message: string, err?: Error): void {
 		if (!this.levels.includes('error')) return;
@@ -90,6 +95,7 @@ export class Logger implements ILogger {
 	 * @param content The contents of the output.
 	 * @param err The error object.
 	 * @returns void.
+	 * @public
 	 */
 	public verbose(title: string, message: string, err?: Error): void {
 		if (!this.levels.includes('verbose')) return;
@@ -105,6 +111,7 @@ export class Logger implements ILogger {
 	 * @param content The contents of the output.
 	 * @param err The error object.
 	 * @returns void.
+	 * @public
 	 */
 	public debug(title: string, content: any, err?: Error): void {
 		if (!this.levels.includes('debug')) return;
@@ -120,6 +127,7 @@ export class Logger implements ILogger {
 	 * @param message The contents of the output.
 	 * @param err The error object.
 	 * @returns void.
+	 * @public
 	 */
 	protected format(title: string, message: string, level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', err?: Error): string {
 		const currentDate = new Date().toISOString();

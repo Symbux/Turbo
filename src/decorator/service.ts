@@ -1,11 +1,13 @@
 import { DecoratorHelper } from '../helper/decorator';
 
 /**
- * This decorator is used to define a class as a HTTP controller, this
- * will define settings for the http service to use.
- * 
- * @param path The base http path of this controller.
- * @returns Function
+ * Defines a service which applies metadata to the class so that
+ * on registration, it can process that data, please provide a
+ * unique plugin name for the service, this allows for middlewares
+ * to be registered globally.
+ *
+ * @param plugin Unique name for service.
+ * @returns ClassDecorator
  */
 export function Service(plugin: string): ClassDecorator {
 	return (target: any): void => {

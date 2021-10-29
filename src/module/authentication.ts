@@ -4,14 +4,44 @@ import { AbstractController } from '../abstract/controller';
 import { IGenericContext, IGenericMiddleware, ILogger, IAuthCheck } from '../interface/implements';
 import { IAuthResponse } from '../interface/structures';
 
+/**
+ * The authentication module is responsible for handling all
+ * authentication checks for the application alongside running
+ * any middleware, validating the data, and also running any
+ * defined authentication checks.
+ *
+ * This module should be injected to services and should the
+ * service is in charge for making sure this is called correctly.
+ *
+ * @class Authentication
+ * @provides Authentication {engine.auth}
+ * @injects logger
+ */
 export class Authentication {
 
 	@Inject('logger') private logger!: ILogger;
 
+	/**
+	 * Creates an instance of Authentication.
+	 *
+	 * @constructor
+	 */
 	public constructor() {
 		Injector.register('engine.auth', this);
 	}
 
+	/**
+	 * This is the main method for the authentication module, this
+	 * is called by the service with the correct data, and will call
+	 * any middleware and run any authentication checks.
+	 *
+	 * @param context The context of the request.
+	 * @param controller The controller for that request.
+	 * @param method The controller method to call.
+	 * @returns IAuthResponse
+	 * @async
+	 * @public
+	 */
 	public async handle(context: IGenericContext, controller: AbstractController, method: string): Promise<IAuthResponse> {
 
 		// Firstly get metadata.
@@ -54,6 +84,4 @@ export class Authentication {
 		// Fallback to returning true.
 		return { failed: false, stop: false };
 	}
-
-
 }

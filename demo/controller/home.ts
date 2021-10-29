@@ -43,4 +43,11 @@ export default class HomeController extends AbstractController {
 		const output = await demoFibre.getName('Bob');
 		return new Http.Response(200, output);
 	}
+
+	@Http.Get('/fibre1')
+	public async fibre1(): Promise<Http.Response> {
+		const demoFibre = new ExampleFibre();
+		const output = await demoFibre.callGetName('Bob');
+		return new Http.Response(200, output);
+	}
 }

@@ -2,16 +2,38 @@ import { Engine } from './engine';
 import { IOptions } from '../interface/structures';
 import { resolve } from 'path';
 import { sync as glob } from 'glob';
-import { Inject } from '@symbux/injector';
+import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
 
+/**
+ * The autowire module is loaded if autowiring is enabled within the engine,
+ * this module is responsible for autowiring the engine with the modules by
+ * scanning directories for modules and calling the engine to register them.
+ *
+ * By default autowiring does not allow configuration, you can add optional
+ * configuration by using the `@Options` decorator.
+ *
+ * @class Autowire
+ * @provides Autowire {engine.autowire}
+ * @injects logger
+ */
 export class Autowire {
 
 	@Inject('logger') private logger!: ILogger;
 	public folders: Array<string> = [];
 	public foundFiles: Array<string> = [];
 
+	/**
+	 * Creates an instance of the autowire module.
+	 *
+	 * @param engine The engine instance.
+	 * @param options The engine's options.
+	 * @constructor
+	 */
 	public constructor(private engine: Engine, private options: Partial<IOptions>) {
+
+		// Register self.
+		Injector.register('engine.autowire', this);
 
 		// Define folders to scan for.
 		this.folders = [
@@ -35,6 +57,14 @@ export class Autowire {
 		}
 	}
 
+	/**
+	 * The actual async method that is called that will scan the folders
+	 * and wireup all of the modules.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async wireup(): Promise<void> {
 
 		// Define base path

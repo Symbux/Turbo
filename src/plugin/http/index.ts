@@ -8,6 +8,11 @@ import { HttpService as Service } from './service';
 import { IOptions, IMiddleware } from './types';
 import packageJson from '../../../package.json';
 
+/**
+ * Http plugin exports.
+ *
+ * @plugin Http
+ */
 export {
 	Context,
 	Controller,
@@ -23,13 +28,33 @@ export {
 	IMiddleware,
 };
 
+/**
+ * Pass to the engine.use method to install the plugin.
+ *
+ * @plugin Http
+ * @implements IPlugin
+ * @class HttpPlugin
+ */
 export default class Plugin implements IPlugin {
-
-	public constructor(private options?: IOptions) {}
 
 	public name = 'http';
 	public version = packageJson.version;
 
+	/**
+	 * Creates an instance of HttpPlugin.
+	 *
+	 * @param options The options for the plugin.
+	 * @constructor
+	 */
+	public constructor(private options?: IOptions) {}
+
+	/**
+	 * Will install itself to the engine.
+	 *
+	 * @param engine The engine to install the plugin to.
+	 * @returns void
+	 * @public
+	 */
 	public install(engine: Engine): void {
 		engine.registerSingle(Service, this.options);
 	}

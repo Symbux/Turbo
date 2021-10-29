@@ -1,13 +1,14 @@
 import { DecoratorHelper } from '../helper/decorator';
 
 /**
- * This decorator is used to define a class as a engine task.
- * Tasks can be used to run misc jobs that are not directly related
- * or for the odd job of cleanup.
- * 
+ * This decorator defines a class as a task item, and will register it
+ * accordingly, tasks are cron-based jobs that can be executed by the
+ * engine where you can schedule clean-up tasks, or run things at specific
+ * times.
+ *
  * @param name The name of this task.
  * @param schedule The cron-style schedule to run this task.
- * @returns Function
+ * @returns ClassDecorator
  */
 export function Task(name: string, schedule: string): ClassDecorator {
 	return (target: any): void => {

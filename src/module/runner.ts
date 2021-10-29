@@ -5,16 +5,37 @@ import { CronJob } from 'cron';
 import { DecoratorHelper } from '..';
 import { durationToHuman } from '../helper/misc';
 
+/**
+ * The runner module is in charge of executing the cron-style tasks,
+ * including scheduling and calling on-demand.
+ *
+ * @class Runner
+ * @provides Runner {engine.runner}
+ * @injects logger
+ */
 export class Runner {
 
 	@Inject('logger') private logger!: ILogger;
 	private tasks: Array<{ module: any, instance: any, options: any, job: CronJob }> = [];
 	private running = false;
 
+	/**
+	 * Creates an instance of the runner module.
+	 *
+	 * @constructor
+	 */
 	public constructor() {
 		Injector.register('engine.runner', this);
 	}
 
+	/**
+	 * Will intialise the runner module, by collecting the tasks, registering their
+	 * cron tasks and creating jobs.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async initialise(): Promise<void> {
 
 		// Get the tasks from the registry.
@@ -50,6 +71,13 @@ export class Runner {
 		});
 	}
 
+	/**
+	 * Will start the runner module, by starting the cron jobs.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async start(): Promise<void> {
 
 		// Set the status to running.
@@ -62,6 +90,13 @@ export class Runner {
 		});
 	}
 
+	/**
+	 * Will stop the runner module, by stopping the cron jobs.
+	 *
+	 * @returns Promise<void>
+	 * @async
+	 * @public
+	 */
 	public async stop(): Promise<void> {
 
 		// Set the status to running.
@@ -74,6 +109,12 @@ export class Runner {
 		});
 	}
 
+	/**
+	 * Will return the status of the runner module.
+	 *
+	 * @returns boolean
+	 * @public
+	 */
 	public isRunning(): boolean {
 		return this.running;
 	}

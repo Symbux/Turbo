@@ -1,13 +1,13 @@
 import { DecoratorHelper } from '../helper/decorator';
 
 /**
- * This decorator is used against a controller class to be run for any
- * route method inside of the controller.
+ * Defines a class as a decorator, will apply specific metadata so that when initialised
+ * it can call that data, including options.
  *
  * @param name Name of your middleware.
  * @param options Options for your middleware.
  * @param serviceId Optional service identifier or true for global [default: false].
- * @returns Function
+ * @returns ClassDecorator
  */
 export function Middleware(name: string, options?: Record<string, any>, serviceId: boolean | string = false): ClassDecorator {
 	return (target: any): void => {

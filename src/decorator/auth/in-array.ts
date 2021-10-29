@@ -1,10 +1,13 @@
 import { DecoratorHelper } from '../../helper/decorator';
 
 /**
- * This decorator is used to mark a class or method as requiring
- * authentication with a property inside of an array.
+ * This decorator adds an auth check to a controller's method, that
+ * checks if a property contains a specific value.
  *
- * @param property The property to match.
+ * Note: For arrays only, calls `.includes()` on the property.
+ *
+ * @param property The property to look at.
+ * @param expected The value to expect.
  * @returns MethodDecorator
  */
 export function InArray(property: string, expected: any): MethodDecorator {

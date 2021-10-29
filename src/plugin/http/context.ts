@@ -53,4 +53,8 @@ export class Context {
 	public getRaw(): Request {
 		return this.request;
 	}
+
+	public getResponse(): Response {
+		return this.response;
+	}
 }

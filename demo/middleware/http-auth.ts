@@ -4,6 +4,6 @@ import { Middleware, Http, AbstractMiddleware } from '../../src';
 export default class DemoAuthMiddleware extends AbstractMiddleware {
 	public async handle(context: Http.Context): Promise<boolean> {
 		context.setAuth({ user: 'public', email: 'noreply@example.com', roles: ['admin'] });
-		return false;
+		return true;
 	}
 }

@@ -92,14 +92,10 @@ export class Context {
 	}
 
 	public broadcast(message: IPacket): void {
-		Object.keys(this.wsService.getConnections()).forEach((key) => {
-			this.wsService.getConnection(key).socket.send(JSON.stringify(message));
-		});
+		this.wsService.broadcast(message);
 	}
 
 	public broadcastRaw(message: any): void {
-		Object.keys(this.wsService.getConnections()).forEach((key) => {
-			this.wsService.getConnection(key).socket.send(message);
-		});
+		this.wsService.broadcastRaw(message);
 	}
 }

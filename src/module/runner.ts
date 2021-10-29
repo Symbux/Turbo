@@ -45,7 +45,7 @@ export class Runner {
 
 				// Log job end.
 				const durationTime = durationToHuman(new Date().valueOf() - startTime);
-				this.logger.verbose('RUNNER', `Task "${task.module.name}" finished in "${durationTime}".`);
+				this.logger.verbose('RUNNER', `Task "${task.module.name}" finished in "${durationTime || '< 1 second.'}".`);
 			}, null, false, 'Europe/London');
 		});
 	}

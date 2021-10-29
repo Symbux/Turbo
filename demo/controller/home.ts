@@ -15,8 +15,7 @@ const customCheck = (auth: Record<string, any>) => {
 export default class HomeController extends AbstractController {
 
 	@Http.Get('/')
-	// @Auth.Has('email')
-	@Auth.Has('test123')
+	@Auth.Has('email')
 	@Auth.Authenticated()
 	@Auth.Custom(customCheck)
 	@Auth.Is('user', 'public')

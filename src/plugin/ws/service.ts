@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import { HttpService } from '../http/service';
 import expressWs, { Application } from 'express-ws';
 import * as WS from 'ws';
-import { IOptions } from './types';
+import { IOptions, IPacket } from './types';
 import { Context as WsContext } from './context';
 import { Authentication } from '../../module/authentication';
 
@@ -206,6 +206,26 @@ export class WsService extends AbstractService {
 		}
 	}
 
+	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
+		return this.connections[socketKey];
+	}
+
+	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
+		return this.connections;
+	}
+
+	public broadcast(message: IPacket): void {
+		Object.keys(this.getConnections()).forEach((key) => {
+			this.getConnection(key).socket.send(JSON.stringify(message));
+		});
+	}
+
+	public broadcastRaw(message: any): void {
+		Object.keys(this.getConnections()).forEach((key) => {
+			this.getConnection(key).socket.send(message);
+		});
+	}
+
 	private findController(namespace: string, method: string): any {
 		for (const controller of this.controllers) {
 			const requiredNamespace = DecoratorHelper.getMetadata('t:ws:namespace', 'none', controller.module);
@@ -213,14 +233,6 @@ export class WsService extends AbstractService {
 			if (typeof controller.instance[method] !== 'function') continue;
 			return controller;
 		}
-	}
-
-	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
-		return this.connections[socketKey];
-	}
-
-	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
-		return this.connections;
 	}
 
 	private getSubscriptions(request: Request): Array<string> {

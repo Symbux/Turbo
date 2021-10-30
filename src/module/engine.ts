@@ -9,6 +9,7 @@ import { Autowire } from './autowire';
 import { extname } from 'path';
 import { FibreManager } from '../fibre/manager';
 import { Authentication } from './authentication';
+import { DecoratorHelper } from '..';
 
 /**
  * The engine class is the main class of the application.
@@ -101,7 +102,8 @@ export class Engine {
 	 * @public
 	 */
 	public registerSingle(module: any, options?: Record<string, any>): void {
-		this.registerModule(module, options);
+		const decoratorOptions = DecoratorHelper.getMetadata('t:options', false, module);
+		this.registerModule(module, options || decoratorOptions);
 	}
 
 	/**

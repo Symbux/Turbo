@@ -1,4 +1,4 @@
-import { AbstractController, Http, Auth } from '../../src';
+import { AbstractController, Http, Auth, Options } from '../../src';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { ExampleFibre } from '../fibre/example';
@@ -12,6 +12,7 @@ const customCheck = (auth: Record<string, any>) => {
 
 @Http.Controller('/')
 @Auth.Use(DemoAuthMiddleware)
+@Options({ controller: 'home' })
 export default class HomeController extends AbstractController {
 
 	@Http.Get('/')

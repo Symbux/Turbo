@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import { sync as glob } from 'glob';
 import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
+import { DecoratorHelper } from '..';
 
 /**
  * The autowire module is loaded if autowiring is enabled within the engine,
@@ -93,7 +94,9 @@ export class Autowire {
 
 				// Add file to found files and then register.
 				this.foundFiles.push(file);
-				this.engine.registerSingle(moduleImport[moduleKeys[0]]);
+				const options = DecoratorHelper.getMetadata('t:options', {}, moduleImport[moduleKeys[0]]);
+				console.log(moduleImport[moduleKeys[0]], options);
+				this.engine.registerSingle(moduleImport[moduleKeys[0]], options || undefined);
 			}
 		}
 	}

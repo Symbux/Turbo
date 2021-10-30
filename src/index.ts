@@ -10,6 +10,7 @@ import * as Auth from './decorator/auth';
 import { Expose } from './decorator/expose';
 import { Fibre } from './decorator/fibre';
 import { Middleware } from './decorator/middleware';
+import { Options } from './decorator/options';
 import { Service } from './decorator/service';
 import { Task } from './decorator/task';
 
@@ -56,6 +57,7 @@ export {
 	Expose,
 	Fibre,
 	Middleware,
+	Options,
 	Service,
 	Task,
 	FibreManager,

@@ -1,6 +1,6 @@
 # Turbo Docker Image
 #
-# This is an example docker image that can be used to build a Turbo
+# This is an example docker config that can be used to build a Turbo
 # Docker image. Once built you can package your application and run
 # it on any container hosting service, or locally via the docker run
 # command.

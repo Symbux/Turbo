@@ -14,6 +14,8 @@
 
 The Turbo engine is a command-based framework for building API (and web) based applications using either built-in plugins or community/custom ones.
 
+> Package is in alpha, use at own risk.
+
 <br>
 
 <p align="center">

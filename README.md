@@ -18,7 +18,8 @@ The Turbo engine is a command-based framework for building API (and web) based a
 
 <p align="center">
 	<a href="https://discord.gg/3YuNTEMJey" target="_blank">
-		<img width="200" src="https://images.squarespace-cdn.com/content/v1/52290b27e4b0d4e459887aa9/1523645697591-KOD97HRR5QMOQ99BU0SK/join-us-on-discord_1.png">
+		<img width="200" src="https://discord.com/assets/cb48d2a8d4991281d7a6a95d2f58195e.svg">
+		<p align="center">Join us on Discord!</p>
 	</a>
 </p>
 

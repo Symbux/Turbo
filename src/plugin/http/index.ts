@@ -6,7 +6,7 @@ import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
 import { HttpService as Service } from './service';
 import { IOptions, IMiddleware } from './types';
-import packageJson from '../../../package.json';
+import { Registry } from '../../module/registry';
 
 /**
  * Http plugin exports.
@@ -38,7 +38,7 @@ export {
 export default class Plugin implements IPlugin {
 
 	public name = 'http';
-	public version = packageJson.version;
+	public version = Registry.get('engine.version');
 
 	/**
 	 * Creates an instance of HttpPlugin.

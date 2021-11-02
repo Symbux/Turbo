@@ -6,7 +6,7 @@ import { Context } from './context';
 import { Controller } from './controller';
 import { Action } from './methods';
 import { WsInternalController } from './internal';
-import packageJson from '../../../package.json';
+import { Registry } from '../../module/registry';
 
 /**
  * WS plugin exports.
@@ -35,7 +35,7 @@ export {
 export default class Plugin implements IPlugin {
 
 	public name = 'ws';
-	public version = packageJson.version;
+	public version = Registry.get('engine.version');
 
 	/**
 	 * Creates an instance of WsPlugin.

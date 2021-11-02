@@ -1,5 +1,5 @@
 import * as express from 'express';
-import packageJson from '../../../package.json';
+import { Registry } from '../../module/registry';
 
 /**
  * The response object is a proxy for creating HTTP responses within
@@ -39,7 +39,7 @@ export class Response {
 
 		// Define the headers.
 		const headers: Record<string, string> = Object.assign({
-			Server: `turbo/${packageJson.version}`,
+			Server: `turbo/${Registry.get('engine.version')}`,
 		}, this.headers);
 
 		// Set the headers to the response.

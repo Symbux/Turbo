@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import * as WS from 'ws';
 import { WsService } from './service';
-import { IPacket } from './types';
+import { IPacket, IWsConnection } from './types';
 
 /**
  * Context class for the WS plugin.
@@ -176,7 +176,7 @@ export class Context {
 	 * @returns { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }
 	 * @public
 	 */
-	public getConnection(): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
+	public getConnection(): IWsConnection {
 		const headers = this.request.headers;
 		const socketKey = headers['sec-websocket-key'];
 		return this.wsService.getConnection(socketKey as string);

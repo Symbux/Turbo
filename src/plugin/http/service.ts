@@ -1,5 +1,5 @@
 import express, { Application, urlencoded, json, Request, Response } from 'express';
-import { Inject, Injector } from '@symbux/injector';
+import { Injector } from '@symbux/injector';
 import cookieParser from 'cookie-parser';
 import { normalize } from 'path';
 import { AbstractService } from '../../abstract/service';
@@ -8,8 +8,7 @@ import { Registry } from '../../module/registry';
 import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
-import { ILogger, IService } from '../../interface/implements';
-import { Authentication } from '../../module/authentication';
+import { IService } from '../../interface/implements';
 
 /**
  * This class is the base HttpPlugin's service which actually creates
@@ -24,9 +23,6 @@ import { Authentication } from '../../module/authentication';
  */
 @Service('http')
 export class HttpService extends AbstractService implements IService {
-
-	@Inject('logger') private logger!: ILogger;
-	@Inject('engine.auth') private auth!: Authentication;
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;

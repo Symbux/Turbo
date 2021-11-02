@@ -1,5 +1,6 @@
 import { Context } from './context';
 import { IGenericMiddleware } from '../../interface/implements';
+import * as WS from 'ws';
 
 /**
  * Defines the structure of the options to give to the service.
@@ -11,6 +12,22 @@ export interface IOptions {
 	path?: string;
 	options?: Record<string, any>;
 	port?: number;
+}
+
+export interface IWsConnection {
+	socket: WS;
+	request: Request;
+	subscriptions: Array<string>;
+	session: Record<string, any>;
+}
+
+export interface IWsConnections {
+	[key: string]: {
+		socket: WS;
+		request: Request;
+		subscriptions: Array<string>;
+		session: Map<string, any>;
+	}
 }
 
 /**

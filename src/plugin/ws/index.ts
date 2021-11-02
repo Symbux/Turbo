@@ -1,7 +1,7 @@
 import { IPlugin } from '../../interface/implements';
 import { Engine } from '../../module/engine';
 import { WsService as Service } from './service';
-import { IOptions, IPacket, IMiddleware } from './types';
+import { IOptions, IPacket, IMiddleware, IWsConnection, IWsConnections } from './types';
 import { Context } from './context';
 import { Controller } from './controller';
 import { Action } from './methods';
@@ -21,6 +21,8 @@ export {
 	IOptions,
 	IPacket,
 	IMiddleware,
+	IWsConnection,
+	IWsConnections,
 };
 
 /**

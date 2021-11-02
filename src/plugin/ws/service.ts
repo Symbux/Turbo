@@ -1,6 +1,6 @@
 import { Service } from '../../decorator/service';
 import { AbstractService } from '../../abstract/service';
-import { ILogger, IService } from '../../interface/implements';
+import { IService } from '../../interface/implements';
 import { Inject, Injector } from '@symbux/injector';
 import express, { Application as HttpApplication, urlencoded, json, Request } from 'express';
 import { DecoratorHelper } from '../../helper/decorator';
@@ -9,9 +9,8 @@ import cookieParser from 'cookie-parser';
 import { HttpService } from '../http/service';
 import expressWs, { Application } from 'express-ws';
 import * as WS from 'ws';
-import { IOptions, IPacket } from './types';
+import { IOptions, IPacket, IWsConnections, IWsConnection } from './types';
 import { Context as WsContext } from './context';
-import { Authentication } from '../../module/authentication';
 
 /**
  * This class is the base WsPlugin's service which actually creates
@@ -27,19 +26,11 @@ import { Authentication } from '../../module/authentication';
 @Service('ws')
 export class WsService extends AbstractService implements IService {
 
-	@Inject('logger') private logger!: ILogger;
-	@Inject('engine.auth') private auth!: Authentication;
 	@Inject('engine.plugin.http', true) private httpService!: HttpService;
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;
-	private connections: {
-		[key: string]: {
-			socket: WS,
-			request: Request,
-			subscriptions: Array<string>,
-			session: Record<string, any>
-		}} = {};
+	private connections: IWsConnections = {};
 
 	/**
 	 * Creates an instance of the ws service.
@@ -127,20 +118,20 @@ export class WsService extends AbstractService implements IService {
 	 * Gets the connection based on socket key.
 	 *
 	 * @param socketKey The socket key.
-	 * @returns { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }
+	 * @returns IWsConnection
 	 * @public
 	 */
-	public getConnection(socketKey: string): { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> } {
+	public getConnection(socketKey: string): IWsConnection {
 		return this.connections[socketKey];
 	}
 
 	/**
 	 * Gets all connected clients.
 	 *
-	 * @returns Array<{ socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }>
+	 * @returns Array<IWsConnection>
 	 * @public
 	 */
-	public getConnections(): {[key: string]: { socket: WS, request: Request, subscriptions: Array<string>, session: Record<string, any> }} {
+	public getConnections(): {[key: string]: IWsConnection} {
 		return this.connections;
 	}
 
@@ -232,7 +223,7 @@ export class WsService extends AbstractService implements IService {
 		const uniqueId = String(request.headers['sec-websocket-key']);
 		this.connections[uniqueId] = {
 			socket: socket,
-			request: request,
+			request: request as any,
 			session: new Map<string, any>(),
 			subscriptions: subscriptions,
 		};

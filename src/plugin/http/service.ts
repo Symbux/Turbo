@@ -8,7 +8,7 @@ import { Registry } from '../../module/registry';
 import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
-import { ILogger } from '../../interface/implements';
+import { ILogger, IService } from '../../interface/implements';
 import { Authentication } from '../../module/authentication';
 
 /**
@@ -17,12 +17,13 @@ import { Authentication } from '../../module/authentication';
  *
  * @class HttpService
  * @extends AbstractService
+ * @implements IService
  * @provides HttpService {engine.plugin.http}, Options {engine.plugin.http.options}
  * @injects logger, engine.auth
  * @plugin Http
  */
 @Service('http')
-export class HttpService extends AbstractService {
+export class HttpService extends AbstractService implements IService {
 
 	@Inject('logger') private logger!: ILogger;
 	@Inject('engine.auth') private auth!: Authentication;

@@ -1,6 +1,6 @@
 import { Service } from '../../decorator/service';
 import { AbstractService } from '../../abstract/service';
-import { ILogger } from '../../interface/implements';
+import { ILogger, IService } from '../../interface/implements';
 import { Inject, Injector } from '@symbux/injector';
 import express, { Application as HttpApplication, urlencoded, json, Request } from 'express';
 import { DecoratorHelper } from '../../helper/decorator';
@@ -19,12 +19,13 @@ import { Authentication } from '../../module/authentication';
  *
  * @class WsService
  * @extends AbstractService
+ * @implements IService
  * @provides WsService {engine.plugin.ws}, Options {engine.plugin.ws.options}
  * @injects logger, engine.auth, engine.plugin.http
  * @plugin Ws
  */
 @Service('ws')
-export class WsService extends AbstractService {
+export class WsService extends AbstractService implements IService {
 
 	@Inject('logger') private logger!: ILogger;
 	@Inject('engine.auth') private auth!: Authentication;

@@ -16,6 +16,18 @@ export interface ILogger {
 }
 
 /**
+ * Defines the base structure of a service and what methods a service
+ * MUST implement.
+ *
+ * @interface IService
+ */
+export interface IService {
+	initialise: () => Promise<void>;
+	start: () => Promise<void>;
+	stop: () => Promise<void>;
+}
+
+/**
  * Defines the structure of a plugin, and the required methods and
  * metadata that should be available.
  *

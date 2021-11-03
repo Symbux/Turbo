@@ -1,4 +1,3 @@
-import { Injector } from '@symbux/injector';
 import { resolve } from 'path';
 import { Engine, HttpPlugin, WsPlugin } from '../src';
 

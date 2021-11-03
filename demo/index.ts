@@ -4,6 +4,7 @@ import { Engine, HttpPlugin, WsPlugin } from '../src';
 // Initialise engine instance.
 const engine = new Engine({
 	autowire: true,
+	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
 	basepath: resolve(process.cwd(), './demo'),
 });
 

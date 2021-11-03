@@ -1,30 +1,14 @@
 import { yellow, red, cyan, grey, blue, green } from 'chalk';
 import { Provide } from '@symbux/injector';
+import { Registry } from './registry';
 import { ILogger } from '../interface/implements';
 
 /**
  * The built-in simple logger, that simply routes all logs to the Console API with colours.
  */
-@Provide('engine.logger', [['info', 'warn', 'error', 'verbose', 'debug']])
-@Provide('logger', [['info', 'warn', 'error', 'verbose', 'debug']])
+@Provide('engine.logger')
+@Provide('logger')
 export class Logger implements ILogger {
-
-	protected levels: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>;
-
-	/**
-	 * This will create an instance of the logger with the given parameters.
-	 *
-	 * @param levels The array of allowed levels to log.
-	 * @returns Logger.
-	 * @constructor
-	 */
-	public constructor(allowedLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>) {
-		if (!allowedLevels) {
-			this.levels = ['info', 'warn', 'error'];
-		} else {
-			this.levels = allowedLevels;
-		}
-	}
 
 	/**
 	 * Generic log method that takes a level and will route to the
@@ -38,7 +22,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public log(level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', title: string, message: string, err?: Error): void {
-		if (!this.levels.includes(level)) return;
+		if (!this.hasLogLevel(level)) return;
 		if (typeof this[level] === 'undefined' || !(this[level] instanceof Function)) return;
 		this[level](title, message, err);
 	}
@@ -53,7 +37,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public info(title: string, message: string): void {
-		if (!this.levels.includes('info')) return;
+		if (!this.hasLogLevel('info')) return;
 		console.log(this.format(title, message, 'info'));
 	}
 
@@ -67,7 +51,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public warn(title: string, message: string): void {
-		if (!this.levels.includes('warn')) return;
+		if (!this.hasLogLevel('warn')) return;
 		console.log(this.format(title, message, 'warn'));
 	}
 
@@ -83,7 +67,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public error(title: string, message: string, err?: Error): void {
-		if (!this.levels.includes('error')) return;
+		if (!this.hasLogLevel('error')) return;
 		console.log(this.format(title, message, 'error', err));
 	}
 
@@ -98,7 +82,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public verbose(title: string, message: string, err?: Error): void {
-		if (!this.levels.includes('verbose')) return;
+		if (!this.hasLogLevel('verbose')) return;
 		console.log(this.format(title, message, 'verbose', err));
 	}
 
@@ -114,7 +98,7 @@ export class Logger implements ILogger {
 	 * @public
 	 */
 	public debug(title: string, content: any, err?: Error): void {
-		if (!this.levels.includes('debug')) return;
+		if (!this.hasLogLevel('debug')) return;
 		console.log(this.format(title, JSON.stringify(content), 'debug', err));
 	}
 
@@ -127,7 +111,7 @@ export class Logger implements ILogger {
 	 * @param message The contents of the output.
 	 * @param err The error object.
 	 * @returns void.
-	 * @public
+	 * @protected
 	 */
 	protected format(title: string, message: string, level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', err?: Error): string {
 		const currentDate = new Date().toISOString();
@@ -140,5 +124,17 @@ export class Logger implements ILogger {
 
 		// Return the formatted string.
 		return `${grey(currentDate)} ${green('[')}${title.toUpperCase()}${green(']:')} ${levelText} ${cyan(message)}${err ? ` - ${red(err.message)}` : ''}`;
+	}
+
+	/**
+	 * Checks whether the level is allowed to be logged.
+	 *
+	 * @param level The level of the log.
+	 * @returns boolean.
+	 * @protected
+	 */
+	protected hasLogLevel(level: string): boolean {
+		const levels: string[] = Registry.get('engine.logger.levels') || [];
+		return levels.includes(level);
 	}
 }

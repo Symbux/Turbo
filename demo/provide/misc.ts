@@ -2,10 +2,6 @@ import { Provide } from '@symbux/injector';
 
 @Provide()
 export class Misc {
-	public constructor() {
-		console.log('MISC RUNNING');
-	}
-
 	public add(num1: number, num2: number): number {
 		return num1 + num2;
 	}

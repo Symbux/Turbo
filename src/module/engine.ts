@@ -33,6 +33,13 @@ export class Engine {
 	 * @constructor
 	 */
 	public constructor(private options: Partial<IOptions>) {
+
+		// Define the log levels.
+		let logLevels = ['info', 'warn', 'error'];
+		if (options.logLevels) logLevels = options.logLevels;
+		Registry.set('engine.logger.levels',logLevels);
+
+		// Log the engine is starting.
 		this.logger.info('ENGINE', 'Turbo engine is being initialised.');
 
 		// Register base injections.

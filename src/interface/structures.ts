@@ -10,6 +10,7 @@ export interface IOptions {
 	autowire: boolean;
 	folders: string[];
 	basepath?: string;
+	logLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>;
 }
 
 /**

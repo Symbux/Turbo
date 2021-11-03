@@ -15,7 +15,9 @@
     "start": "node -r ts-node/register demo/index.ts",
     "build": "rm -rf lib && tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest"
+    "test": "jest",
+	"prepublishOnly": "yarn lint && yarn build",
+	"changelog": "auto-changelog --template keepachangelog --commit-limit false --hide-credit"
   },
   "publishConfig": {
     "access": "public"

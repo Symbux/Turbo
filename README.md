@@ -51,6 +51,8 @@ npm install --save @symbux/turbo
 
 ## Getting Started
 
+[You can find the documentation here](https://github.com/Symbux/Turbo/wiki).
+
 ```typescript
 import { Engine, HttpPlugin, WsPlugin } from '@symbux/turbo';
 

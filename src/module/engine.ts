@@ -39,7 +39,7 @@ export class Engine {
 		Injector.register('engine.core', this);
 		Injector.register('engine.options', this.options);
 		Registry.set('engine.status', 'main');
-		Registry.set('engine.version', '0.2.1');
+		Registry.set('engine.version', '0.2.2');
 
 		// Check the mode we are running in.
 		const extension = extname(__filename);
@@ -170,11 +170,12 @@ export class Engine {
 		this.logger.verbose('ENGINE', `Registering module: "${module.name}"${options ? ' with options: ' : ''}${JSON.stringify(options) || ''}.`);
 		const moduleType = Reflect.getMetadata('t:type', module);
 		const moduleName = Reflect.getMetadata('t:name', module);
+		const isProvider = DecoratorHelper.getMetadata('engine:module', '', module) === 'provider';
 
 		Registry.setModule(moduleType, moduleName, {
 			module: module,
 			options: options,
-			instance: new module(options || {}),
+			instance: !isProvider ? new module(options || {}) : null,
 		});
 
 		this.logger.verbose('ENGINE', `Module: ${module.name} was registered.`);

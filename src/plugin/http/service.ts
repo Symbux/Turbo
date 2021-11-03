@@ -64,8 +64,8 @@ export class HttpService extends AbstractService implements IService {
 		// Setup the routes.
 		this.setupTrustProxy();
 		this.setupHelmet();
-		this.setupStatic();
 		this.setupRoutes();
+		this.setupStatic();
 	}
 
 	/**
@@ -197,10 +197,8 @@ export class HttpService extends AbstractService implements IService {
 	public setupStatic(): void {
 		const staticFolders = (this.options as IOptions).static;
 		if (staticFolders && Array.isArray(staticFolders)) {
-			console.log(staticFolders);
 			staticFolders.forEach(folder => {
 				if (!folder.pathname) {
-					console.log(folder.folder);
 					this.server.use(express.static(folder.folder));
 				} else {
 					this.server.use(folder.pathname, express.static(folder.folder));

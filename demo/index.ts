@@ -10,6 +10,14 @@ const engine = new Engine({
 // Use the http plugin.
 engine.use(new HttpPlugin({
 	port: 3000,
+	static: [{ folder: resolve(__dirname, './public') }],
+	security: {
+		enableHelmet: true,
+		disablePoweredBy: true,
+		helmetOptions: {
+			contentSecurityPolicy: false,
+		},
+	},
 }));
 
 // Use the ws plugin.

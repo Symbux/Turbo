@@ -9,6 +9,8 @@ import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
 import { IService } from '../../interface/implements';
+import { IOptions } from './types';
+import helmet from 'helmet';
 
 /**
  * This class is the base HttpPlugin's service which actually creates
@@ -60,6 +62,9 @@ export class HttpService extends AbstractService implements IService {
 		});
 
 		// Setup the routes.
+		this.setupTrustProxy();
+		this.setupHelmet();
+		this.setupStatic();
 		this.setupRoutes();
 	}
 
@@ -154,6 +159,54 @@ export class HttpService extends AbstractService implements IService {
 				this.logger.verbose('PLUGIN:HTTP', `Route: "${route.method.toUpperCase()} ${normalize(basePath + route.path.toLowerCase())}" was setup on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
 			});
 		});
+	}
+
+	/**
+	 * Instructs express about which proxies to trust, provided by an array of
+	 * supported strings from the options for the plugin.
+	 */
+	public setupTrustProxy(): void {
+		const trustProxy = (this.options as IOptions).security?.trustProxy;
+		if (trustProxy && Array.isArray(trustProxy)) {
+			this.server.set('trust proxy', trustProxy.join(', '));
+		}
+	}
+
+	/**
+	 * If helmet is enabled, will attempt to setup the helmet middleware library
+	 * as a security layer on top of the express server. This package is a collection
+	 * of middlewares that can be enabled/disabled via the settings to help secure
+	 * the express server.
+	 */
+	public setupHelmet(): void {
+		const enableHelmet = (this.options as IOptions).security?.enableHelmet;
+		const helmetOptions = (this.options as IOptions).security?.helmetOptions;
+		if (enableHelmet) {
+			if (helmetOptions) {
+				this.server.use(helmet(helmetOptions));
+			} else {
+				this.server.use(helmet());
+			}
+		}
+	}
+
+	/**
+	 * Allows the use of hosting static files within express, provided by an
+	 * array of folder and [optional] pathnames from the plugin options.
+	 */
+	public setupStatic(): void {
+		const staticFolders = (this.options as IOptions).static;
+		if (staticFolders && Array.isArray(staticFolders)) {
+			console.log(staticFolders);
+			staticFolders.forEach(folder => {
+				if (!folder.pathname) {
+					console.log(folder.folder);
+					this.server.use(express.static(folder.folder));
+				} else {
+					this.server.use(folder.pathname, express.static(folder.folder));
+				}
+			});
+		}
 	}
 
 	/**

@@ -95,7 +95,6 @@ export class Autowire {
 				// Add file to found files and then register.
 				this.foundFiles.push(file);
 				const options = DecoratorHelper.getMetadata('t:options', {}, moduleImport[moduleKeys[0]]);
-				console.log(moduleImport[moduleKeys[0]], options);
 				this.engine.registerSingle(moduleImport[moduleKeys[0]], options || undefined);
 			}
 		}

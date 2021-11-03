@@ -4,3 +4,94 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [v0.2.3](https://github.com/Symbux/Turbo/compare/v0.2.2...v0.2.3) - 2021-11-03
+
+### Commits
+
+- Updated the new patch version. [`d247b7a`](https://github.com/Symbux/Turbo/commit/d247b7a298908bc0aed7342a3268b35e1cf78648)
+
+## [v0.2.2](https://github.com/Symbux/Turbo/compare/v0.2.1...v0.2.2) - 2021-11-03
+
+### Commits
+
+- Added a fix to the logger system, and added a new options items to define the log levels. [`9334e32`](https://github.com/Symbux/Turbo/commit/9334e32be781a34cc09b6b03c181484e8e640284)
+
+## [v0.2.1](https://github.com/Symbux/Turbo/compare/v0.2.0...v0.2.1) - 2021-11-03
+
+### Commits
+
+- Removed debug code, and fixed an issue where, when using static it would overwrite existing routes from controllers, and fixed another bug where providers were being initialised twice. [`6a8aa3e`](https://github.com/Symbux/Turbo/commit/6a8aa3e27a594be724653a3cfc5cb5328af4993a)
+
+## [v0.2.0](https://github.com/Symbux/Turbo/compare/v0.1.1...v0.2.0) - 2021-11-03
+
+### Commits
+
+- Pulled in fix from @symbux/injector [`e292b1f`](https://github.com/Symbux/Turbo/commit/e292b1f382c32dffc4952629b16656a0b66ac2de)
+- Removed the old docs files from the repo. [`6375fcb`](https://github.com/Symbux/Turbo/commit/6375fcbaac1096d23d82051e25edb677a45e09fd)
+- Added support for static file registration, support for trust proxy, helmet and additional security updates. [`566dd1d`](https://github.com/Symbux/Turbo/commit/566dd1d0e8da25378c962658de0f6bf08057ce1d)
+- Fixed readme issues. [`23df5c1`](https://github.com/Symbux/Turbo/commit/23df5c1951ba0e42fce560cbe40c191a2a8f6aa6)
+- Bumped version. [`cef0ea5`](https://github.com/Symbux/Turbo/commit/cef0ea562a08ca9368eea43c8c5943dbb69f23a8)
+- Bumped version. [`ba7f0d4`](https://github.com/Symbux/Turbo/commit/ba7f0d4d2b2b4fa4b53c4393a08624554c17f8f9)
+- Fixed readme issues. [`8ea442c`](https://github.com/Symbux/Turbo/commit/8ea442ce42de1bbd8f471a77e136d4b23ba1e2d0)
+- Bumped package version. [`797ee4a`](https://github.com/Symbux/Turbo/commit/797ee4a5869a1b2f12ca08d7b8a3ba5bcc87b32c)
+- Removed unused import in demo [`1a07787`](https://github.com/Symbux/Turbo/commit/1a07787aaaf9c07fb69c7f90abac2998de0a34d1)
+
+## [v0.1.1](https://github.com/Symbux/Turbo/compare/v0.1.0...v0.1.1) - 2021-11-02
+
+### Commits
+
+- Bumped package version. [`01ab3bb`](https://github.com/Symbux/Turbo/commit/01ab3bbc16a7b12a9fc9830ae15912e696b9e4de)
+
+## v0.1.0 - 2021-11-02
+
+### Commits
+
+- Initial [`7f08214`](https://github.com/Symbux/Turbo/commit/7f082144c3b19115645d00b0362e2bbac956c426)
+- Finished the alpha version of the http plugin, and lots of fixes alongside support for the task runner. [`e5cd90e`](https://github.com/Symbux/Turbo/commit/e5cd90ebac9bfcf5d4a473ab6e040babd0ecd093)
+- Added full comments, and TSDoc definitions. [`c6c5fd5`](https://github.com/Symbux/Turbo/commit/c6c5fd56640d0bdeae1304915bbe2652d586b4ae)
+- Added websocket service. [`f14ac71`](https://github.com/Symbux/Turbo/commit/f14ac718883241833aec7887f0d2830fcf95ea76)
+- Updated all dependencies. [`521e5b9`](https://github.com/Symbux/Turbo/commit/521e5b9d0c34541b5b8becd2abdc1617d361c93e)
+- Added the start of the actions module, and adding additional functionality for session management and subscriptions within WebSockets. [`7d3918d`](https://github.com/Symbux/Turbo/commit/7d3918d5937b273aa0f5bdd2d45ee9f161cafd37)
+- Removed the old actions idea code, and started implementation of fibres functionality, this is nearly finished, just need to link up to the FibresManager instead. [`d4b411c`](https://github.com/Symbux/Turbo/commit/d4b411cfe201756de96295d9789ce5aec1f06f94)
+- Started working on WebSocket service support. [`5ef2b0f`](https://github.com/Symbux/Turbo/commit/5ef2b0fda221865da456350790a5e361779a77f7)
+- Updated the fibre manager to be in charge of running and managing fibres with various utility commands, and logging. [`0360b04`](https://github.com/Symbux/Turbo/commit/0360b04bcc97aba697d23b7e59ee7efb10f0766c)
+- Reinstalled deps [`04a55f9`](https://github.com/Symbux/Turbo/commit/04a55f97e06721ebf28fe63b04299963d4a3563b)
+- Implemented middleware and the authentication checks. [`303a6ff`](https://github.com/Symbux/Turbo/commit/303a6ff3713b8231fa9ed8a43c05dedab0ec89bd)
+- Started adding documentation for the core features of the framework. [`486f12f`](https://github.com/Symbux/Turbo/commit/486f12fdea10255b62a1e9ecfe8a13ab153c3eb2)
+- Added apache 2.0 license. [`127e467`](https://github.com/Symbux/Turbo/commit/127e4676034f792f10ce4950d4b397943dc06d1e)
+- Cleaning up lots of interfaces making sure they are easier to find and a bit more functional. [`649c5bf`](https://github.com/Symbux/Turbo/commit/649c5bf36a94d9979a47354843ef8a4beb098c09)
+- Allowed middleware to respond with a do not continue. [`c03e8ab`](https://github.com/Symbux/Turbo/commit/c03e8ab1f17b303ec2d398b8461c35e6fdbf6509)
+- Various updates including changing the format of the Authentication module. [`f3793fb`](https://github.com/Symbux/Turbo/commit/f3793fbce0045294fec5514e2fb5952fa321a2cb)
+- Removing old code. [`b34a53e`](https://github.com/Symbux/Turbo/commit/b34a53ee59849da6d34cc43b7226ab6b21389487)
+- Cleanup and small changes to make sure everything works as expected. [`2d8bddb`](https://github.com/Symbux/Turbo/commit/2d8bddb777f8dcf03a3b1c8c4691b5858cb90f13)
+- Added fixes to the services to make sure they implement the IService interface, and made sure the middleware demo implements the Http.IMiddleware item, alongside that, I removed the old action code from the registry. [`8eef0a0`](https://github.com/Symbux/Turbo/commit/8eef0a04ed97e8f7f49d2bed570ad0e3f040aaad)
+- Fixed the typings for the WsPlugin for the connections list, alongside changes to the abstract controller/service to auto inject the required base libs (like logger). [`afdca4e`](https://github.com/Symbux/Turbo/commit/afdca4ef22e528e82ad907f21ed76a76738bb262)
+- Made some changes to work with the tasks, allowing them to call on the WebSocket service to broadcast stuff, alongside fixing the demo to work. [`909c037`](https://github.com/Symbux/Turbo/commit/909c037ab47f179b8b86bd1621cf06ac294d809c)
+- Make sure everything is exported correctly and updated/cleaned up the readme.md [`69b0da1`](https://github.com/Symbux/Turbo/commit/69b0da16131f6d93e5482fb620913b4fdc2d8f4e)
+- Removed 'pool' mode as it's not feasible in this context, I shall look at a custom pool setup. [`d8c1548`](https://github.com/Symbux/Turbo/commit/d8c1548c7bc3a3c6e9c99d4a415e3d5d6f583a26)
+- Made sure all services follow the same structure. [`1f88853`](https://github.com/Symbux/Turbo/commit/1f8885322d17a99fc2be5a7df59a6af73b995576)
+- Added support for shutdown of fibres, services and components. [`90aa511`](https://github.com/Symbux/Turbo/commit/90aa511d591e6f002d07c285fbc12426794e3f8e)
+- Added docker configuration example for building the app, the defined is a simple setup to build the project. [`90f5060`](https://github.com/Symbux/Turbo/commit/90f5060a05ea261b9a85e5842ae51cb317e20f70)
+- Added the http cors middleware to the registration and edited a bit, including a way of injecting functions. [`1c713a3`](https://github.com/Symbux/Turbo/commit/1c713a3dda03d4b2b20a115623a8c055437d6df0)
+- Added fixes. [`10a2c04`](https://github.com/Symbux/Turbo/commit/10a2c047fbbfb572ceffb4f36e75b9d27c0bba1c)
+- Various cleanup, logo colour change. [`a794d99`](https://github.com/Symbux/Turbo/commit/a794d99a67be123393c26f2cf94fee2f7ab0586d)
+- Finished the new options decorator, and made sure it's configured with autowire. [`72b6f53`](https://github.com/Symbux/Turbo/commit/72b6f53d00ea2a2414c9cc17a30f8d9ae1c31c6b)
+- Added some partial fixes. [`7d07222`](https://github.com/Symbux/Turbo/commit/7d07222bfaa61815a952207ef1395f6c6fc337b5)
+- Added fixes and removed the packageJson requirement. [`138b537`](https://github.com/Symbux/Turbo/commit/138b537ee065bdc55cfacc2a80c43a883decef0c)
+- Added editor config, alongside logo. [`4c4f3d6`](https://github.com/Symbux/Turbo/commit/4c4f3d6873e0a4dbb08a02a4d1c0d67e53d3e96a)
+- Started working on new options decorator. [`2e0a63b`](https://github.com/Symbux/Turbo/commit/2e0a63b882bbfea73cd1bd4bf4293bd4a26ab29a)
+- Readme update. [`0db1b1a`](https://github.com/Symbux/Turbo/commit/0db1b1abf1599a69817b0e9d4dfc0642f2ee2a9f)
+- Added change to fix services which are not returning 401's when an auth check fails. [`523c14a`](https://github.com/Symbux/Turbo/commit/523c14a77194574162aabadf70f9b2f2ce24a975)
+- Working on dockerfile, added reference to keep testing. [`aadf53b`](https://github.com/Symbux/Turbo/commit/aadf53b8c8c53ebecb9a03d77c1be31771dbe09b)
+- Update README.md [`99ea1b5`](https://github.com/Symbux/Turbo/commit/99ea1b5186c7c772c3c4c0c51d8bb5da1242fe8c)
+- Added discord link [`66611db`](https://github.com/Symbux/Turbo/commit/66611db8ef0aebe91477dd9ba0bd82a0485ab490)
+- Removed thread pool references. [`9c5a11d`](https://github.com/Symbux/Turbo/commit/9c5a11dcd0eb09c6f00fdae6354cc92134d70e90)
+- Added support for the @Options decorator when registering a module, either via engine.register or engine.registerSingle. [`d797d3f`](https://github.com/Symbux/Turbo/commit/d797d3f190c9acc39c5063ac42a926dd095cae7f)
+- Started working on some docker tests, to check integration. [`b901771`](https://github.com/Symbux/Turbo/commit/b9017716de1218ec4f7942392b5c1e68db7b9c4f)
+- Removed old option for actions (now fibres). [`abd02bd`](https://github.com/Symbux/Turbo/commit/abd02bd45aba61e29b93751d9d6a6e71720cb6cd)
+- Readme update. [`242494f`](https://github.com/Symbux/Turbo/commit/242494f7ed11cf02eebaa122e893f53d70ea99b8)
+- Readme update. [`1efefaf`](https://github.com/Symbux/Turbo/commit/1efefaf538bc0bd7e630d0ef5767ba33ca428a53)
+- Readme update. [`ffb4349`](https://github.com/Symbux/Turbo/commit/ffb4349b9a476e0dfdd8c223cec71368eac4e2d7)
+- Update README.md [`a8cdee3`](https://github.com/Symbux/Turbo/commit/a8cdee3f161e4c2b7d99eea364ac38305054eb35)
+- Wording change. [`52066ba`](https://github.com/Symbux/Turbo/commit/52066ba3e516bf206f0d4c78d641248b9c9bcefb)

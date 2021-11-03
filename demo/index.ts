@@ -1,3 +1,4 @@
+import { Injector } from '@symbux/injector';
 import { resolve } from 'path';
 import { Engine, HttpPlugin, WsPlugin } from '../src';
 
@@ -9,7 +10,7 @@ const engine = new Engine({
 
 // Use the http plugin.
 engine.use(new HttpPlugin({
-	port: 3000,
+	port: 3002,
 	static: [{ folder: resolve(__dirname, './public') }],
 	security: {
 		enableHelmet: true,
@@ -23,7 +24,6 @@ engine.use(new HttpPlugin({
 // Use the ws plugin.
 engine.use(new WsPlugin({
 	path: '/ws',
-	port: 3000,
 }));
 
 // Start engine.

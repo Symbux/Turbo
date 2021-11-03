@@ -12,12 +12,12 @@ jobs:
         run: npm run lint
       - name: Build packages
         run: npm run build
-      - name: Run tests
-        run: npm test
-      - name: Publish coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
-          verbose: true
-          fail_ci_if_error: false
+    #   - name: Run tests
+    #     run: npm test
+    #   - name: Publish coverage
+    #     uses: codecov/codecov-action@v1
+    #     with:
+    #       token: ${{ secrets.CODECOV_TOKEN }}
+    #       flags: unittests
+    #       verbose: true
+    #       fail_ci_if_error: false

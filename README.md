@@ -5,12 +5,12 @@
 </p>
 
 
-![Codecov](https://img.shields.io/codecov/c/github/Symbux/Turbo)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Symbux/Turbo/Build)
+<!-- ![Codecov](https://img.shields.io/codecov/c/github/Symbux/turbo) -->
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Symbux/turbo/Build)
 ![GitHub issues](https://img.shields.io/github/issues/Symbux/Turbo)
-![NPM](https://img.shields.io/npm/l/@symbux/Turbo)
-![npm (scoped)](https://img.shields.io/npm/v/@symbux/Turbo)
-![npm](https://img.shields.io/npm/dw/@symbux/Turbo)
+![NPM](https://img.shields.io/npm/l/@symbux/turbo)
+![npm (scoped)](https://img.shields.io/npm/v/@symbux/turbo)
+![npm](https://img.shields.io/npm/dw/@symbux/turbo)
 
 The Turbo engine is a command-based framework for building API (and web) based applications using either built-in plugins or community/custom ones.
 

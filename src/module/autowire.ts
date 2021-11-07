@@ -94,8 +94,15 @@ export class Autowire {
 
 				// Add file to found files and then register.
 				this.foundFiles.push(file);
-				const options = DecoratorHelper.getMetadata('t:options', {}, moduleImport[moduleKeys[0]]);
-				this.engine.registerSingle(moduleImport[moduleKeys[0]], options || undefined);
+
+				// Check if it is an engine import.
+				const isEngineModule = DecoratorHelper.getMetadata('engine:module', 0, moduleImport[moduleKeys[0]]);
+				if (isEngineModule === 1) {
+
+					// Get any decorator based options.
+					const options = DecoratorHelper.getMetadata('t:options', {}, moduleImport[moduleKeys[0]]);
+					this.engine.registerSingle(moduleImport[moduleKeys[0]], options || undefined);
+				}
 			}
 		}
 	}

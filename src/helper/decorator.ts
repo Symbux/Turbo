@@ -59,6 +59,7 @@ export class DecoratorHelper {
 	 * @public
 	 */
 	public static setClassBase(target: any, moduleType: string): void {
+		Reflect.defineMetadata('engine:module', 1, target);
 		Reflect.defineMetadata('t:name', target.name, target);
 		Reflect.defineMetadata('t:type', moduleType, target);
 	}

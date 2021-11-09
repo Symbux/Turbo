@@ -72,8 +72,11 @@ export class Autowire {
 		const basePath = this.options.basepath || resolve(process.cwd(), './src');
 		this.logger.verbose('AUTOWIRE', `Base path: ${basePath}`);
 
+		// Scan for all files.
+		const foldersToScan = this.options.scanFoldersOnly ? this.folders : ['.'];
+
 		// Loop folders and collect files.
-		for await (const folder of this.folders) {
+		for await (const folder of foldersToScan) {
 
 			// Log folder.
 			this.logger.verbose('AUTOWIRE', `Scanning folder: ${resolve(basePath, `./${folder}`)}`);
@@ -91,6 +94,7 @@ export class Autowire {
 				// Import file and load keys.
 				const moduleImport = await import(resolve(basePath, folder, file));
 				const moduleKeys = Object.keys(moduleImport);
+				if (moduleKeys.length === 0) continue;
 
 				// Add file to found files and then register.
 				this.foundFiles.push(file);

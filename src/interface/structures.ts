@@ -9,6 +9,7 @@ export interface IOptions {
 	host: string;
 	autowire: boolean;
 	folders: string[];
+	scanFoldersOnly?: boolean;
 	basepath?: string;
 	logLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>;
 }

@@ -94,6 +94,8 @@ export class Autowire {
 				// Import file and load keys.
 				const moduleImport = await import(resolve(basePath, folder, file));
 				const moduleKeys = Object.keys(moduleImport);
+
+				// If no module exports, continue.
 				if (moduleKeys.length === 0) continue;
 
 				// Add file to found files and then register.

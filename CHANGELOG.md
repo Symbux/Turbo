@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.6](https://github.com/Symbux/Turbo/compare/v0.2.5...v0.2.6) - 2021-11-24
+
+### Fixed
+
+- Added a fix to only check for .js files in production mode, fixes #17 [`#17`](https://github.com/Symbux/Turbo/issues/17)
+
+### Commits
+
+- Recompiled changelog. [`c7286d6`](https://github.com/Symbux/Turbo/commit/c7286d64097286b5331e836dc2fe80d189cc88ba)
+
 ## [v0.2.5](https://github.com/Symbux/Turbo/compare/v0.2.4...v0.2.5) - 2021-11-24
 
 ### Fixed

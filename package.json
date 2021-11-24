@@ -1,6 +1,6 @@
 {
   "name": "@symbux/turbo",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Turbo is a powerful command engine with extendability in mind, with built-in HTTP/WebSocket services.",
   "main": "lib/index.js",
   "repository": "git@github.com:Symbux/Turbo.git",

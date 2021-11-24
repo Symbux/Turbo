@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.4](https://github.com/Symbux/Turbo/compare/v0.2.3...v0.2.4) - 2021-11-24
+
+### Merged
+
+- Create CODE_OF_CONDUCT.md [`#4`](https://github.com/Symbux/Turbo/pull/4)
+
+### Fixed
+
+- Changed the basepath definition to support a source and compiled property as compiled apps use a different path like ./dist or ./src, fixes #17 [`#17`](https://github.com/Symbux/Turbo/issues/17)
+- Completed new autowire scanFoldersOnly, fixes #6 [`#6`](https://github.com/Symbux/Turbo/issues/6)
+- Added a fix to prevent non-turbo related modules being initialised and then throwing an error, fixes #5 [`#5`](https://github.com/Symbux/Turbo/issues/5)
+
+### Commits
+
+- Added dynamic changelog. [`9663f46`](https://github.com/Symbux/Turbo/commit/9663f466b3ef2e98f474ae3815ddc8f4dc7d4fd3)
+- Create codeql-analysis.yml [`30220ff`](https://github.com/Symbux/Turbo/commit/30220ff0e68d6dac5ccb6702c1085355a671c631)
+- Update issue templates [`730be78`](https://github.com/Symbux/Turbo/commit/730be782f9891efd8f179d39033194bece5f5c8f)
+- Create CONTRIBUTING.md [`7a2a025`](https://github.com/Symbux/Turbo/commit/7a2a025011fc8942f2ffa4081707184b0b80288d)
+- Create SECURITY.md [`ea3173a`](https://github.com/Symbux/Turbo/commit/ea3173a10f0448c4db295c33ecad4778d802e352)
+- Added new feature to allow the whole source folder (or basepath) to be scanned, feature #6 [`15495aa`](https://github.com/Symbux/Turbo/commit/15495aa7bb330783acb29b39425701b1e021ba6f)
+- Increment version. [`6d9b9a6`](https://github.com/Symbux/Turbo/commit/6d9b9a6383189cb887af13934b6704656594c0eb)
+
 ## [v0.2.3](https://github.com/Symbux/Turbo/compare/v0.2.2...v0.2.3) - 2021-11-03
 
 ### Commits

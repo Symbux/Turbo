@@ -69,19 +69,19 @@ export class Autowire {
 	 */
 	public async wireup(): Promise<void> {
 
-		// Define base path.
+		// Define base path and mode.
+		const isProduction = Registry.get('engine.mode') === 'production' || Registry.get('engine.mode') === 'prod';
 		let basePath: string;
 
 		// Check for modes and source.
-		console.log(Registry.get('engine.mode'));
 		if (this.options.basepath) {
-			if (Registry.get('engine.mode') === 'production') {
+			if (isProduction) {
 				basePath = resolve(process.cwd(), this.options.basepath.compiled);
 			} else {
 				basePath = resolve(process.cwd(), this.options.basepath.source);
 			}
 		} else {
-			if (Registry.get('engine.mode') === 'production') {
+			if (isProduction) {
 				basePath = resolve(process.cwd(), './dist');
 			} else {
 				basePath = resolve(process.cwd(), './src');
@@ -102,7 +102,7 @@ export class Autowire {
 
 			// Define the folder path.
 			const folderPath = resolve(basePath, `./${folder}`);
-			const files = glob(`${folderPath}/**/*{.ts,.js}`);
+			const files = glob(`${folderPath}${isProduction ? '/**/*{.js}' : '/**/*{.ts,.js}'}`);
 
 			// Loop files and add to found files and import.
 			for await (const file of files) {

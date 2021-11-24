@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.5](https://github.com/Symbux/Turbo/compare/v0.2.4...v0.2.5) - 2021-11-24
+
+### Fixed
+
+- Added a fix to support a problem where the engine.mode was based on it's own compiled vs source files instead, when being used as a library then the package will be in development, but for users of the library the package is compiled and therefore assumes production, changed to base it on environment variable 'ENV', fixes #17 [`#17`](https://github.com/Symbux/Turbo/issues/17)
+
+### Commits
+
+- Committed updated changelog. [`1ba838e`](https://github.com/Symbux/Turbo/commit/1ba838e56e508d36f33e4173e6bda855db1f4b07)
+
 ## [v0.2.4](https://github.com/Symbux/Turbo/compare/v0.2.3...v0.2.4) - 2021-11-24
 
 ### Merged

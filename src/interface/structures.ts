@@ -10,7 +10,10 @@ export interface IOptions {
 	autowire: boolean;
 	folders: string[];
 	scanFoldersOnly?: boolean;
-	basepath?: string;
+	basepath?: {
+		source: string;
+		compiled: string;
+	};
 	logLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>;
 }
 

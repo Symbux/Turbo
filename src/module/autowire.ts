@@ -4,7 +4,8 @@ import { resolve } from 'path';
 import { sync as glob } from 'glob';
 import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
-import { DecoratorHelper } from '..';
+import { DecoratorHelper } from '../helper/decorator';
+import { Registry } from './registry';
 
 /**
  * The autowire module is loaded if autowiring is enabled within the engine,
@@ -68,8 +69,25 @@ export class Autowire {
 	 */
 	public async wireup(): Promise<void> {
 
-		// Define base path
-		const basePath = this.options.basepath || resolve(process.cwd(), './src');
+		// Define base path.
+		let basePath: string;
+
+		// Check for modes and source.
+		if (this.options.basepath) {
+			if (Registry.get('engine.mode') === 'production') {
+				basePath = resolve(process.cwd(), this.options.basepath.compiled);
+			} else {
+				basePath = resolve(process.cwd(), this.options.basepath.source);
+			}
+		} else {
+			if (Registry.get('engine.mode') === 'production') {
+				basePath = resolve(process.cwd(), './dist');
+			} else {
+				basePath = resolve(process.cwd(), './src');
+			}
+		}
+
+		// Note the base path.
 		this.logger.verbose('AUTOWIRE', `Base path: ${basePath}`);
 
 		// Scan for all files.

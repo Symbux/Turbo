@@ -5,7 +5,10 @@ import { Engine, HttpPlugin, WsPlugin } from '../src';
 const engine = new Engine({
 	autowire: true,
 	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
-	basepath: resolve(process.cwd(), './demo'),
+	basepath: {
+		source: resolve(process.cwd(), './demo'),
+		compiled: resolve(process.cwd(), './demo'),
+	},
 });
 
 // Use the http plugin.

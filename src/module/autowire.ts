@@ -73,6 +73,7 @@ export class Autowire {
 		let basePath: string;
 
 		// Check for modes and source.
+		console.log(Registry.get('engine.mode'));
 		if (this.options.basepath) {
 			if (Registry.get('engine.mode') === 'production') {
 				basePath = resolve(process.cwd(), this.options.basepath.compiled);

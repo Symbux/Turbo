@@ -1,6 +1,6 @@
 {
   "name": "@symbux/turbo",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Turbo is a powerful command engine with extendability in mind, with built-in HTTP/WebSocket services.",
   "main": "lib/index.js",
   "repository": "git@github.com:Symbux/Turbo.git",
@@ -12,7 +12,7 @@
   "homepage": "https://github.com/Symbux/Turbo#readme",
   "private": false,
   "scripts": {
-    "start": "node -r ts-node/register demo/index.ts",
+    "start": "ENV=development node -r ts-node/register demo/index.ts",
     "build": "rm -rf lib && tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",

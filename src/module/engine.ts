@@ -46,12 +46,13 @@ export class Engine {
 		Injector.register('engine.core', this);
 		Injector.register('engine.options', this.options);
 		Registry.set('engine.status', 'main');
-		Registry.set('engine.version', '0.2.4');
+		Registry.set('engine.version', '0.2.5');
 
 		// Check the mode we are running in.
 		const extension = extname(__filename);
-		if (extension === '.js') Registry.set('engine.mode', 'production');
-		if (extension === '.ts') Registry.set('engine.mode', 'development');
+		if (extension === '.js') Registry.set('engine.internal.mode', 'production');
+		if (extension === '.ts') Registry.set('engine.internal.mode', 'development');
+		Registry.set('engine.mode', String(process.env.ENV || 'development'));
 
 		// Initialise engine components.
 		new Authentication();

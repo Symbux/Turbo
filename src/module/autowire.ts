@@ -94,6 +94,8 @@ export class Autowire {
 		// Scan for all files.
 		const foldersToScan = this.options.scanFoldersOnly ? this.folders : ['.'];
 
+		console.log(foldersToScan);
+
 		// Loop folders and collect files.
 		for await (const folder of foldersToScan) {
 
@@ -102,7 +104,9 @@ export class Autowire {
 
 			// Define the folder path.
 			const folderPath = resolve(basePath, `./${folder}`);
-			const files = glob(`${folderPath}${isProduction ? '/**/*{.js}' : '/**/*{.ts,.js}'}`);
+			const files = glob(`${folderPath}${isProduction ? '/**/*.js' : '/**/*{.ts,.js}'}`);
+
+			console.log(files);
 
 			// Loop files and add to found files and import.
 			for await (const file of files) {

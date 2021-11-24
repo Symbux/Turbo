@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.7](https://github.com/Symbux/Turbo/compare/v0.2.6...v0.2.7) - 2021-11-24
+
+### Fixed
+
+- Fixed an issue where the glob pattern in production mode was not finding .js files, related to bad pattern, fixes #18 [`#18`](https://github.com/Symbux/Turbo/issues/18)
+
+### Commits
+
+- Updated changelog. [`44493a6`](https://github.com/Symbux/Turbo/commit/44493a6bda6b2951f243ce9574f7364074408846)
+
 ## [v0.2.6](https://github.com/Symbux/Turbo/compare/v0.2.5...v0.2.6) - 2021-11-24
 
 ### Fixed

@@ -10,6 +10,10 @@ export interface IOptions {
 	autowire: boolean;
 	folders: string[];
 	scanFoldersOnly?: boolean;
+	translations?: {
+		default?: string;
+		folder?: string;
+	};
 	basepath?: {
 		source: string;
 		compiled: string;
@@ -76,3 +80,44 @@ export interface IAuthResponse {
 	failed: boolean;
 	stop: boolean;
 }
+
+/**
+ * Defines the structure of a country data, that comes from the JSON data.
+ *
+ * @type ICountryData
+ */
+export type ICountryData = Record<string, ICountryItem>;
+
+/**
+ * Defines the structure of a country item, that comes from the JSON data.
+ *
+ * @type ICountryItem
+ */
+export type ICountryItem = {
+	name: string;
+	native: string;
+	phone: string;
+	continent: string;
+	capital: string;
+	currency: string;
+	languages: string[];
+};
+
+
+/**
+ * Defines the structure of a language data, that comes from the JSON data.
+ *
+ * @type ILanguageData
+ */
+export type ILanguageData = Record<string, ILanguageItem>;
+
+/**
+ * Defines the structure of a language item, that comes from the JSON data.
+ *
+ * @type ILanguageItem
+ */
+export type ILanguageItem = {
+	name: string;
+	native: string;
+	rtl?: number;
+};

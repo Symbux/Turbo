@@ -51,4 +51,16 @@ export default class HomeController extends AbstractController {
 		const output = await demoFibre.callGetName('Bob');
 		return new Http.Response(200, output);
 	}
+
+	@Http.Get('/translate')
+	public async translate(): Promise<Http.Response> {
+		const langs = ['en_GB', 'fr_FR', 'es_ES'];
+		const phrases = ['Home', 'Our Work', 'About Us', 'Contact Us', 'Get In Touch'];
+		const output = langs.map(lang => {
+			return phrases.map(phrase => {
+				return this._t(phrase, lang);
+			}).join(', ');
+		});
+		return new Http.Response(200, output.join('<br>'));
+	}
 }

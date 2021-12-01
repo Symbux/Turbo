@@ -9,7 +9,8 @@ import { Autowire } from './autowire';
 import { extname } from 'path';
 import { FibreManager } from '../fibre/manager';
 import { Authentication } from './authentication';
-import { DecoratorHelper } from '..';
+import { DecoratorHelper } from '../helper/decorator';
+import { Translator } from './translator';
 
 /**
  * The engine class is the main class of the application.
@@ -25,6 +26,7 @@ export class Engine {
 	private services: Services;
 	private runner: Runner;
 	private autowire: Autowire;
+	private translator?: Translator;
 
 	/**
 	 * Creates a new instance of the engine.
@@ -58,6 +60,9 @@ export class Engine {
 		new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
+		if (options.translations?.default && options.translations.folder) {
+			this.translator = new Translator(options.translations?.default, options.translations?.folder);
+		}
 
 		// Initialise fibre processor.
 		FibreManager.startService();
@@ -134,6 +139,7 @@ export class Engine {
 		this.logger.verbose('ENGINE', 'Initialising engine components.');
 		await this.services.initialise();
 		await this.runner.initialise();
+		await this.translator?.initialise();
 		this.logger.verbose('ENGINE', 'Engine components were initialised.');
 
 		// Start components.

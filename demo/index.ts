@@ -5,6 +5,10 @@ import { Engine, HttpPlugin, WsPlugin } from '../src';
 const engine = new Engine({
 	autowire: true,
 	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
+	translations: {
+		default: 'en_GB',
+		folder: resolve(__dirname, './translations'),
+	},
 	basepath: {
 		source: resolve(process.cwd(), './demo'),
 		compiled: resolve(process.cwd(), './demo'),

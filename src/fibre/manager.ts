@@ -132,9 +132,7 @@ export class FibreManager {
 	public static startService(): void {
 		this.logger.verbose('FIBRE', 'Starting fibre (clean-up) service.');
 		this.interval = setInterval(() => {
-			this.logger.verbose('FIBRE', 'Running fibre service.');
 			this.runService();
-			this.logger.verbose('FIBRE', 'Fibre service finished.');
 		}, 1000 * 60);
 	}
 

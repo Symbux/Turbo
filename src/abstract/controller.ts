@@ -10,7 +10,6 @@ import { Translator } from '../module/translator';
  * @abstract
  */
 export class AbstractController {
-
 	@Inject('logger') protected logger!: ILogger;
 	@Inject('engine.translator') protected translator!: Translator;
 

@@ -18,8 +18,8 @@ import { Inject, Injector } from '@symbux/injector';
  * @injects logger
  */
 export class Translator {
-
 	@Inject('logger') private logger!: ILogger;
+	private searchRegex = /_t\(.*\)/gim;
 	private countryData: ICountryData = CountryDataJson;
 	private languageData: ILanguageData = LanguageDataJson;
 	private translations: Record<string, Record<string, string>> = {};
@@ -31,7 +31,7 @@ export class Translator {
 	 * @param languagesFolder The absolute path to the languages folder.
 	 * @constructor
 	 */
-	public constructor(private defaultLang: string = 'en_GB', private languagesFolder: string) {
+	public constructor(private defaultLang: string = 'en-GB', private languagesFolder: string) {
 
 		// Register self.
 		Injector.register('engine.translator', this);
@@ -80,6 +80,59 @@ export class Translator {
 	}
 
 	/**
+	 * Will regex match the given string against t(\W)
+	 * and then loop over the matches, translate them
+	 * and then replace them in the string.
+	 *
+	 * @param source The source content.
+	 * @param lang The language to translate to.
+	 * @returns string
+	 * @public
+	 */
+	public autoTranslate(source: string, languages: string[]): string {
+
+		// If no matches, return source.
+		const matches = source.match(this.searchRegex);
+		if (!matches) return source;
+
+		// Loop matches.
+		matches.toString().split(', ').forEach(matchName => {
+
+			// Get the string to translate.
+			let sourceText = matchName.replace(/_t\(|\)/g, '');
+
+			// Now check for available
+			for (const index in languages) {
+				if (this.translations[languages[index]] && this.translations[languages[index]][sourceText]) {
+					sourceText = this.translations[languages[index]][sourceText];
+					break;
+				}
+			}
+
+			// Run a replace against it.
+			source = source.replace(matchName, sourceText);
+		});
+
+		// Return the updated source.
+		return source;
+	}
+
+	/**
+	 * Translates a string using the given language, if no
+	 * translation is available, it will return false instead
+	 * of using the backup.
+	 *
+	 * @param string The string to translate.
+	 * @param language The language to use for the translation.
+	 * @returns string
+	 * @public
+	 */
+	public translateOrFail(source: string, lang: string): string | boolean {
+		if (this.translations[lang] && this.translations[lang][source]) return this.translations[lang][source];
+		return false;
+	}
+
+	/**
 	 * Gets the country item for the given country code.
 	 *
 	 * @param code The country code to get the data for.
@@ -99,5 +152,26 @@ export class Translator {
 	 */
 	public getLanguageFromCode(code: string): ILanguageItem {
 		return this.languageData[code];
+	}
+
+	/**
+	 * Sets the default language.
+	 *
+	 * @param lang The language to set as the default.
+	 * @returns void
+	 * @public
+	 */
+	public setDefaultLanguage(lang: string): void {
+		this.defaultLang = lang;
+	}
+
+	/**
+	 * Returns the currently set default language.
+	 *
+	 * @returns string
+	 * @public
+	 */
+	public getDefaultLanguage(): string[] {
+		return [ this.defaultLang ];
 	}
 }

@@ -10,10 +10,21 @@ export default class WsapiController extends AbstractController {
 	@Ws.Action()
 	public async index(context: Ws.Context): Promise<void> {
 		context.send({
-			command: 'hello',
+			command: 'wsapi/index',
 			content: {
 				message: 'Hello World!',
 				quickmaths: this.misc.add(1, 2),
+			},
+		});
+	}
+
+	@Ws.Action()
+	public async translate(context: Ws.Context): Promise<void> {
+		context.shouldTranslate(true);
+		context.send({
+			command: 'wsapi/translate',
+			content: {
+				message: '_t(Home) World! :D',
 			},
 		});
 	}

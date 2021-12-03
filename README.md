@@ -101,6 +101,7 @@ A list of available features:
 | Authentication | Built in authentication decorators can be applied to a controller method to do checks against middleware set authentication data. |
 | Registry | The engine provides a registry for storing data, this can be used to store data in memory, alongside the registry stores all modules that have been loaded into the engine. |
 | Services | Services are classes that provide a service which can call controllers, and methods to run business logic, for example the HttpPlugin comes with a HttpService that sets up and manages an Express application, usually we suggest setting services up as plugins, see the source code `src/plugin/http` as an example. |
+| Translations (i18n) | This feature allows you to support the default `Accept-Language` header to support manual and auto-translation of your content. |
 
 <br>
 

@@ -2,6 +2,8 @@ import { Request } from 'express';
 import * as WS from 'ws';
 import { WsService } from './service';
 import { IPacket, IWsConnection } from './types';
+import { Inject } from '@symbux/injector';
+import { Translator } from '../../module/translator';
 
 /**
  * Context class for the WS plugin.
@@ -10,7 +12,8 @@ import { IPacket, IWsConnection } from './types';
  * @plugin Ws
  */
 export class Context {
-	private auth: Record<string, any> = {};
+	@Inject('engine.translator') private translator!: Translator;
+	private willTranslate = false;
 
 	/**
 	 * Creates instance of context.
@@ -26,6 +29,7 @@ export class Context {
 		private socket: WS,
 		private wsService: WsService,
 		private packet: IPacket,
+		private languages: string[],
 	) {}
 
 	/**
@@ -55,6 +59,38 @@ export class Context {
 		const socketKey = headers['sec-websocket-key'];
 		const connection = this.wsService.getConnection(socketKey as string);
 		return connection.session.auth;
+	}
+
+	/**
+	 * Get's the accepted languages for the request.
+	 *
+	 * @returns string
+	 * @public
+	 */
+	public getLanguages(): string[] {
+		return this.languages;
+	}
+
+	/**
+	 * Will set a higher ranking language.
+	 *
+	 * @param lang The language.
+	 * @returns void
+	 */
+	public setLanguage(lang: string): void {
+		this.languages.unshift(lang);
+	}
+
+	/**
+	 * Defaulted to false, when enabled, all data sent
+	 * through the socket is run through the translation
+	 * module.
+	 *
+	 * @param status Whether to translate or not.
+	 * @returns void
+	 */
+	public shouldTranslate(status: boolean): void {
+		this.willTranslate = status;
 	}
 
 	/**
@@ -183,13 +219,28 @@ export class Context {
 	}
 
 	/**
+	 * Will accept the source data and translate it based
+	 * on the accepted translations.
+	 *
+	 * @param source The source content.
+	 * @returns string
+	 */
+	public translate(source: string): string {
+		return this.translator.autoTranslate(source, this.languages);
+	}
+
+	/**
 	 * Will send a packet to the client.
 	 *
 	 * @param message The packet to send.
 	 * @public
 	 */
 	public send(message: IPacket): void {
-		this.socket.send(JSON.stringify(message));
+		this.socket.send(
+			this.willTranslate
+				? this.translate(JSON.stringify(message))
+				: JSON.stringify(message),
+		);
 	}
 
 	/**
@@ -199,11 +250,16 @@ export class Context {
 	 * @public
 	 */
 	public sendRaw(message: any): void {
-		this.socket.send(message);
+		this.socket.send(
+			this.willTranslate
+				? this.translate(JSON.stringify(message))
+				: JSON.stringify(message),
+		);
 	}
 
 	/**
 	 * Will broadcast a packet to all connected clients.
+	 * **Note broadcasts are not translated.**
 	 *
 	 * @param message The packet to send.
 	 * @public
@@ -214,6 +270,7 @@ export class Context {
 
 	/**
 	 * Broadcasts a raw message all connected clients.
+	 * **Note broadcasts are not translated.**
 	 *
 	 * @param message Raw content to send (should be a string).
 	 * @public

@@ -6,6 +6,22 @@ import { Context } from './context';
 export class WsInternalController {
 
 	@Action()
+	public async language(context: Context): Promise<void> {
+		const language = context.getPacket().content?.language;
+		const connection = context.getConnection();
+		if (language) {
+			context.setLanguage(language);
+			connection.languages.unshift(language);
+		}
+		context.send({
+			command: '::internal/language',
+			content: {
+				status: true,
+			},
+		});
+	}
+
+	@Action()
 	public async subscribe(context: Context): Promise<void> {
 		const packet = context.getPacket();
 		const subscriptions: string[] = packet.content ? packet.content.subscriptions : [];

@@ -21,13 +21,20 @@
 			el.innerText = JSON.stringify(data);
 
 			// WebSocket Test.
-			const socket = new WebSocket('ws://localhost:3000/ws');
+			const socket = new WebSocket('ws://localhost:3002/ws');
 			socket.onopen = () => {
 				console.log('WS Open');
+				socket.send(JSON.stringify({ command: '::internal/language', content: {
+					language: 'fr-FR'
+				}}));
 				socket.send(JSON.stringify({ command: '::internal/subscribe', content: {
 					subscriptions: ['test1'],
 				}}));
 				socket.send(JSON.stringify({ command: '::internal/subscriptions' }));
+				socket.send(JSON.stringify({ command: 'wsapi/index' }));
+				setTimeout(() => {
+					socket.send(JSON.stringify({ command: 'wsapi/translate' }));
+				}, 1000);
 			}
 			socket.onclose = () => console.log('WS Closed');
 			socket.onerror = (e) => console.error('WS Error', e);

@@ -11,6 +11,7 @@ import expressWs, { Application } from 'express-ws';
 import * as WS from 'ws';
 import { IOptions, IPacket, IWsConnections, IWsConnection } from './types';
 import { Context as WsContext } from './context';
+import { Translator } from '../../module/translator';
 
 /**
  * This class is the base WsPlugin's service which actually creates
@@ -27,6 +28,7 @@ import { Context as WsContext } from './context';
 export class WsService extends AbstractService implements IService {
 
 	@Inject('engine.plugin.http', true) private httpService!: HttpService;
+	@Inject('engine.translator') private translator!: Translator;
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;
@@ -226,6 +228,7 @@ export class WsService extends AbstractService implements IService {
 			request: request as any,
 			session: new Map<string, any>(),
 			subscriptions: subscriptions,
+			languages: request.acceptsLanguages(),
 		};
 
 		// Notify console.
@@ -289,6 +292,9 @@ export class WsService extends AbstractService implements IService {
 	private async onMessage(socket: WS, request: Request, message: string): Promise<void> {
 		try {
 
+			// Define the unique ID.
+			const uniqueId = String(request.headers['sec-websocket-key']);
+
 			// Convert the message to JSON.
 			const packet = JSON.parse(message);
 			if (typeof packet.command === 'undefined') throw new Error('Given websocket message is invalid');
@@ -301,10 +307,10 @@ export class WsService extends AbstractService implements IService {
 			if (typeof controller === 'undefined') throw new Error('Given websocket command is invalid');
 
 			// Create a context object.
-			const contextObject = new WsContext(request, socket, this, packet);
+			const contextObject = new WsContext(request, socket, this, packet, this.connections[uniqueId].languages);
 
 			// Run the authentication.
-			const authResponse = await this.auth.handle(contextObject, controller, method);
+			const authResponse = await this.auth.handle(contextObject, controller.instance, method);
 			if (authResponse.failed && authResponse.stop) {
 				contextObject.send({
 					command: 'error',

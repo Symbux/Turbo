@@ -8,6 +8,7 @@ import { Request, Response, NextFunction } from 'express';
  */
 export class Context {
 	private auth: Record<string, any> = {};
+	private languages: string[];
 
 	/**
 	 * Creates instance of context.
@@ -21,7 +22,10 @@ export class Context {
 		private request: Request,
 		private response: Response,
 		private nextFunction?: NextFunction,
-	) {}
+	) {
+		this.languages = request.acceptsLanguages();
+		(this.request as any).ENGINE_CONTEXT = this;
+	}
 
 	/**
 	 * Sets the authentication data for the context, usually called
@@ -33,6 +37,26 @@ export class Context {
 	 */
 	public setAuth(auth: Record<string, any>): void {
 		this.auth = auth;
+	}
+
+	/**
+	 * Get's the accepted languages for the request.
+	 *
+	 * @returns string
+	 * @public
+	 */
+	public getLanguages(): string[] {
+		return this.languages;
+	}
+
+	/**
+	 * Will set a higher ranking language.
+	 *
+	 * @param lang The language.
+	 * @returns void
+	 */
+	public setLanguage(lang: string): void {
+		this.languages.unshift(lang);
 	}
 
 	/**

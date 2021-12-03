@@ -3,6 +3,7 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { ExampleFibre } from '../fibre/example';
 import DemoAuthMiddleware from '../middleware/http-auth';
+import DemoLangMiddleware from '../middleware/lang';
 
 // Define custom check.
 const customCheck = (auth: Record<string, any>) => {
@@ -12,6 +13,7 @@ const customCheck = (auth: Record<string, any>) => {
 
 @Http.Controller('/')
 @Auth.Use(DemoAuthMiddleware)
+@Auth.Use(DemoLangMiddleware)
 @Options({ controller: 'home' })
 export default class HomeController extends AbstractController {
 
@@ -52,9 +54,9 @@ export default class HomeController extends AbstractController {
 		return new Http.Response(200, output);
 	}
 
-	@Http.Get('/translate')
-	public async translate(): Promise<Http.Response> {
-		const langs = ['en_GB', 'fr_FR', 'es_ES'];
+	@Http.Get('/manual-translate')
+	public async manualTranslate(): Promise<Http.Response> {
+		const langs = ['en-GB', 'fr-FR', 'es-ES'];
 		const phrases = ['Home', 'Our Work', 'About Us', 'Contact Us', 'Get In Touch'];
 		const output = langs.map(lang => {
 			return phrases.map(phrase => {
@@ -62,5 +64,13 @@ export default class HomeController extends AbstractController {
 			}).join(', ');
 		});
 		return new Http.Response(200, output.join('<br>'));
+	}
+
+	@Http.Get('/auto-translate/:lang')
+	public async autoTranslate(): Promise<Http.Response> {
+		const data = '_t(Home), _t(Our Work), _t(About Us), _t(Contact Us), _t(Get In Touch)';
+		const response = new Http.Response(200, data);
+		response.shouldTranslate(true);
+		return response;
 	}
 }

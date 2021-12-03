@@ -19,6 +19,7 @@ export interface IWsConnection {
 	request: Request;
 	subscriptions: Array<string>;
 	session: Record<string, any>;
+	languages: string[];
 }
 
 export interface IWsConnections {
@@ -27,6 +28,7 @@ export interface IWsConnections {
 		request: Request;
 		subscriptions: Array<string>;
 		session: Map<string, any>;
+		languages: string[];
 	}
 }
 

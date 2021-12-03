@@ -60,8 +60,8 @@ export class Engine {
 		new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
-		if (options.translations?.default && options.translations.folder) {
-			this.translator = new Translator(options.translations?.default, options.translations?.folder);
+		if (options.translations) {
+			this.translator = new Translator(options.translations);
 		}
 
 		// Initialise fibre processor.

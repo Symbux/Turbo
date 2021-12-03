@@ -10,10 +10,7 @@ export interface IOptions {
 	autowire: boolean;
 	folders: string[];
 	scanFoldersOnly?: boolean;
-	translations?: {
-		default?: string;
-		folder?: string;
-	};
+	translations?: string;
 	basepath?: {
 		source: string;
 		compiled: string;

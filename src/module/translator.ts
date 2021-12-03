@@ -31,7 +31,7 @@ export class Translator {
 	 * @param languagesFolder The absolute path to the languages folder.
 	 * @constructor
 	 */
-	public constructor(private defaultLang: string = 'en-GB', private languagesFolder: string) {
+	public constructor(private languagesFolder: string) {
 
 		// Register self.
 		Injector.register('engine.translator', this);
@@ -61,7 +61,7 @@ export class Translator {
 	 * @returns string
 	 * @public
 	 */
-	public translate(source: string, lang: string = this.defaultLang): string {
+	public translate(source: string, lang: string): string {
 		if (this.translations[lang] && this.translations[lang][source]) return this.translations[lang][source];
 		return source;
 	}
@@ -75,7 +75,7 @@ export class Translator {
 	 * @returns string
 	 * @public
 	 */
-	public _(source: string, lang: string = this.defaultLang): string {
+	public _(source: string, lang: string): string {
 		return this.translate(source, lang);
 	}
 
@@ -152,26 +152,5 @@ export class Translator {
 	 */
 	public getLanguageFromCode(code: string): ILanguageItem {
 		return this.languageData[code];
-	}
-
-	/**
-	 * Sets the default language.
-	 *
-	 * @param lang The language to set as the default.
-	 * @returns void
-	 * @public
-	 */
-	public setDefaultLanguage(lang: string): void {
-		this.defaultLang = lang;
-	}
-
-	/**
-	 * Returns the currently set default language.
-	 *
-	 * @returns string
-	 * @public
-	 */
-	public getDefaultLanguage(): string[] {
-		return [ this.defaultLang ];
 	}
 }

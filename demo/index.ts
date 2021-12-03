@@ -6,7 +6,7 @@ const engine = new Engine({
 	autowire: true,
 	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
 	translations: {
-		default: 'en_GB',
+		default: 'en-GB',
 		folder: resolve(__dirname, './translations'),
 	},
 	basepath: {

@@ -3,6 +3,7 @@ import { DecoratorHelper } from '../helper/decorator';
 import { AbstractController } from '../abstract/controller';
 import { IGenericContext, IGenericMiddleware, ILogger, IAuthCheck } from '../interface/implements';
 import { IAuthResponse } from '../interface/structures';
+import { Registry } from './registry';
 
 /**
  * The authentication module is responsible for handling all
@@ -42,10 +43,24 @@ export class Authentication {
 	 * @async
 	 * @public
 	 */
-	public async handle(context: IGenericContext, controller: AbstractController, method: string): Promise<IAuthResponse> {
+	public async handle(type: string, context: IGenericContext, controller: AbstractController, method: string): Promise<IAuthResponse> {
+
+		// Define the middlewars.
+		const middlewares: IGenericContext[] = [];
 
 		// Firstly get metadata.
-		const middlewares: IGenericMiddleware[] = DecoratorHelper.getMetadata('t:auth:middleware', [], controller.constructor);
+		const classMiddlewares: IGenericMiddleware[] = DecoratorHelper.getMetadata('t:auth:middleware', [], controller.constructor);
+		if (classMiddlewares && Array.isArray(classMiddlewares)) middlewares.push(...(classMiddlewares as any));
+
+		// Check for service middlewares.
+		const serviceMiddlewares: IGenericMiddleware[] = Registry.getMiddleware(type);
+		if (serviceMiddlewares && Array.isArray(serviceMiddlewares)) middlewares.push(...(serviceMiddlewares as any));
+
+		// Check for global middlewares.
+		const globalMiddlewares: IGenericMiddleware[] = Registry.getMiddleware('global');
+		if (globalMiddlewares && Array.isArray(globalMiddlewares)) middlewares.push(...(globalMiddlewares as any));
+
+		// Define the auth checks.
 		const authChecks: IAuthCheck[] = DecoratorHelper.getMetadata('t:auth:checks', [], controller, method);
 
 		// Verify we have middlewares to run.
@@ -62,8 +77,8 @@ export class Authentication {
 			const instance = new (middleware as any)(middlewareOptions);
 
 			// Run the middleware.
-			const shouldExit: boolean = await instance.handle(context);
-			if (shouldExit) return { failed: false, stop: true };
+			const shouldContinue: boolean = await instance.handle(context);
+			if (!shouldContinue) return { failed: false, stop: true };
 		}
 
 		// Check for auth checks.

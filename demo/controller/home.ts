@@ -3,7 +3,6 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { ExampleFibre } from '../fibre/example';
 import DemoAuthMiddleware from '../middleware/http-auth';
-import DemoLangMiddleware from '../middleware/lang';
 
 // Define custom check.
 const customCheck = (auth: Record<string, any>) => {
@@ -13,7 +12,6 @@ const customCheck = (auth: Record<string, any>) => {
 
 @Http.Controller('/')
 @Auth.Use(DemoAuthMiddleware)
-@Auth.Use(DemoLangMiddleware)
 @Options({ controller: 'home' })
 export default class HomeController extends AbstractController {
 

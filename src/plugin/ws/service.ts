@@ -310,7 +310,7 @@ export class WsService extends AbstractService implements IService {
 			const contextObject = new WsContext(request, socket, this, packet, this.connections[uniqueId].languages);
 
 			// Run the authentication.
-			const authResponse = await this.auth.handle(contextObject, controller.instance, method);
+			const authResponse = await this.auth.handle('ws', contextObject, controller.instance, method);
 			if (authResponse.failed && authResponse.stop) {
 				contextObject.send({
 					command: 'error',

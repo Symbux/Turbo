@@ -1,3 +1,4 @@
+import { Registry } from '../module/registry';
 import { DecoratorHelper } from '../helper/decorator';
 
 /**
@@ -15,7 +16,12 @@ export function Middleware(name: string, options?: Record<string, any>, serviceI
 		// Define the base class information.
 		DecoratorHelper.setClassBase(target, 'middleware');
 		DecoratorHelper.setMetadata('t:name', name || target.constructor.name, target);
-		DecoratorHelper.setMetadata('t:global', serviceId, target);
 		DecoratorHelper.setMetadata('t:options', options, target);
+
+		// Register as service level middleware.
+		if (serviceId) {
+			const serviceName = serviceId === true ? 'global' : serviceId;
+			Registry.addMiddleware(String(serviceName), target);
+		}
 	};
 }

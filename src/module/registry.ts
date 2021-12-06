@@ -12,6 +12,7 @@ export class Registry {
 	public static modules: { [key: string]: Map<string, any> } = {};
 	public static register: Map<string, any> = new Map();
 	public static actions: Map<string, any> = new Map();
+	public static middleware: Map<string, any[]> = new Map();
 
 	/**
 	 * This method will set a key and value to the registry.
@@ -145,5 +146,33 @@ export class Registry {
 			modules[key] = this.modules[key].entries();
 		});
 		return modules;
+	}
+
+	/**
+	 * Add a middleware to the list.
+	 *
+	 * @param type Service type (http, ws, global, etc).
+	 * @param module The middleware class constructor.
+	 * @returns void
+	 * @public
+	 * @static
+	 */
+	public static addMiddleware(type: string, module: any): void {
+		let middlewares = this.middleware.get(type);
+		if (!middlewares) middlewares = [];
+		middlewares.push(module);
+		this.middleware.set(type, middlewares);
+	}
+
+	/**
+	 * Will get the middlewares available for the given type.
+	 *
+	 * @param type Service type (http, ws, global, etc).
+	 * @returns any
+	 * @public
+	 * @static
+	 */
+	public static getMiddleware(type: string): any {
+		return this.middleware.get(type);
 	}
 }

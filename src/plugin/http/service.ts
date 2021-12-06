@@ -137,7 +137,7 @@ export class HttpService extends AbstractService implements IService {
 					const contextObject = new HttpContext(request, response);
 
 					// Run the authentication.
-					const authResponse = await this.auth.handle(contextObject, controller, classMethod);
+					const authResponse = await this.auth.handle('http', contextObject, controller, classMethod);
 					if (authResponse.failed && authResponse.stop) {
 						new HttpResponse(401, {
 							message: 'Unauthorized.',

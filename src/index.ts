@@ -14,6 +14,9 @@ import { Options } from './decorator/options';
 import { Service } from './decorator/service';
 import { Task } from './decorator/task';
 
+// Export
+import PrismaClient from './export/prisma';
+
 // Fibre
 import { FibreManager } from './fibre/manager';
 
@@ -60,6 +63,7 @@ export {
 	Options,
 	Service,
 	Task,
+	PrismaClient,
 	FibreManager,
 	DecoratorHelper,
 	Misc,

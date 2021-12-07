@@ -50,7 +50,7 @@ export class Engine {
 		Injector.register('engine.core', this);
 		Injector.register('engine.options', this.options);
 		Registry.set('engine.status', 'main');
-		Registry.set('engine.version', '0.2.8');
+		Registry.set('engine.version', '0.2.9');
 
 		// Check the mode we are running in.
 		const extension = extname(__filename);

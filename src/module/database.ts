@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import PrismaClient from '../export/prisma';
 import { Inject, Injector } from '@symbux/injector';
 import { IOptions } from '../interface/structures';
 import { ILogger } from '../interface/implements';
@@ -11,7 +11,7 @@ export class Database {
 		if (this.options.database) {
 			this.logger.info('DATABASE', 'Initialising the prisma client.');
 			this.client = new PrismaClient();
-			Injector.register('PrismaClient', this.client);
+			Injector.register(PrismaClient.name, this.client);
 		}
 	}
 

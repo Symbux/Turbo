@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.9](https://github.com/Symbux/Turbo/compare/v0.2.8...v0.2.9) - 2021-12-07
+
+### Commits
+
+- Updated changelog. [`785b78c`](https://github.com/Symbux/Turbo/commit/785b78c9fc8b1bdedf15cbe815ff8aeed747c6c6)
+- Added update to attempt to support injecting the prisma client. [`178e08b`](https://github.com/Symbux/Turbo/commit/178e08be4c3646dfd93f929efe03403ea4c08e6c)
+
 ## [v0.2.8](https://github.com/Symbux/Turbo/compare/v0.2.7...v0.2.8) - 2021-12-07
 
 ### Fixed

@@ -11,6 +11,7 @@ export interface IOptions {
 	folders: string[];
 	scanFoldersOnly?: boolean;
 	translations?: string;
+	database?: boolean;
 	basepath?: {
 		source: string;
 		compiled: string;

@@ -11,6 +11,7 @@ import { FibreManager } from '../fibre/manager';
 import { Authentication } from './authentication';
 import { DecoratorHelper } from '../helper/decorator';
 import { Translator } from './translator';
+import { Database } from './database';
 
 /**
  * The engine class is the main class of the application.
@@ -27,6 +28,7 @@ export class Engine {
 	private runner: Runner;
 	private autowire: Autowire;
 	private translator?: Translator;
+	private database: Database;
 
 	/**
 	 * Creates a new instance of the engine.
@@ -60,6 +62,7 @@ export class Engine {
 		new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
+		this.database = new Database(this.options);
 		if (options.translations) {
 			this.translator = new Translator(options.translations);
 		}
@@ -137,6 +140,7 @@ export class Engine {
 
 		// Initialise components.
 		this.logger.verbose('ENGINE', 'Initialising engine components.');
+		await this.database.initialise();
 		await this.services.initialise();
 		await this.runner.initialise();
 		await this.translator?.initialise();
@@ -162,6 +166,7 @@ export class Engine {
 	public async stop(): Promise<void> {
 
 		// Shutdown services and components.
+		await this.database.stop();
 		await this.services.stop();
 		await this.runner.stop();
 

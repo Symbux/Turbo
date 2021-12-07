@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.8](https://github.com/Symbux/Turbo/compare/v0.2.7...v0.2.8) - 2021-12-07
+
+### Fixed
+
+- Added fix, and fixes #13 [`#13`](https://github.com/Symbux/Turbo/issues/13)
+
+### Commits
+
+- Added translation module with support for .json files as translation lookups, alongside adding the translator added as a built-in controller module, and added a shortcut as this._t(phrase, lang). [`ada8fe2`](https://github.com/Symbux/Turbo/commit/ada8fe24b7981baa915590857ecaba7ad1a16723)
+- Added support for prisma. [`8545e2f`](https://github.com/Symbux/Turbo/commit/8545e2fff957491a203bc94f4ef8ff253b1bf5ab)
+- Added translation module, alongside auto translation service for the HTTP and WS plugin's where by defining certain data they can auto translate messages, fixes: #13 [`1df1332`](https://github.com/Symbux/Turbo/commit/1df13328f35866b8654c417d7b90c3beceede741)
+- Fixed support for global, and service defined middlewares. [`a424367`](https://github.com/Symbux/Turbo/commit/a42436748e91e04c9c01d8a4fae977776ba87441)
+- Changed the settings for the translator so you only need 'translations' which is the replacement for translations.folder instead, as there is no need for a default due to the HTTP/WS services getting it from the Accept-Language header. [`b07ae8b`](https://github.com/Symbux/Turbo/commit/b07ae8b60e9b40f0460e07d318e92feee78a5128)
+- Updated changelog. [`4cf5b05`](https://github.com/Symbux/Turbo/commit/4cf5b057f9c909308490d1e9a71fef7354805198)
+- Increased version number. [`eb817ee`](https://github.com/Symbux/Turbo/commit/eb817ee82688ee547bdd08b41b78a925a1787fe4)
+- Removed database option. [`a799dfa`](https://github.com/Symbux/Turbo/commit/a799dfa1bcea8b3bdb05b26bc84d5204d4549260)
+- Fixed merge [`56a7b0d`](https://github.com/Symbux/Turbo/commit/56a7b0d502ed96b413df02a415b07d5e8ee3815c)
+- Update index.ts [`6a68a40`](https://github.com/Symbux/Turbo/commit/6a68a409f55e8e2fcf536db3cefecb98002cb3f7)
+- Removed annoying log item that spams the logs, not required unless something actually happens while the fibre manager is doing something. [`9365820`](https://github.com/Symbux/Turbo/commit/936582081a81702b77eac3fb21cda00655dbff28)
+
 ## [v0.2.7](https://github.com/Symbux/Turbo/compare/v0.2.6...v0.2.7) - 2021-11-24
 
 ### Fixed

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.10](https://github.com/Symbux/Turbo/compare/v0.2.9...v0.2.10) - 2021-12-13
+
+### Commits
+
+- Made sure to export everything from the framework. [`1f07076`](https://github.com/Symbux/Turbo/commit/1f07076f737d5cfe9c5b6daab29e8f62eaa12d3c)
+- Updated the changelog. [`216d4ac`](https://github.com/Symbux/Turbo/commit/216d4ac07079c9501e6a97c3b73be72dfc924e85)
+- Updated the version. [`6d87336`](https://github.com/Symbux/Turbo/commit/6d87336650e47cc11ac7ee0f3efaa81dcc3d402a)
+- Update README.md [`cb30b26`](https://github.com/Symbux/Turbo/commit/cb30b2680a9b2fa78f9a4aad3fa869384f139c3a)
+- Update README.md [`4e379cf`](https://github.com/Symbux/Turbo/commit/4e379cfe235f461c1decac5f919eb3ba2e0c6697)
+- Update README.md [`4273e43`](https://github.com/Symbux/Turbo/commit/4273e434f1b212df169eb443a4d9e95ce59d1b82)
+- Update README.md [`4d6b4ea`](https://github.com/Symbux/Turbo/commit/4d6b4ea3105ad2f31316893197a952d89002ec6e)
+
 ## [v0.2.9](https://github.com/Symbux/Turbo/compare/v0.2.8...v0.2.9) - 2021-12-07
 
 ### Commits

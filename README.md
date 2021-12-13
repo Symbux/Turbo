@@ -18,6 +18,11 @@ The Turbo engine is a command-based framework for building API (and web) based a
 
 <br>
 
+We have created a boilerplate/starter project with a frontend and backend pre-configured and ready to use, including a docker-compose file for a single node clustered MongoDB instance for development, available here: https://github.com/Symbux/Turbo-Starter
+
+<br>
+<br>
+
 <p align="center">
 	<a href="https://discord.gg/3YuNTEMJey" target="_blank">
 		<img width="200" src="https://discord.com/assets/cb48d2a8d4991281d7a6a95d2f58195e.svg">

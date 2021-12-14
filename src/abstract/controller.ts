@@ -11,7 +11,7 @@ import { Translator } from '../module/translator';
  */
 export class AbstractController {
 	@Inject('logger') protected logger!: ILogger;
-	@Inject('engine.translator') protected translator!: Translator;
+	@Inject('turbo.translator') protected translator!: Translator;
 
 	public constructor(protected readonly options: Record<string, any>) {}
 

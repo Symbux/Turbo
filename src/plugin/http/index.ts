@@ -38,7 +38,7 @@ export {
 export default class Plugin implements IPlugin {
 
 	public name = 'http';
-	public version = Registry.get('engine.version');
+	public version = Registry.get('turbo.version');
 
 	/**
 	 * Creates an instance of HttpPlugin.

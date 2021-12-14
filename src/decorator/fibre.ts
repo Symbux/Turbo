@@ -49,7 +49,7 @@ export function Fibre(name: string, path: string, options?: FibreOptions): Class
 		DecoratorHelper.setMetadata('t:options', options, target);
 
 		// Check if main process.
-		if (Registry.get('engine.status') !== 'main') return;
+		if (Registry.get('turbo.status') !== 'main') return;
 
 		// Loop the exposed methods.
 		const methods: string[] = DecoratorHelper.getMetadata('t:exposed', [], target);

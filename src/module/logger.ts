@@ -6,7 +6,7 @@ import { ILogger } from '../interface/implements';
 /**
  * The built-in simple logger, that simply routes all logs to the Console API with colours.
  */
-@Provide('engine.logger')
+@Provide('turbo.logger')
 @Provide('logger')
 export class Logger implements ILogger {
 
@@ -134,7 +134,7 @@ export class Logger implements ILogger {
 	 * @protected
 	 */
 	protected hasLogLevel(level: string): boolean {
-		const levels: string[] = Registry.get('engine.logger.levels') || [];
+		const levels: string[] = Registry.get('turbo.logger.levels') || [];
 		return levels.includes(level);
 	}
 }

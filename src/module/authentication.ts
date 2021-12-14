@@ -15,7 +15,7 @@ import { Registry } from './registry';
  * service is in charge for making sure this is called correctly.
  *
  * @class Authentication
- * @provides Authentication {engine.auth}
+ * @provides Authentication {turbo.auth}
  * @injects logger
  */
 export class Authentication {
@@ -28,7 +28,7 @@ export class Authentication {
 	 * @constructor
 	 */
 	public constructor() {
-		Injector.register('engine.auth', this);
+		Injector.register('turbo.auth', this);
 	}
 
 	/**

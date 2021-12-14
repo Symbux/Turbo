@@ -16,7 +16,7 @@ import { Registry } from './registry';
  * configuration by using the `@Options` decorator.
  *
  * @class Autowire
- * @provides Autowire {engine.autowire}
+ * @provides Autowire {turbo.autowire}
  * @injects logger
  */
 export class Autowire {
@@ -35,7 +35,7 @@ export class Autowire {
 	public constructor(private engine: Engine, private options: Partial<IOptions>) {
 
 		// Register self.
-		Injector.register('engine.autowire', this);
+		Injector.register('turbo.autowire', this);
 
 		// Define folders to scan for.
 		this.folders = [
@@ -70,7 +70,7 @@ export class Autowire {
 	public async wireup(): Promise<void> {
 
 		// Define base path and mode.
-		const isProduction = Registry.get('engine.mode') === 'production' || Registry.get('engine.mode') === 'prod';
+		const isProduction = Registry.get('turbo.mode') === 'production' || Registry.get('turbo.mode') === 'prod';
 		let basePath: string;
 
 		// Check for modes and source.

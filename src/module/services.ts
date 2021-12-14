@@ -9,7 +9,7 @@ import { Registry } from './registry';
  * and stop them.
  *
  * @class Services
- * @provides Services {engine.services}
+ * @provides Services {turbo.services}
  * @injects logger
  */
 export class Services {
@@ -23,7 +23,7 @@ export class Services {
 	 * @constructor
 	 */
 	public constructor() {
-		Injector.register('engine.services', this);
+		Injector.register('turbo.services', this);
 	}
 
 	/**

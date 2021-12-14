@@ -13,7 +13,7 @@ import { Context } from './context';
  * @plugin Http
  */
 export class Response {
-	@Inject('engine.translator') private translator!: Translator;
+	@Inject('turbo.translator') private translator!: Translator;
 	private willTranslate = false;
 
 	/**
@@ -73,7 +73,7 @@ export class Response {
 
 		// Define the headers.
 		const headers: Record<string, string> = Object.assign({
-			Server: `turbo/${Registry.get('engine.version')}`,
+			Server: `turbo/${Registry.get('turbo.version')}`,
 		}, this.headers);
 
 		// Set the headers to the response.

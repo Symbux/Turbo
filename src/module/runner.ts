@@ -10,7 +10,7 @@ import { durationToHuman } from '../helper/misc';
  * including scheduling and calling on-demand.
  *
  * @class Runner
- * @provides Runner {engine.runner}
+ * @provides Runner {turbo.runner}
  * @injects logger
  */
 export class Runner {
@@ -25,7 +25,7 @@ export class Runner {
 	 * @constructor
 	 */
 	public constructor() {
-		Injector.register('engine.runner', this);
+		Injector.register('turbo.runner', this);
 	}
 
 	/**

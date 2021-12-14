@@ -11,7 +11,7 @@ import { ILogger } from '../interface/implements';
  */
 export class AbstractService {
 	@Inject('logger') protected logger!: ILogger;
-	@Inject('engine.auth') protected auth!: Authentication;
+	@Inject('turbo.auth') protected auth!: Authentication;
 
 	public constructor(protected readonly options: Record<string, any>) {}
 }

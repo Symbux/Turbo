@@ -19,8 +19,8 @@ import helmet from 'helmet';
  * @class HttpService
  * @extends AbstractService
  * @implements IService
- * @provides HttpService {engine.plugin.http}, Options {engine.plugin.http.options}
- * @injects logger, engine.auth
+ * @provides HttpService {tp.http}, Options {tp.http.options}
+ * @injects logger, turbo.auth
  * @plugin Http
  */
 @Service('http')
@@ -37,8 +37,8 @@ export class HttpService extends AbstractService implements IService {
 	 */
 	public constructor(options: Record<string, any>) {
 		super(options);
-		Injector.register('engine.plugin.http', this);
-		Injector.register('engine.plugin.http.options', this.options);
+		Injector.register('tp.http', this);
+		Injector.register('tp.http.options', this.options);
 	}
 
 	/**
@@ -76,7 +76,7 @@ export class HttpService extends AbstractService implements IService {
 	 * @public
 	 */
 	public async start(): Promise<void> {
-		const wsService = Injector.resolve('engine.plugin.ws', true);
+		const wsService = Injector.resolve('turbo.plugin.ws', true);
 		this.serverInstance = this.server.listen(parseInt(this.options.port), () => {
 			if (wsService === null) {
 				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port}.`);

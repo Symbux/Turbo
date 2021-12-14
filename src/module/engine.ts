@@ -19,7 +19,7 @@ import { Database } from './database';
  * It also handles the autowiring of the modules.
  *
  * @class Engine
- * @provides Engine {engine.core}, IOptions {engine.options}
+ * @provides Engine {turbo.core}, IOptions {turbo.options}
  * @injects logger
  */
 export class Engine {
@@ -41,22 +41,22 @@ export class Engine {
 		// Define the log levels.
 		let logLevels = ['info', 'warn', 'error'];
 		if (options.logLevels) logLevels = options.logLevels;
-		Registry.set('engine.logger.levels',logLevels);
+		Registry.set('turbo.logger.levels',logLevels);
 
 		// Log the engine is starting.
 		this.logger.info('ENGINE', 'Turbo engine is being initialised.');
 
 		// Register base injections.
-		Injector.register('engine.core', this);
-		Injector.register('engine.options', this.options);
-		Registry.set('engine.status', 'main');
-		Registry.set('engine.version', '0.2.10');
+		Injector.register('turbo.core', this);
+		Injector.register('turbo.options', this.options);
+		Registry.set('turbo.status', 'main');
+		Registry.set('turbo.version', '0.2.10');
 
 		// Check the mode we are running in.
 		const extension = extname(__filename);
-		if (extension === '.js') Registry.set('engine.internal.mode', 'production');
-		if (extension === '.ts') Registry.set('engine.internal.mode', 'development');
-		Registry.set('engine.mode', String(process.env.ENV || 'development'));
+		if (extension === '.js') Registry.set('turbo.internal.mode', 'production');
+		if (extension === '.ts') Registry.set('turbo.internal.mode', 'development');
+		Registry.set('turbo.mode', String(process.env.ENV || 'development'));
 
 		// Initialise engine components.
 		new Authentication();

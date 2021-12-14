@@ -12,7 +12,7 @@ import { Translator } from '../../module/translator';
  * @plugin Ws
  */
 export class Context {
-	@Inject('engine.translator') private translator!: Translator;
+	@Inject('turbo.translator') private translator!: Translator;
 	private willTranslate = false;
 
 	/**

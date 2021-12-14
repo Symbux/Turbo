@@ -20,15 +20,15 @@ import { Translator } from '../../module/translator';
  * @class WsService
  * @extends AbstractService
  * @implements IService
- * @provides WsService {engine.plugin.ws}, Options {engine.plugin.ws.options}
- * @injects logger, engine.auth, engine.plugin.http
+ * @provides WsService {tp.ws}, Options {tp.ws.options}
+ * @injects logger, turbo.auth, tp.http
  * @plugin Ws
  */
 @Service('ws')
 export class WsService extends AbstractService implements IService {
 
-	@Inject('engine.plugin.http', true) private httpService!: HttpService;
-	@Inject('engine.translator') private translator!: Translator;
+	@Inject('tp.http', true) private httpService!: HttpService;
+	@Inject('turbo.translator') private translator!: Translator;
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;
@@ -42,8 +42,8 @@ export class WsService extends AbstractService implements IService {
 	 */
 	public constructor(options: IOptions) {
 		super(options);
-		Injector.register('engine.plugin.ws', this);
-		Injector.register('engine.plugin.ws.options', this.options);
+		Injector.register('tp.ws', this);
+		Injector.register('tp.ws.options', this.options);
 	}
 
 	/**

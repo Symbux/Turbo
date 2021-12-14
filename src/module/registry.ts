@@ -5,7 +5,7 @@ import { ILogger } from '../interface/implements';
  * The registry module contains the registry for the Turbo engine,
  * containing all the modules and the global objects.
  */
-@Provide('engine.registry')
+@Provide('turbo.registry')
 export class Registry {
 
 	@Inject('logger') private static logger: ILogger;

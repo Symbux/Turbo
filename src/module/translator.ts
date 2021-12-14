@@ -14,7 +14,7 @@ import { Inject, Injector } from '@symbux/injector';
  * the same language but with a localised version of the language.
  *
  * @class Autowire
- * @provides Translator {engine.translator}
+ * @provides Translator {turbo.translator}
  * @injects logger
  */
 export class Translator {
@@ -34,7 +34,7 @@ export class Translator {
 	public constructor(private languagesFolder: string) {
 
 		// Register self.
-		Injector.register('engine.translator', this);
+		Injector.register('turbo.translator', this);
 	}
 
 	/**

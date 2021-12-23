@@ -50,7 +50,7 @@ export class Engine {
 		Injector.register('turbo.core', this);
 		Injector.register('turbo.options', this.options);
 		Registry.set('turbo.status', 'main');
-		Registry.set('turbo.version', '0.2.10');
+		Registry.set('turbo.version', '0.2.11');
 
 		// Check the mode we are running in.
 		const extension = extname(__filename);

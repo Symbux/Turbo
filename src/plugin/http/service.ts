@@ -151,8 +151,10 @@ export class HttpService extends AbstractService implements IService {
 					}
 
 					// Run the controller method.
-					const output: HttpResponse = await controller[classMethod](contextObject);
-					output.execute(response);
+					const output: HttpResponse | undefined = await controller[classMethod](contextObject);
+					if (output) {
+						output.execute(response);
+					}
 				});
 
 				// Log verbose.

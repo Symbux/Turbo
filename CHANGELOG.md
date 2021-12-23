@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.11](https://github.com/Symbux/Turbo/compare/v0.2.10...v0.2.11) - 2021-12-23
+
+### Commits
+
+- Updated packages. [`d3a3be0`](https://github.com/Symbux/Turbo/commit/d3a3be0ce54830aa7e23641eceda86eacd7cf108)
+- Changed all the injection names to 'turbo.*' for internal and 'tp.*' for plugins. [`6591a47`](https://github.com/Symbux/Turbo/commit/6591a47c55c93acb064de2c127eb0864907640a2)
+- Changelog [`b422fd3`](https://github.com/Symbux/Turbo/commit/b422fd37dfd62bfeb0112940f07b2680a5ed97dd)
+- Added fix to allow http controller method calls to not return a class with an execute function, this allows for things like redirecting. [`136e968`](https://github.com/Symbux/Turbo/commit/136e9687d1de7abcdba9dc9f822c102e88548872)
+
 ## [v0.2.10](https://github.com/Symbux/Turbo/compare/v0.2.9...v0.2.10) - 2021-12-13
 
 ### Commits

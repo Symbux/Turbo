@@ -105,6 +105,7 @@ A list of available features:
 | Fibres | Fibres are classes, that proxy exposed methods into a thread, allowing them to run in parallel but also freeing up your main thread for running intensive operations. |
 | Authentication | Built in authentication decorators can be applied to a controller method to do checks against middleware set authentication data. |
 | Registry | The engine provides a registry for storing data, this can be used to store data in memory, alongside the registry stores all modules that have been loaded into the engine. |
+| ORM | We have opted for using an existing ORM, specifically we have decided to use Prisma, which has extremely good TypeScript support, the Turbo engine will initialise any prisma schema available, see the [Turbo Starter](https://github.com/Symbux/Turbo-Starter) project for a handy getting started guide.
 | Services | Services are classes that provide a service which can call controllers, and methods to run business logic, for example the HttpPlugin comes with a HttpService that sets up and manages an Express application, usually we suggest setting services up as plugins, see the source code `src/plugin/http` as an example. |
 | Translations (i18n) | This feature allows you to support the default `Accept-Language` header to support manual and auto-translation of your content. |
 
@@ -112,10 +113,11 @@ A list of available features:
 
 ### Plugins
 
-| Plugin | Description |
-| --- | --- |
-| HttpPlugin | The built-in HTTP plugin is based off of [Express](https://www.npmjs.com/package/express). |
-| WsPlugin | The built-in WS plugin is based off of [Express-WS](https://www.npmjs.com/package/express-ws), will initialise an express server if the HttpPlugin is not initialised. |
+| Plugin | Description | Type |
+| --- | --- | --- |
+| HTTP Plugin | The built-in HTTP plugin is based off of [Express](https://www.npmjs.com/package/express). | `built-in` |
+| WS Plugin | The built-in WS plugin is based off of [Express-WS](https://www.npmjs.com/package/express-ws), will initialise an express server if the HttpPlugin is not initialised. | `built-in` |
+| Turbo Discord | A discord plugin, that offers SSO (single sign on) to discord with built-in bot support using the new slash commands functionality with various helpers and full controller structure support. | `external` |
 
 <br>
 
@@ -125,8 +127,6 @@ A list of available features:
 
 ## Future Development
 
-* [ORM](https://www.npmjs.com/package/@symbux/orm) - An ORM for data management in MongoDB and MySQL.
-* [DiscordPlugin](#) - A discord plugin, that offers SSO (single sign on) to discord with built-in bot support using the new slash commands.
 * [Turbo CLI](#) - A command line interface for Turbo, to install plugins, boilerplate plugin projects and automate building and deploying Turbo applications.
 * [UiPlugin](#) - A pre-built Vue based SSR framework for writing user interfaces for the framework (allowing other plugins to extend it).
 * [AuctionPlugin](#) - A plugin to support auction systems, using commission, timed, and live bidding (Extends UI Plugin).

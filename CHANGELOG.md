@@ -5,13 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v0.2.17](https://github.com/Symbux/Turbo/compare/v0.2.16...v0.2.17) - 2022-01-26
+## [v0.2.18](https://github.com/Symbux/Turbo/compare/v0.2.16...v0.2.18) - 2022-01-26
 
 ### Commits
 
-- Updated injector, removed all overwrite functionality due to the injector changes. [`01c8389`](https://github.com/Symbux/Turbo/commit/01c838944b8571d7fb50bc41f1a9b6c9a71fab68)
-- Updated changelog. [`686f148`](https://github.com/Symbux/Turbo/commit/686f148cf0647861968c04387efee7c97a7dfeb0)
-- Updated injector, removed all overwrite functionality due to the injector changes. [`924134c`](https://github.com/Symbux/Turbo/commit/924134c4bc7ff25fffe725c677146abb9c05546a)
+- Reverted changelog. [`660467e`](https://github.com/Symbux/Turbo/commit/660467e04f7b533c701ee1d0ee1f7bb77d8998d5)
+- Reverted 5 broken commits entirely back to the last working state. [`3eed62c`](https://github.com/Symbux/Turbo/commit/3eed62ce38ec3e75c4200582e1b7363dec2a2e1b)
 
 ## [v0.2.16](https://github.com/Symbux/Turbo/compare/v0.2.15...v0.2.16) - 2022-01-26
 

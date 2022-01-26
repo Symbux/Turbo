@@ -774,10 +774,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@symbux/injector@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@symbux/injector/-/injector-1.3.2.tgz#d42f0cb91d613dada001a96ff0af47411350aad6"
-  integrity sha512-bv6vuVUBJfVcd0sWCZBJc7QFFUDqylncjxsoJR6B/wGy/niPboS9cVVq615Q5vodDLGaEryGhqGhkp4jDj1TAw==
+"@symbux/injector@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@symbux/injector/-/injector-1.3.3.tgz#c91a032309f1807e6f740bb387c1aa1ca5329f4f"
+  integrity sha512-IOMsHA+xgGels7lB1KDJg+TRAcW2TcQvPywmA8H8AjyG2cXbhWSvgzljoRcfGDpS1S2wcfY717KqLFO4m158Bw==
   dependencies:
     reflect-metadata "^0.1.13"
 

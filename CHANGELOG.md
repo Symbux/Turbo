@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.3.0](https://github.com/Symbux/Turbo/compare/v0.2.22...v0.3.0) - 2022-01-26
+
+### Commits
+
+- Reverted all changes. [`21223a8`](https://github.com/Symbux/Turbo/commit/21223a8512df13c05745d1704ef1c4e7668003d1)
+
+## [v0.2.22](https://github.com/Symbux/Turbo/compare/v0.2.21...v0.2.22) - 2022-01-26
+
+### Commits
+
+- Updated DI package. [`dfb52bb`](https://github.com/Symbux/Turbo/commit/dfb52bb5e2bf4f4de4e7233b700ae41c1a0e70a2)
+- Updated changelog. [`3c6c000`](https://github.com/Symbux/Turbo/commit/3c6c00052405c4c85a77b0bbbaeca79af8af2d9b)
+
+## [v0.2.21](https://github.com/Symbux/Turbo/compare/v0.2.20...v0.2.21) - 2022-01-26
+
+### Commits
+
+- Bumped broken package. [`91c44dc`](https://github.com/Symbux/Turbo/commit/91c44dcfa55f8405e6b658ad1ac245e0e4a52840)
+- Updated changelog. [`472cf8b`](https://github.com/Symbux/Turbo/commit/472cf8bcb9ae0c018e864a5a226b6cd13bf635bc)
+
+## [v0.2.20](https://github.com/Symbux/Turbo/compare/v0.2.19...v0.2.20) - 2022-01-26
+
+### Commits
+
+- Updated changelog. [`c4d9b88`](https://github.com/Symbux/Turbo/commit/c4d9b882fed5baa42cf9b132ecf7e81c46cc0af8)
+- Updated injector package. [`0a45fd2`](https://github.com/Symbux/Turbo/commit/0a45fd248657a6bddf7bca52605776ab9ece1f63)
+
+## [v0.2.19](https://github.com/Symbux/Turbo/compare/v0.2.18...v0.2.19) - 2022-01-26
+
+### Commits
+
+- Updated all package versions. [`0052f88`](https://github.com/Symbux/Turbo/commit/0052f8841ee9d4afd124e3b91893a930ee420325)
+- Updated changelog. [`987508b`](https://github.com/Symbux/Turbo/commit/987508b2ab81f0094355f8b5b5541e99112662b8)
+- Fixed broken inject from demo. [`014c0b9`](https://github.com/Symbux/Turbo/commit/014c0b9ccfa494a9d3654f25be86494a0b29f1d6)
+
+## [v0.2.18](https://github.com/Symbux/Turbo/compare/v0.2.11...v0.2.18) - 2022-01-26
+
+### Commits
+
+- Reverted changelog. [`660467e`](https://github.com/Symbux/Turbo/commit/660467e04f7b533c701ee1d0ee1f7bb77d8998d5)
+- Update README.md [`83c3503`](https://github.com/Symbux/Turbo/commit/83c35039936e88d748b314706db9b71013f9b7ad)
+- Updated changelog. [`f7eb332`](https://github.com/Symbux/Turbo/commit/f7eb3327800f1a4577a0cf4963fb3e107ae66479)
+- Reverted 5 broken commits entirely back to the last working state. [`3eed62c`](https://github.com/Symbux/Turbo/commit/3eed62ce38ec3e75c4200582e1b7363dec2a2e1b)
+
 ## [v0.2.11](https://github.com/Symbux/Turbo/compare/v0.2.10...v0.2.11) - 2021-12-23
 
 ### Commits

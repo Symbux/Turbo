@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.17](https://github.com/Symbux/Turbo/compare/v0.2.16...v0.2.17) - 2022-01-26
+
+### Commits
+
+- Updated injector, removed all overwrite functionality due to the injector changes. [`01c8389`](https://github.com/Symbux/Turbo/commit/01c838944b8571d7fb50bc41f1a9b6c9a71fab68)
+- Updated changelog. [`686f148`](https://github.com/Symbux/Turbo/commit/686f148cf0647861968c04387efee7c97a7dfeb0)
+- Updated injector, removed all overwrite functionality due to the injector changes. [`924134c`](https://github.com/Symbux/Turbo/commit/924134c4bc7ff25fffe725c677146abb9c05546a)
+
+## [v0.2.16](https://github.com/Symbux/Turbo/compare/v0.2.15...v0.2.16) - 2022-01-26
+
+### Commits
+
+- Added potential patch. [`185df4d`](https://github.com/Symbux/Turbo/commit/185df4dfe8ab10ceb29f293f965c340946501954)
+- Updated changelog. [`6324b12`](https://github.com/Symbux/Turbo/commit/6324b12869d88c5bb94568edf1805b9d4b92b133)
+
+## [v0.2.15](https://github.com/Symbux/Turbo/compare/v0.2.14...v0.2.15) - 2022-01-26
+
+### Commits
+
+- Updated changelog. [`254d6ba`](https://github.com/Symbux/Turbo/commit/254d6baeb4e04db0749bb1d7da7baebd4fbe21dd)
+- Added potential patch. [`791ba70`](https://github.com/Symbux/Turbo/commit/791ba70aa8be1d80ca5f3362421389a323a115c1)
+
+## [v0.2.14](https://github.com/Symbux/Turbo/compare/v0.2.13...v0.2.14) - 2022-01-26
+
+### Commits
+
+- Added potential patch. [`ac80517`](https://github.com/Symbux/Turbo/commit/ac8051795d1635b4d60258cb8cea745df0d82a66)
+- Updated changelog. [`0ebae03`](https://github.com/Symbux/Turbo/commit/0ebae03d32c3bce89c5231471bba478b27b84300)
+
+## [v0.2.13](https://github.com/Symbux/Turbo/compare/v0.2.12...v0.2.13) - 2022-01-26
+
+### Commits
+
+- Added potential patch. [`323e302`](https://github.com/Symbux/Turbo/commit/323e302cfbaa790eaac7803a77aef0767cc3e0e4)
+- Updated changelog. [`7262cd7`](https://github.com/Symbux/Turbo/commit/7262cd722e79dc6eb3c8c4533f6dccabcb67dd32)
+
+## [v0.2.12](https://github.com/Symbux/Turbo/compare/v0.2.11...v0.2.12) - 2022-01-26
+
+### Commits
+
+- Updated package version and bumped all dependencies. [`94c4de2`](https://github.com/Symbux/Turbo/commit/94c4de235abe0e921ddc4deab619239cd2365840)
+- Added new quit command that will allow graceful shutdown of the turbo engine. [`f01b972`](https://github.com/Symbux/Turbo/commit/f01b97298741aa3a82d4c15b4c2bb4605158899f)
+- Update README.md [`83c3503`](https://github.com/Symbux/Turbo/commit/83c35039936e88d748b314706db9b71013f9b7ad)
+- Updated changelog. [`f7eb332`](https://github.com/Symbux/Turbo/commit/f7eb3327800f1a4577a0cf4963fb3e107ae66479)
+
 ## [v0.2.11](https://github.com/Symbux/Turbo/compare/v0.2.10...v0.2.11) - 2021-12-23
 
 ### Commits

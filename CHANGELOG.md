@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.20](https://github.com/Symbux/Turbo/compare/v0.2.19...v0.2.20) - 2022-01-26
+
+### Commits
+
+- Updated changelog. [`c4d9b88`](https://github.com/Symbux/Turbo/commit/c4d9b882fed5baa42cf9b132ecf7e81c46cc0af8)
+- Updated injector package. [`0a45fd2`](https://github.com/Symbux/Turbo/commit/0a45fd248657a6bddf7bca52605776ab9ece1f63)
+
 ## [v0.2.19](https://github.com/Symbux/Turbo/compare/v0.2.18...v0.2.19) - 2022-01-26
 
 ### Commits

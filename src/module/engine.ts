@@ -7,6 +7,7 @@ import { Logger } from './logger';
 import { Runner } from './runner';
 import { Autowire } from './autowire';
 import { extname } from 'path';
+import { emitKeypressEvents, Key } from 'readline';
 import { FibreManager } from '../fibre/manager';
 import { Authentication } from './authentication';
 import { DecoratorHelper } from '../helper/decorator';
@@ -81,6 +82,27 @@ export class Engine {
 			this.logger.info('ENGINE', 'Turbo engine is shutting down.');
 			this.stop();
 		});
+
+		// Check whether to disable readline events.
+		const disableReadline = String(process.env.DISABLE_READLINE) === '1';
+		if (disableReadline) return;
+
+		// Listen to keypress events.
+		emitKeypressEvents(process.stdin);
+		if (process.stdin.isTTY) process.stdin.setRawMode(true);
+		process.stdin.on('keypress', async (str: unknown, key: Key) => {
+			if (key.name === 'q') {
+				await this.stop();
+				process.exit(0);
+			}
+		});
+
+		// Set a timeout and notify the user about the quit control.
+		setTimeout(() => {
+			this.logger.info('ENGINE', '----------------------------------------------------------------------------');
+			this.logger.info('ENGINE', 'The application has started, if you wish to stop the application, press \'q\'.');
+			this.logger.info('ENGINE', '----------------------------------------------------------------------------');
+		}, 2500);
 	}
 
 	/**

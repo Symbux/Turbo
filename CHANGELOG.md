@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.3.4](https://github.com/Symbux/Turbo/compare/v0.3.3...v0.3.4) - 2022-01-28
+
+### Commits
+
+- Added new quit mode to support quitting gracefully, alongside that adding a new ENV: DISABLE_READLINE to disable this functionality. [`dd5c4de`](https://github.com/Symbux/Turbo/commit/dd5c4de06e1effd3caa10170f2dc55dda6337ef7)
+- Updated changelog. [`e4853ff`](https://github.com/Symbux/Turbo/commit/e4853ffd17859849606e620a7dc02896f32ba11e)
+- Updated package versions. [`e7dc821`](https://github.com/Symbux/Turbo/commit/e7dc8217a1a344a4c21b69dea25e4386921105fe)
+
 ## [v0.3.3](https://github.com/Symbux/Turbo/compare/v0.3.2...v0.3.3) - 2022-01-26
 
 ### Commits

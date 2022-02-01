@@ -5,7 +5,8 @@
  * @param seconds The number of seconds to be processed
  * @return string
  */
-export function durationToHuman(seconds: number): string {
+export function durationToHuman(ms: number): string {
+	const seconds = Math.floor(ms / 1000);
 	const levels = [
 		[Math.floor(seconds / 31536000), 'years'],
 		[Math.floor((seconds % 31536000) / 86400), 'days'],

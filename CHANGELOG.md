@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.3.7](https://github.com/Symbux/Turbo/compare/v0.3.6...v0.3.7) - 2022-02-02
+
+### Commits
+
+- Updated prisma ORM [`d018acf`](https://github.com/Symbux/Turbo/commit/d018acf440651e6fc2f9b9041a8f64970cf14775)
+- Updated in array to allow for array of params. [`e9b3f16`](https://github.com/Symbux/Turbo/commit/e9b3f16a7fea2f9d1fd14d1db356fbbebf9ab86e)
+- Updated changelog. [`75b2dbe`](https://github.com/Symbux/Turbo/commit/75b2dbe982d00e4f6cbd6046c3eaf20570f647c0)
+- Updated package version. [`d1ad9e1`](https://github.com/Symbux/Turbo/commit/d1ad9e181eb348c79e4876a55f0119b0640d6dfa)
+
 ## [v0.3.6](https://github.com/Symbux/Turbo/compare/v0.3.5...v0.3.6) - 2022-02-01
 
 ### Commits

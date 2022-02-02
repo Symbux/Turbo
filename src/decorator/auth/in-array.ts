@@ -7,10 +7,10 @@ import { DecoratorHelper } from '../../helper/decorator';
  * Note: For arrays only, calls `.includes()` on the property.
  *
  * @param property The property to look at.
- * @param expected The value to expect.
+ * @param expected The value or array of values to expect.
  * @returns MethodDecorator
  */
-export function InArray(property: string, expected: any): MethodDecorator {
+export function InArray(property: string, expected: any | any[]): MethodDecorator {
 	return (target: any, propertyKey?: symbol | string): void => {
 
 		// Define the auth checks.
@@ -20,8 +20,13 @@ export function InArray(property: string, expected: any): MethodDecorator {
 		authChecks.push({
 			func: (auth: Record<string, any>) => {
 				if (!Array.isArray(auth[property])) return false;
-				if (!auth[property].includes(expected)) return false;
-				return true;
+				if (expected instanceof Array) {
+					if (!auth[property].some((value: any) => expected.includes(value))) return false;
+					return true;
+				} else {
+					if (!auth[property].includes(expected)) return false;
+					return true;
+				}
 			},
 			type: 'InArray',
 		});

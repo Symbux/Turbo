@@ -34,6 +34,7 @@ import { Authentication } from './module/authentication';
 import { Autowire } from './module/autowire';
 import { Database } from './module/database';
 import { Engine } from './module/engine';
+import { EventManager } from './module/events';
 import { Logger } from './module/logger';
 import { Registry } from './module/registry';
 import { Runner } from './module/runner';
@@ -77,6 +78,7 @@ export {
 	Autowire,
 	Database,
 	Engine,
+	EventManager,
 	Logger,
 	Registry,
 	Runner,

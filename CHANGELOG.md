@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.4.0](https://github.com/Symbux/Turbo/compare/v0.3.7...v0.4.0) - 2022-02-22
+
+### Commits
+
+- Added event listener support from #7 suggestion, added awaitable option to wait before shutting down. [`d0d916d`](https://github.com/Symbux/Turbo/commit/d0d916d48f23f7da7c790d764a787209b8d54bc2)
+- Updated changelog. [`650ac27`](https://github.com/Symbux/Turbo/commit/650ac274f2622f242467043b296ae581a662070e)
+
 ## [v0.3.7](https://github.com/Symbux/Turbo/compare/v0.3.6...v0.3.7) - 2022-02-02
 
 ### Commits

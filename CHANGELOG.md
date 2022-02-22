@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.4.1](https://github.com/Symbux/Turbo/compare/v0.4.0...v0.4.1) - 2022-02-22
+
+### Commits
+
+- Updated version number. [`b213b16`](https://github.com/Symbux/Turbo/commit/b213b16ce6371eb2c1670fa1039394abf4947370)
+- Updated changelog. [`a56a205`](https://github.com/Symbux/Turbo/commit/a56a205f4fdc26fdf3c7adf0d9f0a9604d3a102f)
+
 ## [v0.4.0](https://github.com/Symbux/Turbo/compare/v0.3.7...v0.4.0) - 2022-02-22
 
 ### Commits

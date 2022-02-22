@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - Added event listener support from #7 suggestion, added awaitable option to wait before shutting down. [`d0d916d`](https://github.com/Symbux/Turbo/commit/d0d916d48f23f7da7c790d764a787209b8d54bc2)
+- Exported the event manager. [`9b5c939`](https://github.com/Symbux/Turbo/commit/9b5c939c784c54c93c70ed07d1696a70e1801d26)
 - Updated changelog. [`650ac27`](https://github.com/Symbux/Turbo/commit/650ac274f2622f242467043b296ae581a662070e)
 
 ## [v0.3.7](https://github.com/Symbux/Turbo/compare/v0.3.6...v0.3.7) - 2022-02-02

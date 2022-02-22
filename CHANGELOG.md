@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.5.0](https://github.com/Symbux/Turbo/compare/v0.4.1...v0.5.0) - 2022-02-22
+
+### Fixed
+
+- Added new cache functionality for the HTTP, this is a dynamic structure that allows you to offer any kind of cache system you want, for an item to be cacheable when creating your http response you must pass true as the 4th parameter (isCacheable), closes #10 [`#10`](https://github.com/Symbux/Turbo/issues/10)
+
+### Commits
+
+- Updated changelog. [`3f65ee3`](https://github.com/Symbux/Turbo/commit/3f65ee34b57a3f996347f9abce8976a1d8c21aa8)
+- Updated the package version. [`95f0b06`](https://github.com/Symbux/Turbo/commit/95f0b062c50c196aad6c62c60e40e550912464c8)
+
 ## [v0.4.1](https://github.com/Symbux/Turbo/compare/v0.4.0...v0.4.1) - 2022-02-22
 
 ### Commits

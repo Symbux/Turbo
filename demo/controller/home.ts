@@ -71,4 +71,10 @@ export default class HomeController extends AbstractController {
 		response.shouldTranslate(true);
 		return response;
 	}
+
+	@Http.Get('/cached')
+	public async getCached(): Promise<Http.Response> {
+		const data = { time: new Date().valueOf() };
+		return new Http.Response(200, data, undefined, true);
+	}
 }

@@ -91,7 +91,7 @@ export interface IAuthCheck {
  * Example:
  *   const something = (someClass: Constructor<SomeClass>) => {};
  *
- * @interface Constructor
+ * @type Constructor
  */
 export type Constructor<T> = {
 	new (...args: any[]): T

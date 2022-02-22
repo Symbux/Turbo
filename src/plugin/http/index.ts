@@ -5,7 +5,7 @@ import { Controller } from './controller';
 import { Get, Post, Put, Patch, Delete, Options } from './methods';
 import { Response } from './response';
 import { HttpService as Service } from './service';
-import { IOptions, IMiddleware } from './types';
+import { IOptions, IMiddleware, ICache } from './types';
 import { Registry } from '../../module/registry';
 
 /**
@@ -26,6 +26,7 @@ export {
 	Service,
 	IOptions,
 	IMiddleware,
+	ICache,
 };
 
 /**

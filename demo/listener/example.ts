@@ -5,9 +5,7 @@ export default class ExampleListener {
 
 	@Event.On.BeforeInit()
 	public async beforeInit(): Promise<void> {
-		console.log('BEFORE INIT CALLED WAITING 2 SECONDS');
-		await this.wait(2000);
-		console.log('BEFORE INIT CALLED FINISHED');
+		console.log('BEFORE INIT CALLED');
 	}
 
 	@Event.On.AfterInit()
@@ -32,9 +30,7 @@ export default class ExampleListener {
 
 	@Event.On.AfterStop()
 	public async afterStop(): Promise<void> {
-		console.log('AFTER STOP CALLED WAITING 2 SECONDS');
-		await this.wait(2000);
-		console.log('AFTER STOP CALLED FINISHED');
+		console.log('AFTER STOP CALLED ');
 	}
 
 	private wait(ms: number): Promise<void> {

@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { Engine, HttpPlugin, WsPlugin } from '../src';
+import CacheControl from './module/cache';
 
 // Initialise engine instance.
 const engine = new Engine({
@@ -16,6 +17,7 @@ const engine = new Engine({
 engine.use(new HttpPlugin({
 	port: 3002,
 	static: [{ folder: resolve(__dirname, './public') }],
+	cache: new CacheControl(),
 	security: {
 		enableHelmet: true,
 		disablePoweredBy: true,

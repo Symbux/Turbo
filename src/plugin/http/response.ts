@@ -29,6 +29,7 @@ export class Response {
 		private status: number,
 		private content?: Record<string, any> | Array<any> | string,
 		private headers?: Record<string, any>,
+		private cacheable?: boolean,
 	) {}
 
 	/**
@@ -45,6 +46,15 @@ export class Response {
 	 */
 	public shouldTranslate(status: boolean): void {
 		this.willTranslate = status;
+	}
+
+	/**
+	 * Returns whether the request can be cached or not.
+	 *
+	 * @returns boolean
+	 */
+	public isCacheable(): boolean {
+		return this.cacheable || false;
 	}
 
 	/**
@@ -109,5 +119,38 @@ export class Response {
 				.status(this.status)
 				.json(this.content);
 		}
+	}
+
+	/**
+	 * This method will execute a response object and return the
+	 * cacheable data.
+	 *
+	 * @returns void
+	 * @public
+	 */
+	public executeForCache(response: express.Response): any {
+
+		// If translations, run the request through translations.
+		if (this.willTranslate && this.content) {
+			let translatedData: string | Record<string, any> | Array<any>;
+
+			// Set language.
+			const toLanguage = this.getLanguages(response);
+
+			// Check content type.
+			if (typeof this.content === 'object') {
+				translatedData = JSON.stringify(this.content);
+				translatedData = this.translator.autoTranslate(JSON.stringify(this.content), toLanguage);
+				translatedData = JSON.parse(translatedData);
+			} else {
+				translatedData = this.translator.autoTranslate(this.content, toLanguage);
+			}
+
+			// Set the data back.
+			this.content = translatedData;
+		}
+
+		// Check content and send response.
+		return this.content;
 	}
 }

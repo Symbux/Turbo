@@ -9,7 +9,7 @@ import { DecoratorHelper } from '../../helper/decorator';
 import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
 import { IService } from '../../interface/implements';
-import { IOptions } from './types';
+import { IOptions, ICache } from './types';
 import helmet from 'helmet';
 
 /**
@@ -28,6 +28,7 @@ export class HttpService extends AbstractService implements IService {
 	private server!: Application;
 	private controllers: Array<any> = [];
 	private serverInstance: any;
+	private cache?: ICache;
 
 	/**
 	 * Creates an instance of the http service.
@@ -35,10 +36,11 @@ export class HttpService extends AbstractService implements IService {
 	 * @param options The options for this service.
 	 * @constructor
 	 */
-	public constructor(options: Record<string, any>) {
+	public constructor(options: IOptions) {
 		super(options);
 		Injector.register('tp.http', this);
 		Injector.register('tp.http.options', this.options);
+		if (options.cache) this.cache = options.cache;
 	}
 
 	/**
@@ -150,10 +152,36 @@ export class HttpService extends AbstractService implements IService {
 						return;
 					}
 
+					// Check for valid cache for this request.
+					const cacheKey = normalize(basePath + route.path.toLowerCase());
+					if (this.options.cache && this.cache) {
+
+						// Check for cache hit.
+						const cacheData = await this.cache.get(cacheKey);
+						if (cacheData) {
+
+							// Log cache hit, and return cache.
+							this.logger.verbose('PLUGIN:HTTP', `Cache hit for ${cacheKey}.`);
+							new HttpResponse(304, cacheData).execute(response);
+							return;
+						}
+					}
+
 					// Run the controller method.
 					const output: HttpResponse | undefined = await controller[classMethod](contextObject);
 					if (output) {
 						output.execute(response);
+					}
+
+					// Check for cache support.
+					if (output?.isCacheable()) {
+
+						// Check for cache support.
+						if (this.options.cache && this.cache) {
+
+							// Set the cache.
+							await this.cache.set(cacheKey, output.executeForCache(response));
+						}
 					}
 				});
 

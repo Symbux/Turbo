@@ -22,6 +22,7 @@ export interface IOptions {
 	port: number;
 	host?: string;
 	static?: IOptionsStaticItem[];
+	cache?: ICache;
 	security?: {
 		trustProxy?: string[];
 		disablePoweredBy?: boolean;
@@ -49,4 +50,20 @@ export interface IOptionsStaticItem {
  */
 export interface IMiddleware extends IGenericMiddleware {
 	handle: (context: Context) => Promise<boolean>;
+}
+
+/**
+ * An interface to implement for any LRU based caching system, this will be
+ * used by the HTTP module to cache responses, depending on if you allow it.
+ *
+ * This version uses async methods.
+ *
+ * @interface ICache
+ * @async
+ */
+export interface ICache {
+	get: (key: string) => Promise<any>;
+	set: (key: string, value: any) => Promise<void>;
+	del: (key: string) => Promise<void>;
+	clear: () => Promise<void>;
 }

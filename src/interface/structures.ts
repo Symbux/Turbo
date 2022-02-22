@@ -122,6 +122,8 @@ export type ILanguageItem = {
 
 /**
  * Available event types.
+ *
+ * @enum EventType
  */
 export enum EventType {
 	BEFORE_INIT = 'BEFORE_INIT',

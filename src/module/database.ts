@@ -3,6 +3,16 @@ import { Inject, Injector } from '@symbux/injector';
 import { IOptions } from '../interface/structures';
 import { ILogger } from '../interface/implements';
 
+/**
+ * The database module is a simple wrapper service for initialising
+ * the Prisma client when enabled, this is to allow framework users
+ * to inject the client without having to manually connect and set
+ * up the framework.
+ *
+ * @class Database
+ * @provides PrismaClient
+ * @injects logger
+ */
 export class Database {
 	private client?: PrismaClient;
 	@Inject('logger') private logger!: ILogger;

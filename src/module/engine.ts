@@ -13,6 +13,8 @@ import { Authentication } from './authentication';
 import { DecoratorHelper } from '../helper/decorator';
 import { Translator } from './translator';
 import { Database } from './database';
+import { EventManager } from './events';
+import { EventType } from '../interface/structures';
 
 /**
  * The engine class is the main class of the application.
@@ -30,6 +32,7 @@ export class Engine {
 	private autowire: Autowire;
 	private translator?: Translator;
 	private database: Database;
+	private events: EventManager;
 
 	/**
 	 * Creates a new instance of the engine.
@@ -63,6 +66,7 @@ export class Engine {
 		new Authentication();
 		this.services = new Services();
 		this.runner = new Runner();
+		this.events = new EventManager();
 		this.database = new Database(this.options);
 		if (options.translations) {
 			this.translator = new Translator(options.translations);
@@ -79,7 +83,7 @@ export class Engine {
 
 		// Register shutdown.
 		process.on('SIGINT', () => {
-			this.logger.info('ENGINE', 'Turbo engine is shutting down.');
+			this.logger.warn('ENGINE', 'Please use `q` to quit the application.');
 			this.stop();
 		});
 
@@ -160,6 +164,12 @@ export class Engine {
 			await this.autowire.wireup();
 		}
 
+		// Initialise hooks.
+		this.events.initialise();
+
+		// Dispatch before init.
+		await this.events.dispatch(EventType.BEFORE_INIT);
+
 		// Initialise components.
 		this.logger.verbose('ENGINE', 'Initialising engine components.');
 		await this.database.initialise();
@@ -168,11 +178,18 @@ export class Engine {
 		await this.translator?.initialise();
 		this.logger.verbose('ENGINE', 'Engine components were initialised.');
 
+		// Dispatch after init, then before start.
+		await this.events.dispatch(EventType.AFTER_INIT);
+		await this.events.dispatch(EventType.BEFORE_START);
+
 		// Start components.
 		this.logger.verbose('ENGINE', 'Starting engine components.');
 		await this.services.start();
 		await this.runner.start();
 		this.logger.verbose('ENGINE', 'Engine components were started.');
+
+		// Dispatch after start.
+		await this.events.dispatch(EventType.AFTER_START);
 
 		// Notify the engine is running.
 		this.logger.info('ENGINE', 'Turbo engine is running.');
@@ -187,6 +204,9 @@ export class Engine {
 	 */
 	public async stop(): Promise<void> {
 
+		// Dispatch before stop.
+		await this.events.dispatch(EventType.BEFORE_STOP);
+
 		// Shutdown services and components.
 		await this.database.stop();
 		await this.services.stop();
@@ -194,6 +214,9 @@ export class Engine {
 
 		// Kill all open threads.
 		await FibreManager.killAll();
+
+		// Dispatch after stop.
+		await this.events.dispatch(EventType.AFTER_STOP);
 
 		// Now kill self process.
 		process.exit(0);

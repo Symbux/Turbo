@@ -9,7 +9,7 @@ interface ITask {
 export default class BroadcastTask implements ITask {
 
 	@Inject('logger') private logger!: ILogger;
-	@Inject('engine.plugin.ws') private service!: Ws.Service;
+	@Inject('tp.ws') private service!: Ws.Service;
 
 	public async execute(): Promise<void> {
 		this.logger.verbose('TASK:BROADCAST', 'Broadcasting server time.');

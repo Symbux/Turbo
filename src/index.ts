@@ -7,6 +7,7 @@ import { AbstractService } from './abstract/service';
 
 // Decorator
 import * as Auth from './decorator/auth';
+import * as Event from './decorator/event';
 import { Expose } from './decorator/expose';
 import { Fibre } from './decorator/fibre';
 import { Middleware } from './decorator/middleware';
@@ -26,7 +27,7 @@ import * as Misc from './helper/misc';
 
 // Interface & Types
 import { ILogger, IService, IPlugin, ITask, IGenericMiddleware, IGenericContext, IAuthCheck, Constructor } from './interface/implements';
-import { IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem } from './interface/structures';
+import { IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem, EventType } from './interface/structures';
 
 // Module
 import { Authentication } from './module/authentication';
@@ -59,6 +60,7 @@ export {
 	AbstractController,
 	AbstractMiddleware,
 	AbstractService,
+	Event,
 	Expose,
 	Fibre,
 	Middleware,
@@ -70,7 +72,7 @@ export {
 	DecoratorHelper,
 	Misc,
 	ILogger, IService, IPlugin, ITask, IGenericMiddleware, IGenericContext, IAuthCheck, Constructor,
-	IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem,
+	IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem, EventType,
 	Authentication,
 	Autowire,
 	Database,

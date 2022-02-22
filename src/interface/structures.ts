@@ -119,3 +119,15 @@ export type ILanguageItem = {
 	native: string;
 	rtl?: number;
 };
+
+/**
+ * Available event types.
+ */
+export enum EventType {
+	BEFORE_INIT = 'BEFORE_INIT',
+	AFTER_INIT = 'AFTER_INIT',
+	BEFORE_START = 'BEFORE_START',
+	AFTER_START = 'AFTER_START',
+	BEFORE_STOP = 'BEFORE_STOP',
+	AFTER_STOP = 'AFTER_STOP',
+}

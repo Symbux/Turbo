@@ -25,7 +25,7 @@ export class Registry {
 	 * @public
 	 */
 	public static set(key: string, value: any, overwrite = false): void {
-		this.logger.verbose('REGISTRY', `Setting key: "${key}" with value: "${value}" (overwrite: "${overwrite}").`);
+		if (key !== 'turbo.custom.logger') this.logger.verbose('REGISTRY', `Setting key: "${key}" with value: "${value}" (overwrite: "${overwrite}").`);
 		const hasKey = this.register.has(key);
 		if (hasKey && !overwrite) throw new Error(`Registry key "${key}" already registered`);
 		this.register.set(key, value);

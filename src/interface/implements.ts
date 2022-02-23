@@ -7,7 +7,7 @@ import { Engine } from '../module/engine';
  * @interface ILogger
  */
 export interface ILogger {
-	log: (level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', title: string, message: string) => void;
+	// log: (level: 'info' | 'warn' | 'error' | 'verbose' | 'debug', title: string, message: string) => void;
 	info: (title: string, message: string) => void;
 	warn: (title: string, message: string) => void;
 	error: (title: string, message: string, err?: Error) => void;

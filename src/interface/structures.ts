@@ -1,3 +1,5 @@
+import { ILogger } from './implements';
+
 /**
  * Defines the structure for the engine options, which are given
  * when initialising the engine.
@@ -16,6 +18,7 @@ export interface IOptions {
 		source: string;
 		compiled: string;
 	};
+	logger?: ILogger;
 	logLevels?: Array<'info' | 'warn' | 'error' | 'verbose' | 'debug'>;
 }
 

@@ -38,6 +38,11 @@ export class Logger implements ILogger {
 	 */
 	public info(title: string, message: string): void {
 		if (!this.hasLogLevel('info')) return;
+		const customLogger = this.getCustomLogger();
+		if (customLogger) {
+			customLogger.info(title, message);
+			return;
+		}
 		console.log(this.format(title, message, 'info'));
 	}
 
@@ -52,6 +57,11 @@ export class Logger implements ILogger {
 	 */
 	public warn(title: string, message: string): void {
 		if (!this.hasLogLevel('warn')) return;
+		const customLogger = this.getCustomLogger();
+		if (customLogger) {
+			customLogger.warn(title, message);
+			return;
+		}
 		console.log(this.format(title, message, 'warn'));
 	}
 
@@ -68,6 +78,11 @@ export class Logger implements ILogger {
 	 */
 	public error(title: string, message: string, err?: Error): void {
 		if (!this.hasLogLevel('error')) return;
+		const customLogger = this.getCustomLogger();
+		if (customLogger) {
+			customLogger.error(title, message, err);
+			return;
+		}
 		console.log(this.format(title, message, 'error', err));
 	}
 
@@ -83,6 +98,11 @@ export class Logger implements ILogger {
 	 */
 	public verbose(title: string, message: string, err?: Error): void {
 		if (!this.hasLogLevel('verbose')) return;
+		const customLogger = this.getCustomLogger();
+		if (customLogger) {
+			customLogger.verbose(title, message, err);
+			return;
+		}
 		console.log(this.format(title, message, 'verbose', err));
 	}
 
@@ -99,6 +119,11 @@ export class Logger implements ILogger {
 	 */
 	public debug(title: string, content: any, err?: Error): void {
 		if (!this.hasLogLevel('debug')) return;
+		const customLogger = this.getCustomLogger();
+		if (customLogger) {
+			customLogger.debug(title, content, err);
+			return;
+		}
 		console.log(this.format(title, JSON.stringify(content), 'debug', err));
 	}
 
@@ -136,5 +161,14 @@ export class Logger implements ILogger {
 	protected hasLogLevel(level: string): boolean {
 		const levels: string[] = Registry.get('turbo.logger.levels') || [];
 		return levels.includes(level);
+	}
+
+	/**
+	 * Support for custom loggers.
+	 */
+	private getCustomLogger(): ILogger | null {
+		const customLogger = Registry.get('turbo.custom.logger');
+		if (customLogger) return customLogger;
+		return null;
 	}
 }

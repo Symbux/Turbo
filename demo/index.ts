@@ -1,6 +1,28 @@
 import { resolve } from 'path';
-import { Engine, HttpPlugin, WsPlugin } from '../src';
+import { Engine, HttpPlugin, /*ILogger,*/ WsPlugin } from '../src';
 import CacheControl from './module/cache';
+
+// class CustomLogger implements ILogger {
+// 	public info(...args: any[]): void {
+// 		console.log('cl::info', ...args);
+// 	}
+
+// 	public warn(...args: any[]): void {
+// 		console.warn('cl::warn', ...args);
+// 	}
+
+// 	public error(...args: any[]): void {
+// 		console.error('cl::error', ...args);
+// 	}
+
+// 	public verbose(...args: any[]): void {
+// 		console.log('cl::verbose', ...args);
+// 	}
+
+// 	public debug(...args: any[]): void {
+// 		console.log('cl::debug', ...args);
+// 	}
+// }
 
 // Initialise engine instance.
 const engine = new Engine({
@@ -11,6 +33,7 @@ const engine = new Engine({
 		source: resolve(process.cwd(), './demo'),
 		compiled: resolve(process.cwd(), './demo'),
 	},
+	// logger: new CustomLogger(),
 });
 
 // Use the http plugin.

@@ -47,6 +47,11 @@ export class Engine {
 		if (options.logLevels) logLevels = options.logLevels;
 		Registry.set('turbo.logger.levels',logLevels);
 
+		// Check for custom logger.
+		if (this.options.logger) {
+			Registry.set('turbo.custom.logger', this.options.logger);
+		}
+
 		// Log the engine is starting.
 		this.logger.info('ENGINE', 'Turbo engine is being initialised.');
 

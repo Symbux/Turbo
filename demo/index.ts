@@ -18,6 +18,9 @@ engine.use(new HttpPlugin({
 	port: 3002,
 	static: [{ folder: resolve(__dirname, './public') }],
 	cache: new CacheControl(),
+	uploads: {
+		enabled: true,
+	},
 	security: {
 		enableHelmet: true,
 		disablePoweredBy: true,

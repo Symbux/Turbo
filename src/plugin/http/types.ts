@@ -23,6 +23,13 @@ export interface IOptions {
 	host?: string;
 	static?: IOptionsStaticItem[];
 	cache?: ICache;
+	uploads?: {
+		enabled: boolean;
+		maxFileSize?: number;
+		tempFileDir?: string;
+		debug?: string;
+		uploadTimeout?: number;
+	};
 	security?: {
 		trustProxy?: string[];
 		disablePoweredBy?: boolean;

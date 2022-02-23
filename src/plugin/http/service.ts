@@ -11,6 +11,7 @@ import { Response as HttpResponse } from './response';
 import { IService } from '../../interface/implements';
 import { IOptions, ICache } from './types';
 import helmet from 'helmet';
+import fileUpload from 'express-fileupload';
 
 /**
  * This class is the base HttpPlugin's service which actually creates
@@ -248,5 +249,20 @@ export class HttpService extends AbstractService implements IService {
 		this.server.use(cookieParser());
 		this.server.use(urlencoded({ extended: true }));
 		this.server.use(json());
+		if (this.options.uploads && this.options.uploads.enabled) {
+			this.server.use(fileUpload({
+				useTempFiles: true,
+				createParentPath: true,
+				safeFileNames: true,
+				preserveExtension: true,
+				abortOnLimit: true,
+				tmpFileDir: this.options.uploads.tempFileDir || '/tmp/',
+				uploadTimeout: this.options.uploads.timeout || 60000,
+				debug: this.options.uploads.debug || false,
+				limits: {
+					fileSize: this.options.uploads.maxFileSize || 50 * 1024 * 1024,
+				},
+			}));
+		}
 	}
 }

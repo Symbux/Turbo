@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { UploadedFile } from 'express-fileupload';
 
 /**
  * Context class for the HTTP plugin.
@@ -93,6 +94,15 @@ export class Context {
 			headers[header] = this.request.headers[header];
 			return headers;
 		}, {});
+	}
+
+	/**
+	 * Returns uploaded files.
+	 *
+	 * @returns Record<string, any>
+	 */
+	public getFiles(): Record<string, UploadedFile> {
+		return (this.request as any).files;
 	}
 
 	/**

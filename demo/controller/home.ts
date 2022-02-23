@@ -25,6 +25,17 @@ export default class HomeController extends AbstractController {
 		return new Http.Response(200, await readFile(resolve(__dirname, '../view/index.html'), 'utf8'));
 	}
 
+	@Http.Get('/upload')
+	public async upload(): Promise<Http.Response> {
+		return new Http.Response(200, await readFile(resolve(__dirname, '../view/upload.html'), 'utf8'));
+	}
+
+	@Http.Post('/file/upload')
+	public async fileUpload(context: Http.Context): Promise<Http.Response> {
+		console.log(context.getFiles());
+		return new Http.Response(200, { message: 'File was uploaded.' });
+	}
+
 	@Http.Get('/data')
 	public async data(): Promise<Http.Response> {
 		return new Http.Response(200, { hello: 'world'});

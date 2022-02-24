@@ -24,11 +24,24 @@ import CacheControl from './module/cache';
 // 	}
 // }
 
+const onErrorHandler = (err: Error) => {
+	console.warn(err);
+};
+
+// Force an error after 10 seconds.
+setTimeout(() => {
+	throw new Error('Forced error');
+}, 10000);
+
 // Initialise engine instance.
 const engine = new Engine({
 	autowire: true,
 	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
 	translations: resolve(__dirname, './translations'),
+	errors: {
+		handler: onErrorHandler,
+		continue: true,
+	},
 	basepath: {
 		source: resolve(process.cwd(), './demo'),
 		compiled: resolve(process.cwd(), './demo'),

@@ -14,6 +14,10 @@ export interface IOptions {
 	scanFoldersOnly?: boolean;
 	translations?: string;
 	database?: boolean;
+	errors?: {
+		handler?: (err: Error) => void | Promise<void>;
+		continue?: boolean;
+	},
 	basepath?: {
 		source: string;
 		compiled: string;

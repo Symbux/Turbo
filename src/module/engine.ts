@@ -86,6 +86,24 @@ export class Engine {
 		}
 		this.autowire = new Autowire(this, this.options);
 
+		// Register uncaught exception handler.
+		process.on('uncaughtException', async err => {
+
+			// Firstly log the exception.
+			this.logger.error('ENGINE', `Uncaught exception: ${err.message}.`, err);
+
+			// Now check for user handler.
+			if (this.options.errors && this.options.errors.handler) {
+				await this.options.errors.handler(err);
+			}
+
+			// Check if we should exit.
+			if (!this.options.errors || !this.options.errors.continue) {
+				await this.stop();
+				process.exit(1);
+			}
+		});
+
 		// Register shutdown.
 		process.on('SIGINT', () => {
 			this.logger.warn('ENGINE', 'Please use `q` to quit the application.');

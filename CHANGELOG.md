@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.1](https://github.com/Symbux/Turbo/compare/v0.6.0...v0.6.1) - 2022-02-25
+
+### Commits
+
+- Added getServer access for when injecting, this allows plugins (like turbo-ui) to access the core server, as Vite needs to apply middlewares. [`d009c32`](https://github.com/Symbux/Turbo/commit/d009c326eee210311f9fa595e335a90b8f480be3)
+- Bumped package version. [`af066b4`](https://github.com/Symbux/Turbo/commit/af066b4462eebde381f3cec20478c016760eec47)
+
+## [v0.6.0](https://github.com/Symbux/Turbo/compare/v0.5.0...v0.6.0) - 2022-02-24
+
+### Fixed
+
+- Added support for custom loggers, closes #12 [`#12`](https://github.com/Symbux/Turbo/issues/12)
+- Added support for file uploading closes #14 [`#14`](https://github.com/Symbux/Turbo/issues/14)
+
+### Commits
+
+- Updated package version and updated all dependencies. [`989b46f`](https://github.com/Symbux/Turbo/commit/989b46f62ea7e098c48e805d9aa44e982575b480)
+- Recreated yarn lock file. [`5ebb2bc`](https://github.com/Symbux/Turbo/commit/5ebb2bcc6b70eaa8f07ce335650cbab7f97f8d72)
+- Added exception handler for handling any kind errors from the platform, this is to allow graceful shutdowns and alongside that avoid shutdowns entirely, but be careful this could cause issues if an application constantly starts erroring, make sure to validate the error before allowing yourself to continue. [`fc56bf3`](https://github.com/Symbux/Turbo/commit/fc56bf34fc6d29d2db4f30b67757dac4303c6c97)
+- Updated changelog. [`804d9ee`](https://github.com/Symbux/Turbo/commit/804d9ee142357af6516c5c7061ec8627f72b80e1)
+
 ## [v0.5.0](https://github.com/Symbux/Turbo/compare/v0.4.1...v0.5.0) - 2022-02-22
 
 ### Fixed

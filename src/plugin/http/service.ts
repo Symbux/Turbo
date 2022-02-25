@@ -265,13 +265,4 @@ export class HttpService extends AbstractService implements IService {
 			}));
 		}
 	}
-
-	/**
-	 * Will return the server instance.
-	 *
-	 * @returns Application (express)
-	 */
-	public getServer(): Application {
-		return this.server;
-	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "@symbux/turbo",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Turbo is a powerful command engine with extendability in mind, with built-in HTTP/WebSocket services.",
   "main": "lib/index.js",
   "repository": "git@github.com:Symbux/Turbo.git",
@@ -35,7 +35,7 @@
   "dependencies": {
     "@prisma/client": "^3.12.0",
     "@symbux/injector": "^1.4.0",
-    "chalk": "^5.0.1",
+    "chalk": "^4.1.2",
     "cookie-parser": "^1.4.6",
     "cron": "^1.8.2",
     "express": "^4.17.3",

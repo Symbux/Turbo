@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.4](https://github.com/Symbux/Turbo/compare/v0.6.3...v0.6.4) - 2022-04-22
+
+### Commits
+
+- Moved all packages to using node: prefix. [`dce64c3`](https://github.com/Symbux/Turbo/commit/dce64c34591df7880b48c16ab92ad3bddaaada17)
+- Downgraded to chalk 4.1.2 because the owner doesn't support CJS anymore. [`198f092`](https://github.com/Symbux/Turbo/commit/198f0923fa4c24db649ca01302bbd0f8c1ee8ca0)
+- Updated changelog. [`e5de9f2`](https://github.com/Symbux/Turbo/commit/e5de9f24a400da99eec490a00ba1ca016deb934c)
+
 ## [v0.6.3](https://github.com/Symbux/Turbo/compare/v0.6.2...v0.6.3) - 2022-04-22
 
 ### Commits

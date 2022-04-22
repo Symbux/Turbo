@@ -1,5 +1,5 @@
 import { Inject } from '@symbux/injector';
-import { DecoratorHelper } from '..';
+import { DecoratorHelper } from '../helper/decorator';
 import { ILogger } from '../interface/implements';
 import { EventType } from '../interface/structures';
 import { Registry } from './registry';

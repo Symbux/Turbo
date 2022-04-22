@@ -3,8 +3,8 @@ import { ILogger } from '../interface/implements';
 import CountryDataJson from '../data/countries.json';
 import LanguageDataJson from '../data/languages.json';
 import { sync as glob } from 'glob';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { Inject, Injector } from '@symbux/injector';
 
 /**

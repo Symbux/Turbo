@@ -2,7 +2,7 @@ import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
 import { Registry } from './registry';
 import { CronJob } from 'cron';
-import { DecoratorHelper } from '..';
+import { DecoratorHelper } from '../helper/decorator';
 import { durationToHuman } from '../helper/misc';
 
 /**

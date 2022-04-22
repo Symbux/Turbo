@@ -1,7 +1,7 @@
 import express, { Application, urlencoded, json, Request, Response } from 'express';
 import { Injector } from '@symbux/injector';
 import cookieParser from 'cookie-parser';
-import { normalize } from 'path';
+import { normalize } from 'node:path';
 import { AbstractService } from '../../abstract/service';
 import { Service } from '../../decorator/service';
 import { Registry } from '../../module/registry';

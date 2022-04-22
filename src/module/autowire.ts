@@ -1,6 +1,6 @@
 import { Engine } from './engine';
 import { IOptions } from '../interface/structures';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { sync as glob } from 'glob';
 import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.6](https://github.com/Symbux/Turbo/compare/v0.6.5...v0.6.6) - 2022-04-26
+
+### Commits
+
+- Removed jest and ts-jest. [`f4abaab`](https://github.com/Symbux/Turbo/commit/f4abaabe38c2103f4626175c13eb490d40a4b66e)
+- Updated changelog. [`99ce9aa`](https://github.com/Symbux/Turbo/commit/99ce9aa5a8e460df0103438e832cb1315a2d72ee)
+
 ## [v0.6.5](https://github.com/Symbux/Turbo/compare/v0.6.4...v0.6.5) - 2022-04-26
 
 ### Commits

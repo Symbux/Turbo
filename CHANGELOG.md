@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.8](https://github.com/Symbux/Turbo/compare/v0.6.7...v0.6.8) - 2022-05-17
+
+### Commits
+
+- Fixed an issue where returning false in middlewares were not throwing unauthorised errors, but rather were simply leaving the connection hanging. [`1177798`](https://github.com/Symbux/Turbo/commit/1177798581e4d384818e0bce58595fa1537b3aae)
+- Updated changelog. [`9db3086`](https://github.com/Symbux/Turbo/commit/9db308601c7e3aa2853819439b9048687a34f421)
+- Bumped package version. [`3933f4b`](https://github.com/Symbux/Turbo/commit/3933f4bba35c88fa93d2c526f62ebef1a30a1e91)
+
 ## [v0.6.7](https://github.com/Symbux/Turbo/compare/v0.6.6...v0.6.7) - 2022-05-17
 
 ### Commits

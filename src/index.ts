@@ -27,7 +27,7 @@ import * as Misc from './helper/misc';
 
 // Interface & Types
 import { ILogger, IService, IPlugin, ITask, IGenericMiddleware, IGenericContext, IAuthCheck, Constructor } from './interface/implements';
-import { IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem, EventType } from './interface/structures';
+import { IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, ICountryItem, ILanguageItem, EventType } from './interface/structures';
 
 // Module
 import { Authentication } from './module/authentication';
@@ -73,7 +73,7 @@ export {
 	DecoratorHelper,
 	Misc,
 	ILogger, IService, IPlugin, ITask, IGenericMiddleware, IGenericContext, IAuthCheck, Constructor,
-	IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, IAuthResponse, ICountryItem, ILanguageItem, EventType,
+	IOptions, FibreOptions, FibreThread, FibreItem, FibreResponse, ICountryItem, ILanguageItem, EventType,
 	Authentication,
 	Autowire,
 	Database,

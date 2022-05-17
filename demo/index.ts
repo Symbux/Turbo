@@ -30,7 +30,7 @@ const onErrorHandler = (err: Error) => {
 
 // Force an error after 10 seconds.
 setTimeout(() => {
-	throw new Error('Forced error');
+	throw new Error('Forced error - testing');
 }, 10000);
 
 // Initialise engine instance.

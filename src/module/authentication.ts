@@ -2,7 +2,6 @@ import { Inject, Injector } from '@symbux/injector';
 import { DecoratorHelper } from '../helper/decorator';
 import { AbstractController } from '../abstract/controller';
 import { IGenericContext, IGenericMiddleware, ILogger, IAuthCheck } from '../interface/implements';
-import { IAuthResponse } from '../interface/structures';
 import { Registry } from './registry';
 
 /**
@@ -43,7 +42,7 @@ export class Authentication {
 	 * @async
 	 * @public
 	 */
-	public async handle(type: string, context: IGenericContext, controller: AbstractController, method: string): Promise<IAuthResponse> {
+	public async handle(type: string, context: IGenericContext, controller: AbstractController, method: string): Promise<boolean> {
 
 		// Define the middlewars.
 		const middlewares: IGenericContext[] = [];
@@ -64,7 +63,7 @@ export class Authentication {
 		const authChecks: IAuthCheck[] = DecoratorHelper.getMetadata('t:auth:checks', [], controller, method);
 
 		// Verify we have middlewares to run.
-		if (middlewares.length === 0) return { failed: false, stop: false };
+		if (middlewares.length === 0) return true;
 
 		// Loop and run the middlewares.
 		for await (const middleware of middlewares) {
@@ -78,11 +77,11 @@ export class Authentication {
 
 			// Run the middleware.
 			const shouldContinue: boolean = await instance.handle(context);
-			if (!shouldContinue) return { failed: false, stop: true };
+			if (!shouldContinue) return false;
 		}
 
 		// Check for auth checks.
-		if (authChecks.length === 0) return { failed: false, stop: false };
+		if (authChecks.length === 0) return true;
 
 		// Log verbose.
 		this.logger.verbose('AUTH', `Running ${authChecks.length} authentication checks for: ${controller.constructor.name}/${method}.`);
@@ -92,11 +91,11 @@ export class Authentication {
 			const checkStatus = check.func(context.getAuth());
 			if (!checkStatus) {
 				this.logger.warn('AUTH', `Authentication check failed for: ${controller.constructor.name}/${method} on check type: @Auth.${check.type}().`);
-				return { failed: true, stop: true };
+				return false;
 			}
 		}
 
 		// Fallback to returning true.
-		return { failed: false, stop: false };
+		return true;
 	}
 }

@@ -75,18 +75,6 @@ export type FibreResponse = {
 };
 
 /**
- * Defines the structure of a middleware call, this allows the engine to know
- * when to stop running after calling a middleware or when the middleware has
- * thrown an error.
- *
- * @interface IAuthResponse
- */
-export interface IAuthResponse {
-	failed: boolean;
-	stop: boolean;
-}
-
-/**
  * Defines the structure of a country data, that comes from the JSON data.
  *
  * @type ICountryData

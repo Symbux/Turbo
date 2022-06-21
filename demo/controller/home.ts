@@ -1,4 +1,4 @@
-import { AbstractController, Http, Auth, Options, Catch } from '../../src';
+import { AbstractController, Http, Auth, Options } from '../../src';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { ExampleFibre } from '../fibre/example';
@@ -90,18 +90,13 @@ export default class HomeController extends AbstractController {
 	}
 
 	@Http.Get('/task/run/:name')
+	@Http.Catch(e => new Http.Response(404, { error: e.message, something: 'Hello, World!' }))
 	public async executeTask(context: Http.Context): Promise<Http.Response> {
-		try {
-			const name = context.getParams().name;
-			const taskFinished = await this.runTask(name);
-			return new Http.Response(200, {
-				taskName: name,
-				taskFinished,
-			});
-		} catch(err) {
-			return new Http.Response(404, {
-				error: (err as Error).message,
-			});
-		}
+		const name = context.getParams().name;
+		const taskFinished = await this.runTask(name);
+		return new Http.Response(200, {
+			taskName: name,
+			taskFinished,
+		});
 	}
 }

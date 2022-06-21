@@ -8,6 +8,7 @@ import { AbstractService } from './abstract/service';
 // Decorator
 import * as Auth from './decorator/auth';
 import * as Event from './decorator/event';
+import { Catch } from './decorator/catch';
 import { Expose } from './decorator/expose';
 import { Fibre } from './decorator/fibre';
 import { Middleware } from './decorator/middleware';
@@ -62,6 +63,7 @@ export {
 	AbstractMiddleware,
 	AbstractService,
 	Event,
+	Catch,
 	Expose,
 	Fibre,
 	Middleware,

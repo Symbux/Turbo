@@ -1,3 +1,4 @@
+import { Http } from '../..';
 import { DecoratorHelper } from '../../helper/decorator';
 
 /**
@@ -99,5 +100,18 @@ export function Options(path: string): MethodDecorator {
 			'path': path,
 			'auth': {},
 		});
+	};
+}
+
+/**
+ * Will define a error response if the given method throws an error.
+ *
+ * @param callback The callback method with the error as a parameter.
+ * @returns MethodDecorator
+ * @plugin Http
+ */
+export function Catch(callback: (e: Error) => Http.Response): MethodDecorator {
+	return (target: any, propertyKey: symbol | string): void => {
+		DecoratorHelper.setMetadata('t:http:catch', callback, target, propertyKey);
 	};
 }

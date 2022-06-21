@@ -2,7 +2,7 @@ import { IPlugin } from '../../interface/implements';
 import { Engine } from '../../module/engine';
 import { Context } from './context';
 import { Controller } from './controller';
-import { Get, Post, Put, Patch, Delete, Options } from './methods';
+import { Get, Post, Put, Patch, Delete, Options, Catch } from './methods';
 import { Response } from './response';
 import { HttpService as Service } from './service';
 import { IOptions, IMiddleware, ICache } from './types';
@@ -22,6 +22,7 @@ export {
 	Patch,
 	Delete,
 	Options,
+	Catch,
 	Response,
 	Service,
 	IOptions,

@@ -136,6 +136,9 @@ export class HttpService extends AbstractService implements IService {
 				// Add the route.
 				this.server[route.method.toLowerCase()](normalize(basePath + route.path.toLowerCase()), async (request: Request, response: Response) => {
 
+					// Check for route catch.
+					const catchMethod = DecoratorHelper.getMetadata('t:http:catch', null, controller, classMethod);
+
 					// Create a context object.
 					const contextObject = new HttpContext(request, response);
 
@@ -164,20 +167,25 @@ export class HttpService extends AbstractService implements IService {
 					}
 
 					// Run the controller method.
-					const output: HttpResponse | undefined = await controller[classMethod](contextObject);
-					if (output) {
-						output.execute(response);
-					}
-
-					// Check for cache support.
-					if (output?.isCacheable()) {
+					try {
+						const output: HttpResponse | undefined = await controller[classMethod](contextObject);
+						if (output) {
+							output.execute(response);
+						}
 
 						// Check for cache support.
-						if (this.options.cache && this.cache) {
+						if (output?.isCacheable()) {
 
-							// Set the cache.
-							await this.cache.set(cacheKey, output.executeForCache(response));
+							// Check for cache support.
+							if (this.options.cache && this.cache) {
+
+								// Set the cache.
+								await this.cache.set(cacheKey, output.executeForCache(response));
+							}
 						}
+					} catch(err) {
+						if (!catchMethod) throw err as Error;
+						catchMethod(err as Error).execute(response);
 					}
 				});
 

@@ -64,6 +64,9 @@ engine.use(new HttpPlugin({
 			contentSecurityPolicy: false,
 		},
 	},
+	compression: {
+		enabled: true,
+	},
 }));
 
 // Use the ws plugin.

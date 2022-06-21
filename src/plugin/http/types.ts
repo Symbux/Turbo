@@ -1,5 +1,6 @@
 import { IGenericMiddleware } from '../../interface/implements';
 import { Context } from './context';
+import { CompressionOptions } from 'compression';
 
 /**
  * Defines the structure of the options to give to the service.
@@ -35,6 +36,10 @@ export interface IOptions {
 		disablePoweredBy?: boolean;
 		enableHelmet?: boolean;
 		helmetOptions?: Record<string, any>;
+	};
+	compression?: {
+		enabled?: boolean;
+		options?: CompressionOptions;
 	};
 }
 

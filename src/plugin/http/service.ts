@@ -10,6 +10,7 @@ import { Context as HttpContext } from './context';
 import { Response as HttpResponse } from './response';
 import { IService } from '../../interface/implements';
 import { IOptions, ICache } from './types';
+import compression from 'compression';
 import helmet from 'helmet';
 import fileUpload from 'express-fileupload';
 
@@ -67,6 +68,7 @@ export class HttpService extends AbstractService implements IService {
 		// Setup the routes.
 		this.setupTrustProxy();
 		this.setupHelmet();
+		this.setupCompression();
 		this.setupRoutes();
 		this.setupStatic();
 	}
@@ -231,6 +233,19 @@ export class HttpService extends AbstractService implements IService {
 				this.server.use(helmet());
 			}
 		}
+	}
+
+	/**
+	 * This will check the options and check to see whether compression is enabled,
+	 * this feature is not default, and will specifically need to be turned on, this
+	 * is due to the engine being an API-first system, and therefore in general usage
+	 * of the system would not require compression realistically, but can be enabled.
+	 */
+	public setupCompression(): void {
+		const options = this.options as IOptions;
+		if (!options.compression) return;
+		if (!options.compression.enabled) return;
+		this.server.use(compression(options.compression.options));
 	}
 
 	/**

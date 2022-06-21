@@ -13,7 +13,7 @@ import { DecoratorHelper } from '../helper/decorator';
 export function Task(name: string, schedule: string): ClassDecorator {
 	return (target: any): void => {
 		DecoratorHelper.setClassBase(target, 'task');
-		DecoratorHelper.setMetadata('t:task:name', name, target);
+		DecoratorHelper.setMetadata('t:name', name, target);
 		DecoratorHelper.setMetadata('t:task:schedule', schedule, target);
 	};
 }

@@ -260,6 +260,7 @@ export class Engine {
 		const isProvider = DecoratorHelper.getMetadata('engine:module', '', module) === 'provider';
 
 		Registry.setModule(moduleType, moduleName, {
+			name: moduleName,
 			module: module,
 			options: options,
 			instance: !isProvider ? new module(options || {}) : null,

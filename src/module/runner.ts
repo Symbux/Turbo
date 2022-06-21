@@ -16,7 +16,7 @@ import { durationToHuman } from '../helper/misc';
 export class Runner {
 
 	@Inject('logger') private logger!: ILogger;
-	private tasks: Array<{ module: any, instance: any, options: any, job: CronJob }> = [];
+	private tasks: Array<{ module: any, instance: any, options: any, job: CronJob, name: string }> = [];
 	private running = false;
 
 	/**
@@ -117,5 +117,30 @@ export class Runner {
 	 */
 	public isRunning(): boolean {
 		return this.running;
+	}
+
+	/**
+	 * Will lookup tasks for the given name.
+	 *
+	 * @param name The name of the task.
+	 * @returns boolean
+	 */
+	public hasTask(name: string): boolean {
+		const task = this.tasks.find(task => task.name === name);
+		if (!task) return false;
+		return true;
+	}
+
+	/**
+	 * Will execute a task for the given name.
+	 *
+	 * @param name The name of the task.
+	 * @returns boolean
+	 */
+	public async runTask(name: string): Promise<boolean> {
+		const task = this.tasks.find(task => task.name === name);
+		if (!task) throw new Error(`Could not find task: ${name}.`);
+		if (!task.instance || !task.instance.execute) throw new Error(`Task: ${name} is malformed and can't be executed.`);
+		return await task.instance.execute();
 	}
 }

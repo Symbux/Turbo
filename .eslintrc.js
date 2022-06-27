@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 module.exports = {
 	extends: [
 		'eslint:recommended',
@@ -23,6 +25,12 @@ module.exports = {
 		'@typescript-eslint/eslint-plugin',
 	],
 	rules: {
+		'@typescript-eslint/ban-ts-comment': ['error', {
+			'ts-expect-error': 'allow-with-description',
+			'ts-ignore': 'allow-with-description',
+			'ts-nocheck': 'allow-with-description',
+			'ts-check': 'allow-with-description',
+		}],
 		'@typescript-eslint/interface-name-prefix': 0,
 		'@typescript-eslint/no-explicit-any': 0,
 		'@typescript-eslint/no-this-alias': 0,

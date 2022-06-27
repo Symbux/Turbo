@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.10](https://github.com/Symbux/Turbo/compare/v0.6.9...v0.6.10) - 2022-06-27
+
+### Fixed
+
+- Installed and setup the compression library for gzip compression within the HTTP plugin, fixes #21 [`#21`](https://github.com/Symbux/Turbo/issues/21)
+
+### Commits
+
+- Added missing catch around the route, to return a 500 on any error if no catch provided. [`058d317`](https://github.com/Symbux/Turbo/commit/058d317149a5871a31e6d9b2beabb1af4f87b763)
+- Added new @Http.Catch decorator, that takes a function that accepts an error and will expect a http.response. [`3aed806`](https://github.com/Symbux/Turbo/commit/3aed8060a80be099a6c6fe5582096de9a57f8ad8)
+- Added support for calling tasks and executing them directly from the controller. [`25969c2`](https://github.com/Symbux/Turbo/commit/25969c293fd3ad4bcc00a42d023be5a28c841d84)
+- Allowed TS ignore comments provided a message is given, used only for designing. [`e073a98`](https://github.com/Symbux/Turbo/commit/e073a980ab04008145402788cd188280848782e6)
+- Written changelog. [`57b4b4a`](https://github.com/Symbux/Turbo/commit/57b4b4a1bf11c2fdbc9372f964d3b32c55ff5595)
+- Updated package version. [`7f045ea`](https://github.com/Symbux/Turbo/commit/7f045ea16071b509fcc1051d26ed7969b7020f54)
+- Updated the license to read correctly. [`70d6cae`](https://github.com/Symbux/Turbo/commit/70d6cae1dc165850a3f64ac485abe24a83ff43b0)
+
 ## [v0.6.9](https://github.com/Symbux/Turbo/compare/v0.6.8...v0.6.9) - 2022-06-21
 
 ### Commits

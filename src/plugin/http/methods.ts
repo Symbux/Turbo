@@ -8,12 +8,15 @@ import { DecoratorHelper } from '../../helper/decorator';
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Get(path: string): MethodDecorator {
+export function Get(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'GET',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'GET',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }
@@ -25,12 +28,15 @@ export function Get(path: string): MethodDecorator {
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Post(path: string): MethodDecorator {
+export function Post(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'POST',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'POST',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }
@@ -42,12 +48,15 @@ export function Post(path: string): MethodDecorator {
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Patch(path: string): MethodDecorator {
+export function Patch(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'PATCH',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'PATCH',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }
@@ -59,12 +68,15 @@ export function Patch(path: string): MethodDecorator {
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Put(path: string): MethodDecorator {
+export function Put(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'PUT',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'PUT',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }
@@ -76,12 +88,15 @@ export function Put(path: string): MethodDecorator {
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Delete(path: string): MethodDecorator {
+export function Delete(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'DELETE',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'DELETE',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }
@@ -93,12 +108,15 @@ export function Delete(path: string): MethodDecorator {
  * @returns MethodDecorator
  * @plugin Http
  */
-export function Options(path: string): MethodDecorator {
+export function Options(path: string | string[]): MethodDecorator {
 	return (target: any, propertyKey: symbol | string): void => {
-		DecoratorHelper.addMethod(target, propertyKey, {
-			'method': 'OPTIONS',
-			'path': path,
-			'auth': {},
+		if (typeof path === 'string') path = [path];
+		path.forEach(pathName => {
+			DecoratorHelper.addMethod(target, propertyKey, {
+				'method': 'OPTIONS',
+				'path': pathName,
+				'auth': {},
+			});
 		});
 	};
 }

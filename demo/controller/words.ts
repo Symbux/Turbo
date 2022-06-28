@@ -2,7 +2,7 @@ import { Inject } from '@symbux/injector';
 import { AbstractController, Http, PrismaClient } from '../../src';
 
 @Http.Controller('/words')
-export default class DatabaseController extends AbstractController {
+export default class WordsController extends AbstractController {
 	@Inject() private prisma!: PrismaClient;
 
 	@Http.Get('/')

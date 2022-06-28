@@ -135,72 +135,78 @@ export class HttpService extends AbstractService implements IService {
 				// Define the route.
 				const route = routes[classMethod];
 
+				// Turn the routes into an array.
+				const routePaths = Array.isArray(route.path) ? route.path : [route.path];
+				console.log(routePaths);
+
 				// Add the route.
-				this.server[route.method.toLowerCase()](normalize(basePath + route.path.toLowerCase()), async (request: Request, response: Response) => {
+				routePaths.forEach((routePath: string) => {
+					this.server[route.method.toLowerCase()](normalize(basePath + routePath.toLowerCase()), async (request: Request, response: Response) => {
 
-					// Create wrapping try; catch.
-					try {
+						// Create wrapping try; catch.
+						try {
 
-						// Check for route catch.
-						const catchMethod = DecoratorHelper.getMetadata('t:http:catch', null, controller, classMethod);
+							// Check for route catch.
+							const catchMethod = DecoratorHelper.getMetadata('t:http:catch', null, controller, classMethod);
 
-						// Create a context object.
-						const contextObject = new HttpContext(request, response);
+							// Create a context object.
+							const contextObject = new HttpContext(request, response);
 
-						// Run the authentication.
-						const authSuccess = await this.auth.handle('http', contextObject, controller, classMethod);
-						if (!authSuccess) {
-							new HttpResponse(401, {
-								message: 'Unauthorized.',
-							}).execute(response);
-							return;
-						}
-
-						// Check for valid cache for this request.
-						const cacheKey = normalize(basePath + route.path.toLowerCase());
-						if (this.options.cache && this.cache) {
-
-							// Check for cache hit.
-							const cacheData = await this.cache.get(cacheKey);
-							if (cacheData) {
-
-								// Log cache hit, and return cache.
-								this.logger.verbose('PLUGIN:HTTP', `Cache hit for ${cacheKey}.`);
-								new HttpResponse(304, cacheData).execute(response);
+							// Run the authentication.
+							const authSuccess = await this.auth.handle('http', contextObject, controller, classMethod);
+							if (!authSuccess) {
+								new HttpResponse(401, {
+									message: 'Unauthorized.',
+								}).execute(response);
 								return;
 							}
-						}
 
-						// Run the controller method.
-						try {
-							const output: HttpResponse | undefined = await controller[classMethod](contextObject);
-							if (output) {
-								output.execute(response);
-							}
+							// Check for valid cache for this request.
+							const cacheKey = normalize(basePath + routePath.toLowerCase());
+							if (this.options.cache && this.cache) {
 
-							// Check for cache support.
-							if (output?.isCacheable()) {
+								// Check for cache hit.
+								const cacheData = await this.cache.get(cacheKey);
+								if (cacheData) {
 
-								// Check for cache support.
-								if (this.options.cache && this.cache) {
-
-									// Set the cache.
-									await this.cache.set(cacheKey, output.executeForCache(response));
+									// Log cache hit, and return cache.
+									this.logger.verbose('PLUGIN:HTTP', `Cache hit for ${cacheKey}.`);
+									new HttpResponse(304, cacheData).execute(response);
+									return;
 								}
 							}
+
+							// Run the controller method.
+							try {
+								const output: HttpResponse | undefined = await controller[classMethod](contextObject);
+								if (output) {
+									output.execute(response);
+								}
+
+								// Check for cache support.
+								if (output?.isCacheable()) {
+
+									// Check for cache support.
+									if (this.options.cache && this.cache) {
+
+										// Set the cache.
+										await this.cache.set(cacheKey, output.executeForCache(response));
+									}
+								}
+							} catch(err) {
+								if (!catchMethod) throw err as Error;
+								this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, catch provided, executing.`);
+								catchMethod(err as Error).execute(response);
+							}
+
+							// Log verbose.
+							this.logger.verbose('PLUGIN:HTTP', `Route: "${route.method.toUpperCase()} ${normalize(basePath + routePath.toLowerCase())}" called on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
+
 						} catch(err) {
-							if (!catchMethod) throw err as Error;
-							this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, catch provided, executing.`);
-							catchMethod(err as Error).execute(response);
+							this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, no catch provided, returning 500.`);
+							response.sendStatus(500).end();
 						}
-
-						// Log verbose.
-						this.logger.verbose('PLUGIN:HTTP', `Route: "${route.method.toUpperCase()} ${normalize(basePath + route.path.toLowerCase())}" was setup on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
-
-					} catch(err) {
-						this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, no catch provided, returning 500.`);
-						response.sendStatus(500).end();
-					}
+					});
 				});
 			});
 		});

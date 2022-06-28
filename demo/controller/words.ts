@@ -8,7 +8,6 @@ export default class WordsController extends AbstractController {
 	@Http.Get('/')
 	public async index(): Promise<Http.Response> {
 		const words = await this.prisma.word.findMany();
-		console.log(words);
 		return new Http.Response(200, words);
 	}
 

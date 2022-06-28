@@ -32,8 +32,4 @@ export default class ExampleListener {
 	public async afterStop(): Promise<void> {
 		console.log('AFTER STOP CALLED ');
 	}
-
-	private wait(ms: number): Promise<void> {
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
 }

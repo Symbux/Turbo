@@ -1,6 +1,7 @@
-import { IGenericMiddleware } from '../../interface/implements';
+import { Constructor, IGenericMiddleware } from '../../interface/implements';
 import { Context } from './context';
 import { CompressionOptions } from 'compression';
+import { AbstractController } from '../../abstract/controller';
 
 /**
  * Defines the structure of the options to give to the service.
@@ -78,4 +79,18 @@ export interface ICache {
 	set: (key: string, value: any) => Promise<void>;
 	del: (key: string) => Promise<void>;
 	clear: () => Promise<void>;
+}
+
+/**
+ * An interface for processed controllers, mainly to make it slightly simpler
+ * for typing it.
+ *
+ * @interface IProcessedController
+ */
+export interface IProcessedController {
+	name: string;
+	module: Constructor<AbstractController>;
+	options: Record<string, any>;
+	instance: AbstractController;
+	metadata?: Record<string, any>;
 }

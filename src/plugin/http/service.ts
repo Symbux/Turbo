@@ -137,7 +137,6 @@ export class HttpService extends AbstractService implements IService {
 
 				// Turn the routes into an array.
 				const routePaths = Array.isArray(route.path) ? route.path : [route.path];
-				console.log(routePaths);
 
 				// Add the route.
 				routePaths.forEach((routePath: string) => {

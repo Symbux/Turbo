@@ -36,6 +36,7 @@ setTimeout(() => {
 // Initialise engine instance.
 const engine = new Engine({
 	autowire: true,
+	database: true,
 	logLevels: ['info', 'warn', 'error', 'verbose', 'debug'],
 	translations: resolve(__dirname, './translations'),
 	errors: {

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.11](https://github.com/Symbux/Turbo/compare/v0.6.10...v0.6.11) - 2022-06-28
+
+### Commits
+
+- Fixed route generation to use on-the-fly route generation for multi-path routes. [`ee58865`](https://github.com/Symbux/Turbo/commit/ee588658d0d93eb08b7d13d333c11a8fda9eb2f0)
+- Updated the packages to the latest version, including upgrade prisma to v4. [`da228a5`](https://github.com/Symbux/Turbo/commit/da228a50f64366518290b619fff5a3f4e506edcb)
+- Added support for allowing multiple paths being defined in a single decorator method. [`354e950`](https://github.com/Symbux/Turbo/commit/354e950a311b70b017382536f13e12210260e25c)
+- Added an example of a listener that injects a dynamic route controller, alongside additional changes. [`87c313d`](https://github.com/Symbux/Turbo/commit/87c313dfe9105759fe2194a7c3bfda9c7cbb3384)
+- Updated changelog. [`a0396c4`](https://github.com/Symbux/Turbo/commit/a0396c4ab112ba4316c372f22e1ad37abba2fd0d)
+- Lower cased the wording for the turbo version and server header for the http plugin. [`f14188c`](https://github.com/Symbux/Turbo/commit/f14188c48148b0cbb92a7438cb630447b38b7ac6)
+- Fixed route generation to use on-the-fly route generation for multi-path routes. [`a758d16`](https://github.com/Symbux/Turbo/commit/a758d169603e30e3f742fb920e0a797c945129f3)
+
 ## [v0.6.10](https://github.com/Symbux/Turbo/compare/v0.6.9...v0.6.10) - 2022-06-27
 
 ### Fixed

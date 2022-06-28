@@ -204,6 +204,7 @@ export class HttpService extends AbstractService implements IService {
 
 						} catch(err) {
 							this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, no catch provided, returning 500.`);
+							this.logger.error('PLUGIN:HTTP', `Noted caught error: ${(err as Error).message}, within: ${controller.constructor.name}::${classMethod}.`, (err as Error));
 							response.sendStatus(500).end();
 						}
 					});

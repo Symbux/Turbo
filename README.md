@@ -118,6 +118,7 @@ A list of available features:
 | HTTP Plugin | The built-in HTTP plugin is based off of [Express](https://www.npmjs.com/package/express). | `built-in` |
 | WS Plugin | The built-in WS plugin is based off of [Express-WS](https://www.npmjs.com/package/express-ws), will initialise an express server if the HttpPlugin is not initialised. | `built-in` |
 | Turbo Discord | A discord plugin, that offers SSO (single sign on) to discord with built-in bot support using the new slash commands functionality with various helpers and full controller structure support. | `external` |
+| Turbo Vite | A vite plugin for Turbo that supports server-side rendering (SSR) and full support for the Vite dev server including HMR. | `external` |
 
 <br>
 

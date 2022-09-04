@@ -289,7 +289,7 @@ export class HttpService extends AbstractService implements IService {
 				safeFileNames: true,
 				preserveExtension: true,
 				abortOnLimit: true,
-				tmpFileDir: this.options.uploads.tempFileDir || '/tmp/',
+				tempFileDir: this.options.uploads.tempFileDir || '/tmp/',
 				uploadTimeout: this.options.uploads.timeout || 60000,
 				debug: this.options.uploads.debug || false,
 				limits: {

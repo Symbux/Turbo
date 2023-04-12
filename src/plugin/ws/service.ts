@@ -67,7 +67,7 @@ export class WsService extends AbstractService implements IService {
 		}
 
 		// Setup the express server.
-		expressWs(server, undefined, {
+		expressWs(server as any, undefined, {
 			wsOptions: this.options.options || {},
 		});
 

@@ -1,6 +1,6 @@
 {
   "name": "@symbux/turbo",
-  "version": "0.6.14",
+  "version": "0.6.15",
   "description": "Turbo is a powerful command engine with extendability in mind, with built-in HTTP/WebSocket services.",
   "main": "lib/index.js",
   "repository": "git@github.com:Symbux/Turbo.git",
@@ -33,34 +33,33 @@
     "framework"
   ],
   "dependencies": {
-    "@prisma/client": "^4.3.1",
+    "@prisma/client": "^4.12.0",
     "@symbux/injector": "^1.5.0",
     "chalk": "^4.1.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
-    "cron": "^2.1.0",
-    "express": "^4.18.1",
+    "cron": "^2.3.0",
+    "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-ws": "^5.0.2",
-    "glob": "^8.0.3",
-    "helmet": "^6.0.0",
-    "prisma": "^4.3.1",
+    "glob": "^10.0.0",
+    "helmet": "^6.1.5",
+    "prisma": "^4.12.0",
     "reflect-metadata": "^0.1.13",
     "threads": "^1.7.0"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
-    "@types/cron": "^2.0.0",
-    "@types/express": "^4.17.14",
+    "@types/cron": "^2.0.1",
     "@types/express-fileupload": "^1.4.1",
     "@types/express-ws": "^3.0.1",
-    "@types/glob": "^8.0.0",
-    "@types/node": "^18.7.18",
-    "@typescript-eslint/eslint-plugin": "^5.37.0",
-    "@typescript-eslint/parser": "^5.37.0",
-    "eslint": "^8.23.1",
+    "@types/glob": "^8.1.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.3"
+    "typescript": "^5.0.4"
   }
 }

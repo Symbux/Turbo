@@ -13,12 +13,11 @@ module.exports = {
 		es2021: true,
 	},
 	globals: {
-		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'__APP_VERSION__': true,
 	},
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		'ecmaVersion': 2020,
+		'ecmaVersion': 'latest',
 		'sourceType': 'module',
 	},
 	plugins: [

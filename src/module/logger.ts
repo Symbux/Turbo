@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { blue, yellow, red, grey, green, cyan } from 'colors';
 import { Provide } from '@symbux/injector';
 import { Registry } from './registry';
 import { ILogger } from '../interface/implements';
@@ -143,12 +143,12 @@ export class Logger implements ILogger {
 
 		// Get the level text.
 		let levelText = level.toUpperCase();
-		if (['info', 'debug', 'verbose'].indexOf(level) > -1) levelText = chalk.blue(levelText);
-		if (level === 'warn') levelText = chalk.yellow(levelText);
-		if (level === 'error') levelText = chalk.red(levelText);
+		if (['info', 'debug', 'verbose'].indexOf(level) > -1) levelText = blue(levelText);
+		if (level === 'warn') levelText = yellow(levelText);
+		if (level === 'error') levelText = red(levelText);
 
 		// Return the formatted string.
-		return `${chalk.grey(currentDate)} ${chalk.green('[')}${title.toUpperCase()}${chalk.green(']:')} ${levelText} ${chalk.cyan(message)}${err ? ` - ${chalk.red(err.message)}` : ''}`;
+		return `${grey(currentDate)} ${green('[')}${title.toUpperCase()}${green(']:')} ${levelText} ${cyan(message)}${err ? ` - ${red(err.message)}` : ''}`;
 	}
 
 	/**

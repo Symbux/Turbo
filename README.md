@@ -6,7 +6,7 @@
 
 
 <!-- ![Codecov](https://img.shields.io/codecov/c/github/Symbux/turbo) -->
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Symbux/turbo/Build)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Symbux/turbo/workflow.yml?branch=master)
 ![GitHub issues](https://img.shields.io/github/issues/Symbux/Turbo)
 ![NPM](https://img.shields.io/npm/l/@symbux/turbo)
 ![npm (scoped)](https://img.shields.io/npm/v/@symbux/turbo)

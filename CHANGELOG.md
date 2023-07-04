@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.16](https://github.com/Symbux/Turbo/compare/v0.6.15...v0.6.16) - 2023-07-04
+
+### Commits
+
+- Updated all dependencies to the latest. [`51240da`](https://github.com/Symbux/Turbo/commit/51240da4ba4504494b37be498890edfd8046ead9)
+- Added changes to fix eslint within the project. [`799bd00`](https://github.com/Symbux/Turbo/commit/799bd00d004fa670327a5bd349d3421bc6e71ad6)
+- Switched from Chalk to Colors as we are not an ESM package, we run only on the server. [`32611bb`](https://github.com/Symbux/Turbo/commit/32611bbcfaadd455df6dc35ed80b47e31abaa9d9)
+- Updated changelog [`909881c`](https://github.com/Symbux/Turbo/commit/909881c1b5f05d0793d6da5c63e0e1f76ae8f42b)
+- Fixed the workflow badge. [`44f8d37`](https://github.com/Symbux/Turbo/commit/44f8d376264445276d90f9985f986c469fe263e8)
+
 ## [v0.6.15](https://github.com/Symbux/Turbo/compare/v0.6.14...v0.6.15) - 2023-04-12
 
 ### Commits

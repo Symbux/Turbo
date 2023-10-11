@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.7.0](https://github.com/Symbux/Turbo/compare/v0.6.16...v0.7.0) - 2023-10-11
+
+### Commits
+
+- Added udpates to dependencies, and tweaking based on linter feedback. [`364daaf`](https://github.com/Symbux/Turbo/commit/364daaf309ade634590a1786b39e8f32eb7e65fb)
+- Updated changelog [`80f9de8`](https://github.com/Symbux/Turbo/commit/80f9de8e3786b80aec6a0aa6191e4d64f3a74021)
+- Bumped package to new minor version, due to breaking change for websocket plugin sendRaw which has been remvoed. [`8b7edfd`](https://github.com/Symbux/Turbo/commit/8b7edfdf372a76e3d4f1f89cfcaac713de58a844)
+
 ## [v0.6.16](https://github.com/Symbux/Turbo/compare/v0.6.15...v0.6.16) - 2023-07-04
 
 ### Commits

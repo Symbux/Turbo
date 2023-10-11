@@ -1,5 +1,6 @@
 import { Inject } from '@symbux/injector';
-import { AbstractController, Http, PrismaClient } from '../../src';
+import { PrismaClient } from '../../src';
+import { AbstractController, Http } from '../../src';
 
 @Http.Controller('/words')
 export default class WordsController extends AbstractController {

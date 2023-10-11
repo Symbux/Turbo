@@ -1,4 +1,5 @@
-import { AbstractService, Service, IService } from '../../src';
+import { IService } from '../../src';
+import { AbstractService, Service } from '../../src';
 
 @Service('example')
 export class ExampleService extends AbstractService implements IService {

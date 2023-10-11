@@ -1,4 +1,5 @@
-import express, { Application, urlencoded, json, Request, Response } from 'express';
+import { Application, Request, Response } from 'express';
+import express, { urlencoded, json } from 'express';
 import { Injector } from '@symbux/injector';
 import cookieParser from 'cookie-parser';
 import { normalize } from 'node:path';
@@ -31,6 +32,7 @@ export class HttpService extends AbstractService implements IService {
 	private controllers: Array<any> = [];
 	private serverInstance: any;
 	private cache?: ICache;
+	private title = 'PLUGIN:HTTP';
 
 	/**
 	 * Creates an instance of the http service.
@@ -84,9 +86,9 @@ export class HttpService extends AbstractService implements IService {
 		const wsService = Injector.resolve('turbo.plugin.ws', true);
 		this.serverInstance = this.server.listen(parseInt(this.options.port), () => {
 			if (wsService === null) {
-				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port}.`);
+				this.logger.info(this.title, `HTTP service is listening at http://localhost:${this.options.port}.`);
 			} else {
-				this.logger.info('PLUGIN:HTTP', `HTTP service is listening at http://localhost:${this.options.port} and ws://localhost:${this.options.port}.`);
+				this.logger.info(this.title, `HTTP service is listening at http://localhost:${this.options.port} and ws://localhost:${this.options.port}.`);
 			}
 		});
 	}
@@ -119,7 +121,7 @@ export class HttpService extends AbstractService implements IService {
 	 * @private
 	 */
 	private setupRoutes(): void {
-		this.logger.verbose('PLUGIN:HTTP', 'Starting route setup.');
+		this.logger.verbose(this.title, 'Starting route setup.');
 		this.controllers.forEach(async controllerDef => {
 
 			// Define the controller.
@@ -169,7 +171,7 @@ export class HttpService extends AbstractService implements IService {
 								if (cacheData) {
 
 									// Log cache hit, and return cache.
-									this.logger.verbose('PLUGIN:HTTP', `Cache hit for ${cacheKey}.`);
+									this.logger.verbose(this.title, `Cache hit for ${cacheKey}.`);
 									new HttpResponse(304, cacheData).execute(response);
 									return;
 								}
@@ -194,16 +196,16 @@ export class HttpService extends AbstractService implements IService {
 								}
 							} catch(err) {
 								if (!catchMethod) throw err as Error;
-								this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, catch provided, executing.`);
+								this.logger.verbose(this.title, `Caught error in controller ${controller.constructor.name}::${classMethod}, catch provided, executing.`);
 								catchMethod(err as Error).execute(response);
 							}
 
 							// Log verbose.
-							this.logger.verbose('PLUGIN:HTTP', `Route: "${route.method.toUpperCase()} ${normalize(basePath + routePath.toLowerCase())}" called on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
+							this.logger.verbose(this.title, `Route: "${route.method.toUpperCase()} ${normalize(basePath + routePath.toLowerCase())}" called on controller: "${controller.constructor.name}" and method: "${classMethod}".`);
 
 						} catch(err) {
-							this.logger.verbose('PLUGIN:HTTP', `Caught error in controller ${controller.constructor.name}::${classMethod}, no catch provided, returning 500.`);
-							this.logger.error('PLUGIN:HTTP', `Noted caught error: ${(err as Error).message}, within: ${controller.constructor.name}::${classMethod}.`, (err as Error));
+							this.logger.verbose(this.title, `Caught error in controller ${controller.constructor.name}::${classMethod}, no catch provided, returning 500.`);
+							this.logger.error(this.title, `Noted caught error: ${(err as Error).message}, within: ${controller.constructor.name}::${classMethod}.`, (err as Error));
 							response.sendStatus(500).end();
 						}
 					});
@@ -278,7 +280,7 @@ export class HttpService extends AbstractService implements IService {
 	 * @private
 	 */
 	private setupDefaultMiddleware(): void {
-		this.logger.verbose('PLUGIN:HTTP', 'Loading core middleware.');
+		this.logger.verbose(this.title, 'Loading core middleware.');
 		this.server.use(cookieParser());
 		this.server.use(urlencoded({ extended: true }));
 		this.server.use(json());

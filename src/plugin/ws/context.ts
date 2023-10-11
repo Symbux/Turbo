@@ -14,6 +14,7 @@ import { Translator } from '../../module/translator';
 export class Context {
 	@Inject('turbo.translator') private translator!: Translator;
 	private willTranslate = false;
+	private wsKeyHeaderName = 'sec-websocket-key';
 
 	/**
 	 * Creates instance of context.
@@ -42,7 +43,7 @@ export class Context {
 	 */
 	public setAuth(auth: Record<string, any>): void {
 		const headers = this.request.headers;
-		const socketKey = headers['sec-websocket-key'];
+		const socketKey = headers[this.wsKeyHeaderName];
 		const connection = this.wsService.getConnection(socketKey as string);
 		connection.session.auth = auth;
 	}
@@ -56,7 +57,7 @@ export class Context {
 	 */
 	public getAuth(): Record<string, any> {
 		const headers = this.request.headers;
-		const socketKey = headers['sec-websocket-key'];
+		const socketKey = headers[this.wsKeyHeaderName];
 		const connection = this.wsService.getConnection(socketKey as string);
 		return connection.session.auth;
 	}
@@ -186,7 +187,7 @@ export class Context {
 	 */
 	public setSessionItem(key: string, value: any): void {
 		const headers = this.request.headers;
-		const socketKey = headers['sec-websocket-key'];
+		const socketKey = headers[this.wsKeyHeaderName];
 		const connection = this.wsService.getConnection(String(socketKey));
 		connection.session.set(key, value);
 	}
@@ -200,7 +201,7 @@ export class Context {
 	 */
 	public getSessionItem(key: string): any {
 		const headers = this.request.headers;
-		const socketKey = headers['sec-websocket-key'];
+		const socketKey = headers[this.wsKeyHeaderName];
 		const connection = this.wsService.getConnection(String(socketKey));
 		if (!connection.session.has(key)) return null;
 		return connection.session.get(key);
@@ -214,7 +215,7 @@ export class Context {
 	 */
 	public getConnection(): IWsConnection {
 		const headers = this.request.headers;
-		const socketKey = headers['sec-websocket-key'];
+		const socketKey = headers[this.wsKeyHeaderName];
 		return this.wsService.getConnection(socketKey as string);
 	}
 
@@ -236,20 +237,6 @@ export class Context {
 	 * @public
 	 */
 	public send(message: IPacket): void {
-		this.socket.send(
-			this.willTranslate
-				? this.translate(JSON.stringify(message))
-				: JSON.stringify(message),
-		);
-	}
-
-	/**
-	 * Sends a raw message to the client.
-	 *
-	 * @param message Raw content to send (should be a string).
-	 * @public
-	 */
-	public sendRaw(message: any): void {
 		this.socket.send(
 			this.willTranslate
 				? this.translate(JSON.stringify(message))

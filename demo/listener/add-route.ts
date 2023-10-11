@@ -1,5 +1,6 @@
 import { Inject } from '@symbux/injector';
-import Engine, { AbstractController, Event, Http } from '../../src/index';
+import Engine from '../../src/index';
+import { AbstractController, Event, Http } from '../../src/index';
 
 @Event.Listener()
 export default class AddRouteListener {

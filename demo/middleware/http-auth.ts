@@ -1,4 +1,5 @@
-import { Middleware, Http, AbstractMiddleware } from '../../src';
+import { Http} from '../../src';
+import { Middleware, AbstractMiddleware } from '../../src';
 
 @Middleware('http.auth')
 export default class DemoAuthMiddleware extends AbstractMiddleware implements Http.IMiddleware {

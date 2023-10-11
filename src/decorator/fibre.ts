@@ -69,10 +69,8 @@ export function Fibre(name: string, path: string, options?: FibreOptions): Class
 		});
 
 		// Check for warmup, if enabled, spin up the fibre.
-		if (options && options.warmup) {
-			if (!FibreManager.hasFibre(target.name)) {
-				FibreManager.createFibre(target.name, name, path, methods, options);
-			}
+		if ((options && options.warmup) && !FibreManager.hasFibre(target.name)) {
+			FibreManager.createFibre(target.name, name, path, methods, options);
 		}
 	};
 }

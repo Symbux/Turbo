@@ -1,5 +1,5 @@
-import { Inject, Injector } from '@symbux/injector';
 import { ILogger } from '../interface/implements';
+import { Inject, Injector } from '@symbux/injector';
 import { Registry } from './registry';
 import { CronJob } from 'cron';
 import { DecoratorHelper } from '../helper/decorator';
@@ -16,7 +16,7 @@ import { durationToHuman } from '../helper/misc';
 export class Runner {
 
 	@Inject('logger') private logger!: ILogger;
-	private tasks: Array<{ module: any, instance: any, options: any, job: CronJob, name: string }> = [];
+	private tasks: Array<{ module: any, instance: any, options: any, job: CronJob<any, any>, name: string }> = [];
 	private running = false;
 
 	/**

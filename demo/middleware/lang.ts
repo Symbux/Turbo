@@ -1,4 +1,5 @@
-import { Middleware, Http, AbstractMiddleware } from '../../src';
+import { Http} from '../../src';
+import { Middleware, AbstractMiddleware } from '../../src';
 
 @Middleware('http.lang', {}, 'http')
 export default class DemoLangMiddleware extends AbstractMiddleware implements Http.IMiddleware {

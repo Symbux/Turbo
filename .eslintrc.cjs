@@ -1,74 +1,67 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable sonarjs/no-duplicate-string */
 
 module.exports = {
+	root: true,
+	env: {
+		node: true,
+		browser: true,
+		es6: true,
+		es2021: true,
+		es2022: true,
+		es2023: true,
+		commonjs: true,
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:security/recommended',
+		'plugin:no-unsanitized/DOM',
+		'plugin:xss/recommended',
+		'plugin:sonarjs/recommended',
 	],
-	env: {
-		node: true,
-		es6: true,
-		es2017: true,
-		es2020: true,
-		es2021: true,
-	},
-	globals: {
-		'__APP_VERSION__': true,
-	},
-	parser: '@typescript-eslint/parser',
-	parserOptions: {
-		'ecmaVersion': 'latest',
-		'sourceType': 'module',
-	},
 	plugins: [
 		'@typescript-eslint/eslint-plugin',
+		'eslint-plugin-no-unsanitized',
+		'eslint-plugin-node',
+		'eslint-plugin-security',
+		'eslint-plugin-sonarjs',
+		'eslint-plugin-xss',
 	],
+	parserOptions: {
+		ecmaVersion: 2023,
+		parser: require.resolve('@typescript-eslint/parser'),
+	},
 	rules: {
-		'@typescript-eslint/ban-ts-comment': ['error', {
-			'ts-expect-error': 'allow-with-description',
-			'ts-ignore': 'allow-with-description',
-			'ts-nocheck': 'allow-with-description',
-			'ts-check': 'allow-with-description',
-		}],
-		'@typescript-eslint/interface-name-prefix': 0,
-		'@typescript-eslint/no-explicit-any': 0,
-		'@typescript-eslint/no-this-alias': 0,
-		'@typescript-eslint/no-var-requires': 0,
-		'@typescript-eslint/explicit-module-boundary-types': 0,
-		'@typescript-eslint/no-unused-vars': ['error', {
-			'vars': 'all',
-			'args': 'after-used',
-			'ignoreRestSiblings': false,
-		}],
-		'semi': 0,
-		'@typescript-eslint/semi': ['error', 'always', { 'omitLastInOneLineBlock': true}],
-		'no-useless-escape': 2,
-		'handle-callback-err': 2,
-		'no-fallthrough': 2,
-		'no-new-require': 2,
-		'max-len': [2, 240],
-		'camelcase': 0,
-		'require-jsdoc': 0,
-		'valid-jsdoc': 0,
-		'prefer-spread': 1,
-		'prefer-rest-params': 1,
-		'linebreak-style': 0,
-		'quote-props':[0, 'as-needed'],
-		'no-prototype-builtins': 0,
-		'@typescript-eslint/no-useless-constructor': ['error'],
-		'@typescript-eslint/explicit-member-accessibility': ['error'],
-		'@typescript-eslint/camelcase': 0,
-		'@typescript-eslint/ban-types': ['error', {
-			'types': {
-				'Function': false,
+		/* --------------------------------------------------
+			Standard Rules
+		-------------------------------------------------- */
+		indent: 0,
+		semi: ['error', 'always'],
+		quotes: ['error', 'single'],
+		'no-console': 0,
+		'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+		'no-use-before-define': 0,
+		'no-useless-constructor': 0,
+		'scss/vendorPrefix': 0,
+		'func-call-spacing': 0,
+		'no-new': 0,
+		'array-bracket-spacing': 0,
+		'prefer-promise-reject-errors': 0,
+		'padded-blocks': 0,
+		'n/no-callback-literal': 0,
+		'no-tabs': 0,
+		'no-useless-return': 0,
+		'operator-linebreak': ['error', 'before'],
+		'keyword-spacing': [
+			'error', {
+				overrides: {
+					catch: {
+						before: true,
+						after: false,
+					},
+				},
 			},
-			'extendDefaults' : true,
-		}],
-		'@typescript-eslint/naming-convention': ['error',
-			{ selector: 'default', format: ['PascalCase', 'camelCase', 'snake_case', 'UPPER_CASE'] },
-			{ selector: 'function', format: ['PascalCase', 'camelCase'], leadingUnderscore: 'forbid' },
-			{ selector: 'variable', format: ['snake_case', 'camelCase', 'PascalCase'], leadingUnderscore: 'allow' },
-			{ selector: 'memberLike', format: ['camelCase', 'PascalCase', 'UPPER_CASE', 'snake_case'], leadingUnderscore: 'allow' },
 		],
 		'no-trailing-spaces': ['error', {
 			ignoreComments: true,
@@ -79,32 +72,80 @@ module.exports = {
 			named: 'never',
 			asyncArrow: 'always',
 		}],
-		'padded-blocks': 0,
-		'indent': ['error', 'tab', {
-			SwitchCase: 1,
-		}],
-		'no-tabs': 0,
-		'no-useless-return': 0,
 		'comma-dangle': ['error', {
 			arrays: 'always-multiline',
 			objects: 'always-multiline',
 			imports: 'always-multiline',
-			exports: 'always',
+			exports: 'always-multiline',
 			functions: 'always-multiline',
 		}],
-		'quotes': ['error', 'single'],
-		'keyword-spacing': ['error', {
-			overrides: {
-				catch: {
-					before: true,
-					after: false,
+
+		/* --------------------------------------------------
+			TypeScript Rules
+		-------------------------------------------------- */
+		'@typescript-eslint/indent': ['error', 'tab'],
+		'@typescript-eslint/no-explicit-any': 0,
+		'@typescript-eslint/explicit-member-accessibility': ['error'],
+		'@typescript-eslint/interface-name-prefix': 0,
+		'@typescript-eslint/camelcase': 0,
+		'@typescript-eslint/no-useless-constructor': ['error'],
+		'@typescript-eslint/explicit-module-boundary-types': 0,
+		'@typescript-eslint/consistent-type-imports': ['error', {
+			'prefer': 'no-type-imports', // Needed for decorators.
+		}],
+		'@typescript-eslint/ban-ts-comment': ['error', {
+			'ts-expect-error': 'allow-with-description',
+			'ts-ignore': 'allow-with-description',
+			'ts-nocheck': 'allow-with-description',
+			'ts-check': 'allow-with-description',
+			minimumDescriptionLength: 25,
+		}],
+		'@typescript-eslint/naming-convention': ['error',
+			{
+				selector: 'default',
+				format: ['PascalCase', 'camelCase', 'snake_case', 'UPPER_CASE'],
+				leadingUnderscore: 'forbid',
+			},
+			{
+				selector: 'function',
+				format: ['PascalCase', 'camelCase'],
+				leadingUnderscore: 'forbid',
+			},
+			{
+				selector: 'variable',
+				format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+				leadingUnderscore: 'allow',
+			},
+			{
+				selector: 'memberLike',
+				format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+				leadingUnderscore: 'allow',
+			},
+			{
+				selector: 'interface',
+				format: ['PascalCase'],
+				custom: {
+					regex: '^I[A-Z]',
+					match: true,
 				},
 			},
+		],
+
+		/* --------------------------------------------------
+			Security Rules
+		-------------------------------------------------- */
+		'security/detect-object-injection': 0,
+		'security/detect-non-literal-regexp': 0,
+		'security/detect-non-literal-fs-filename': 0,
+		'no-unsanitized/method': 0,
+		'sonarjs/no-collapsible-if': 0,
+		'xss/no-location-href-assign': 0,
+		'xss/no-mixed-html': 0,
+		'sonarjs/no-nested-template-literals': 0,
+		'sonarjs/no-duplicate-string': ['error', {
+			threshold: 5,
 		}],
-		'array-bracket-spacing': 0,
-		'generator-star-spacing': 0,
-		'one-var': 0,
-		'no-mixed-operators': 0,
-		'eol-last': ['error', 'always'],
+		'sonarjs/cognitive-complexity': ['error', 250],
+		'sonarjs/prefer-single-boolean-return': 0,
 	},
 };

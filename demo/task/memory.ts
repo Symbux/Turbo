@@ -1,5 +1,6 @@
 import { Inject } from '@symbux/injector';
-import { Task, ILogger } from '../../src';
+import { ILogger } from '../../src';
+import { Task } from '../../src';
 
 interface ITask {
 	execute: () => Promise<void>;
